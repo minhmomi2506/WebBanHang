@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/dropDownList.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/pagination.css}" />
+</head>
+<body>
+	<h1 style="text-align: center;">YOUR BILLS</h1>
+	<div th:replace="navbar :: navbar"></div>
+	<span class="glyphicon glyphicon-shopping-cart"></span>
+	<div class="col-12">
+		<hr>
+		<table class="table" id="billTable">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">IMAGE</th>
+					<th scope="col">NAME</th>
+					<th scope="col">CATEGORY</th>
+					<th scope="col">QUANTITY</th>
+					<th scope="col">PRICE(VND)</th>
+					<th scope="col">TOTAL PRICE(VND)</th>
+					<th scope="col">HOW_TO_PAY</th>
+					<th scope="col">BUY_DATE</th>
+				</tr>
+			</thead>
+			<tbody th:each="bill : ${bills}">
+				<tr>
+					<th scope="row"><img alt=""
+						th:src="*{'data:image/jpeg;base64,'+{bill.product.image}}"
+						style="width: 100px; height: 100px;"></th>
+					<td>[[*{bill.product.name}]]</td>
+					<td>[[*{bill.product.category}]]</td>
+					<td>[[*{bill.quantity}]]</td>
+					<td>[[*{bill.product.price}]]</td>
+					<td>[[*{bill.toTal}]]</td>
+					<td>[[*{bill.howToPay}]]</td>
+					<td>[[*{bill.buyDate}]]</td>
+				</tr>
+			</tbody>
+		</table>
+		
+	</div>
+</body>
+</html>

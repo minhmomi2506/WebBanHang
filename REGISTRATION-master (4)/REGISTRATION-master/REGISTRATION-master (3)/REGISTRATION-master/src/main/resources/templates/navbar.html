@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/dropDownList.css}" />
+</head>
+<body>
+	<div th:fragment="navbar">
+		<nav class="navbar navbar-expand-sm bg-light"
+			style="text-align: center;">
+			<button class="fa fa-bars dropdown-toggle" data-toggle="dropdown"
+				style="background-color: black; color: white; height: 47.3px"></button>
+			<div class="dropdown-menu">
+				<form th:action="@{/taiNghe}">
+					<div class="dropdown">
+						<button class="fa fa-headphones dropbtn"
+							style="width: 100px; height: 50px; text-align: left;"
+							type="submit">Tai nghe</button>
+						<div class="dropdown-content">
+							<a th:href="@{/taiNgheKhongDay}" class="btn btn-primary">Tai
+								nghe không dây</a> <a th:href="@{/taiNgheBluetooth}"
+								class="btn btn-primary">Tai nghe Bluetooth</a>
+						</div>
+					</div>
+				</form>
+				<form th:action="@{/dienThoai}">
+					<div class="dropdown">
+						<button class="fa fa-mobile dropbtn"
+							style="width: 100px; height: 50px; text-align: left;"
+							type="submit">Điện thoại</button>
+						<div class="dropdown-content">
+							<a th:href="@{/dienThoaiSamsung}" class="btn btn-primary">Samsung</a>
+							<a th:href="@{/dienThoaiiphone}" class="btn btn-primary">iPhone</a>
+							<a th:href="@{/dienThoaiXiaomi}" class="btn btn-primary">Xiaomi</a>
+							<a th:href="@{/dienThoaiHuawei}" class="btn btn-primary">Huawei</a>
+						</div>
+					</div>
+				</form>
+				<form th:action="@{/laptop}">
+					<div class="dropdown">
+						<button class="fa fa-laptop dropbtn"
+							style="width: 100px; height: 50px; text-align: left;"
+							type="submit">Laptop</button>
+						<div class="dropdown-content">
+							<a th:href="@{/laptopApple}" class="btn btn-primary">Apple</a> <a
+								th:href="@{/laptopDell}" class="btn btn-primary">Dell</a> <a
+								th:href="@{/laptopASUS}" class="btn btn-primary">ASUS</a> <a
+								th:href="@{/laptopLenovo}" class="btn btn-primary">Lenovo</a> <a
+								th:href="@{/laptopHp}" class="btn btn-primary">hp</a>
+						</div>
+					</div>
+				</form>
+			</div>
+			<ul class="navbar-nav" style="background-color: black;">
+				<li class="nav-item"><a th:href="@{/}" class="nav-link"
+					style="color: white;">HOME</a></li>
+				<!-- <li class="nav-item" th:object="${user}" th:if="${user}"><a  th:href="@{'/info/'+${user.id}}" class="nav-link" ><img alt=""
+						th:src="*{'data:image/jpeg;base64,'+{image}}"
+						style="width: 50px; height: 50px;"></a>
+				</li> -->
+				<li class="nav-item" th:object="${user}"><a
+					th:href="@{'/info/'+${user.id}}" class="nav-link"
+					style="color: white;">[[${user.fullName}]]</a></li>
+				<li class="nav-item"><a th:href="@{/list_users}"
+					class="nav-link" style="color: white;">LIST ALL USERS</a></li>
+				<li class="nav-item"><a th:href="@{/addProduct}"
+					class="nav-link" style="color: white;" th:if="${role}"
+					data-toggle="modal" data-target="#addProductModal">ADD PRODUCT</a>
+					<div class="modal" id="addProductModal" tabindex="-1" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">ADD PRODUCT</h4>
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+								</div>
+								<div class="modal-body">
+									<form class="text-center border border-light p-5"
+										th:action="@{/addP}" method="post"
+										enctype="multipart/form-data">
+
+										<!-- Name -->
+										<input type="text" name="name" id="name"
+											class="form-control mb-4" placeholder="Product Name">
+
+										<!-- Price -->
+										<input type="number" name="price" id="price"
+											class="form-control mb-4" placeholder="Product Price"
+											required="required">
+
+										<!-- Description -->
+										<input type="text" name="description" id="description"
+											class="form-control mb-4" placeholder="Product Description">
+											
+										<input type="number" name="number" id="number"
+											class="form-control mb-4" placeholder="Product Number">
+
+										<div class="custom-file mb-4">
+											<img alt="" src="" style="width: 200px; height: 200px;"
+												id="productImage"><div></div> <input type="file" name="file"
+												onchange="ShowImagePreview(this,document.getElementById('productImage'))" style="text-align: center;">
+										</div>
+
+										<div class="custom-file mb-4">
+											<select name="category" required="required">
+												<option th:each="category : ${categories}"
+													th:text="${category}">
+											</select>
+										</div>
+										<button class="btn btn-info btn-block" type="submit"
+											id="addProduct">add</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div></li>
+				<li class="nav-item"><a th:href="@{/logout}" class="nav-link"
+					style="color: white;">LOG OUT</a></li>
+				<li class="nav-item">
+					<form th:action="@{/searchProduct}" class="nav-link" method="get">
+						<input type="text" placeholder="Search" name="productName"
+							id="productName"> <span style="color: white;">Giá
+							từ</span><input type="number" name="minp"
+							style="width: 100px; text-align: right;" value="0"><span
+							style="color: white;">đến</span><input type="number" name="maxp"
+							style="width: 100px; text-align: right;" value="100000000">
+						<button class="fa fa-search" aria-hidden="true" type="submit"
+							style="height: 29.5px;"></button>
+					</form>
+				</li>
+				<li class="nav-item"><a th:href="@{/cart}"
+					class="nav-link fa fa-shopping-cart" style="color: white;"></a></li>
+			</ul>
+		</nav>
+	</div>
+	<script th:src="@{/js/showImagePreview.js}"></script>
+</body>
+</html>
+
+<!-- <span style="color: white">Giá
+							từ</span> <input type="number" name="minp" style="width: 100px;"><span
+							style="color: white">đến</span> <input type="number" name="maxp"
+							style="width: 100px;"> -->

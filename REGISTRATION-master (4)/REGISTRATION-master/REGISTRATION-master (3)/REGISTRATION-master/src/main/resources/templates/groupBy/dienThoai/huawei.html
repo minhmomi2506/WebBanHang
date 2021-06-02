@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+<link rel="stylesheet" type="text/css" th:href="@{/dropDownList.css}" />
+</head>
+<body>
+	<h1 style="text-align: center;">WELCOME TO HOME PAGE</h1>
+	<div th:replace="navbar :: navbar"></div>
+	<span class="glyphicon glyphicon-shopping-cart"></span>
+	<div class="col-12">
+		<hr>
+		<table class="table" id="productTable">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">IMAGE</th>
+					<th scope="col">NAME</th>
+					<th scope="col">CATEGORY</th>
+					<th scope="col">DESCRIPTION</th>
+					<th scope="col">PRICE(VND)</th>
+					<th scope="col" th:if="${role}">ACTION</th>
+					<th scope="col">BUY</th>
+				</tr>
+			</thead>
+			<tbody th:each="huawei , status : ${huaweis}">
+				<tr th:id="'row' + ${huawei.id}">
+					<th scope="row"><img alt=""
+						th:src="*{'data:image/jpeg;base64,'+{huawei.image}}"
+						style="width: 100px; height: 100px;"></th>
+					<td>[[*{huawei.name}]]</td>
+					<td>[[*{huawei.category}]]</td>
+					<td>[[*{huawei.description}]]</td>
+					<td>[[*{huawei.price}]]</td>
+					<td th:if="${role}"><a
+						th:href="@{'/deleteProductById/'+${huawei.id}}"
+						class="fa fa-trash link-remove" id="deleteProductButton"
+						data-toggle="modal" data-target="#deleteProductModal"
+						th:rowNumber="${huawei.id}"></a> &nbsp; <a
+						th:href="@{'/edit/'+${huawei.id}}" class="fa fa-pencil"></a>
+					</td>
+					<td><a
+						th:href="@{'/buyProduct/'+${huawei.id}}" class="fa fa-plus"></a></td>
+				</tr>
+			</tbody>
+		</table>
+		<hr>
+	</div>
+	<div class="modal" id="deleteProductModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Modal Heading</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">Are you sure want to delete?</div>
+				<div class="modal-footer">
+					<a href="" id="delRef" class="btn btn-primary link-remove">Delete</a>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var contextPath = "[[@{/}]]";
+		var csrfHeader = "[[${_csrf.headerName}]]";
+		var csrfToken = "[[${_csrf.token}]]";
+	</script>
+	<script th:src="@{/js/productAction.js}"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1 style="text-align: center;">YOUR INFORMATION</h1>
+	<div th:replace="navbar :: navbar"></div>
+	<table class="table table-striped table-bordered">
+		<thead class="table-dark">
+			<tr>
+				<td>IMAGE</td>
+				<td>NAME</td>
+				<td>DESCRIPTION</td>
+				<td>PRICE</td>
+				<td>NUMBER</td>
+				<td>CATEGORY</td>
+				<td>EDIT HERE</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:object="${product}">
+				<th scope="row"><img alt=""
+					th:src="*{'data:image/jpeg;base64,'+{image}}"
+					style="width: 100px; height: 100px;" data-toggle="modal"
+					data-target="#changeImageModal"></th>
+				<td th:text=${product.name}></td>
+				<td th:text=${product.description}></td>
+				<td th:text=${product.price}></td>
+				<td th:text=${product.number}></td>
+				<td th:text=${product.category}></td>
+				<td><a href="" class="fa fa-pencil" data-toggle="modal"
+					data-target="#changeInfoModal"></a></td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="modal" id="changeImageModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body" style="text-align: center;">
+					<form th:action="@{/editNewProductImage}"
+						enctype="multipart/form-data" method="post" th:object="${product}">
+						<input type="text" th:field="*{id}" hidden="hidden"> <img
+							alt="" th:src="*{'data:image/jpeg;base64,'+{image}}"
+							style="width: 200px; height: 200px;" id="previewImage"> <input
+							type="file" name="file" id="file"
+							onchange="ShowImagePreview(this,document.getElementById('previewImage'))">
+						<button type="submit">edit</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal" id="changeInfoModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">CHANGE INFO</h4>
+				</div>
+				<div class="modal-body">
+					<form class="text-center border border-light p-5"
+						th:action="@{/editProductInfo}" method="post"
+						th:object="${product}" enctype="multipart/form-data">
+						<input type="text" name="id" id="id" class="form-control mb-4"
+							th:field="*{id}" hidden="hidden">
+						<!-- Name -->
+						<input type="text" name="name" id="name" class="form-control mb-4"
+							th:field="*{name}">
+
+						<!-- Price -->
+						<input type="number" name="price" id="price"
+							class="form-control mb-4" th:field="*{price}"> <input
+							type="number" name="number" id="number" class="form-control mb-4"
+							th:field="*{number}">
+
+						<!-- Description -->
+						<input type="text" class="form-control mb-4" id="description"
+							name="description" th:field="*{description}"> <input
+							type="text" class="form-control mb-4" id="category"
+							name="category" th:field="*{category}">
+
+						<!-- Sign in button -->
+						<button class="btn btn-info btn-block" type="submit">edit</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript"></script>
+	<script th:src="@{/js/showImagePreview.js}"></script>
+</body>
+</html>

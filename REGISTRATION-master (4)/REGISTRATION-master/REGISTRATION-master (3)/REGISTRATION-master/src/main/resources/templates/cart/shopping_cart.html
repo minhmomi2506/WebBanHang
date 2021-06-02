@@ -1,0 +1,116 @@
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+</head>
+<body>
+	<div th:replace="navbar :: navbar"></div>
+	<div>
+		<h2>YOUR SHOPPING CART</h2>
+		<br />
+	</div>
+
+	<div class="row">
+		<div class="col-sm-8">
+			<th:block th:each="item,status : ${cartItems}">
+				<div class="row border rounded" th:id="'row' + ${status.count}"
+					th:with="product = ${item.product}">
+					<div class="col">
+						<div>[[${status.count}]]</div>
+						<div>
+							<a th:href="@{'/deleteFromCart/' + ${product.id}}"
+								th:id="deleteFromCart" th:rowNumber="${status.count}"
+								class="fa fa-trash link-remove">Delete</a>
+
+						</div>
+					</div>
+					<div class="col-3">
+						<img alt="" th:src="*{'data:image/jpeg;base64,'+{product.image}}"
+							style="width: 100px; height: 100px;" class="img-fluid">
+					</div>
+					<div class="col-6">
+						<div>
+							<b style="color: blue;">Tên sản phẩm: [[*{product.name}]]</b>
+
+						</div>
+						<div>
+							<b style="color: blue;">Số lượng: [[*{product.number}]]</b>
+
+						</div>
+						<input type="text" th:value="${product.number}" th:id="'number'+${product.id}" hidden="hidden">
+						<div
+							th:replace="quantity_control :: quantity_control(${item.quantity} , ${item.product.id})">
+							Quantity</div>
+						<div>
+							<span>X</span> <span>[[*{product.price}]]</span>
+						</div>
+						<div>
+							<span>=&nbsp;</span><span th:id="'subtotal' + ${product.id}"
+								class="h4 productSubtotal">[[${item.quantity} *
+								${product.price}]]</span><span class="h4">&nbsp;VND</span>
+						</div>
+					</div>
+				</div>
+				<div class="row-m-1">&nbsp;</div>
+			</th:block>
+		</div>
+		<div class="col-sm-4">
+			<div>
+				<span class="h3">Estimated amount: </span>
+			</div>
+			<div class="mt-2">
+				<span class="h2" id="totalAmount"><span class="h4">&nbsp;VND</span></span>
+			</div>
+			<form th:action="@{/buyProduct}" method="post">
+				<div class="custom-file mb-4">
+					<select name="howToPay" required="required" id="howToPay">
+						<option th:each="howToPay : ${howToPays}" th:text="${howToPay}">
+					</select>
+				</div>
+				<div class="mt-2">
+					<button class="btn btn-danger p-3 mt-2" type="submit"
+						data-toggle="modal" data-target="#buyProductModal" id="checkOut">Check
+						out</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="modal" id="buyProductModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body" style="text-align: center;">
+					<i class="fa fa-check" aria-hidden="true" style="color: green;"></i>
+					Bạn đã mua hàng thành công!
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal" id="noticeNumber" tabindex="-1" role="dialog" style="margin-top: 250px;">
+		<div class="modal-dialog">
+			<div class="modal-content" style="font-size: 25px;">
+				<div class="modal-body"><i class="fa fa-times" aria-hidden="true" style="color: red;"></i> Bạn đã đạt tới số lượng hàng max!</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var contextPath = "[[@{/}]]";
+		var csrfHeader = "[[${_csrf.headerName}]]";
+		var csrfToken = "[[${_csrf.token}]]";
+	</script>
+	<script th:src="@{/js/add_To_Cart.js}"></script>
+	<script th:src="@{/js/checkNumberCart.js}"></script>
+</body>
+</html>

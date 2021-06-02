@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/dropDownList.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/pagination.css}" />
+</head>
+<body>
+	<h1 style="text-align: center;">WELCOME TO HOME PAGE</h1>
+	<a th:href="@{/map}">Watch our location</a>
+	<div th:replace="navbar :: navbar"></div>
+	<!-- 	<div th:replace="dropDownList :: dropDownList"></div> -->
+	<span class="glyphicon glyphicon-shopping-cart"></span>
+	<div class="col-12">
+		<hr>
+		<table class="table" id="productTable">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">IMAGE</th>
+					<th scope="col">NAME</th>
+					<th scope="col">CATEGORY</th>
+					<th scope="col">DESCRIPTION</th>
+					<th scope="col">PRICE(VND)</th>
+					<th scope="col" th:if="${role}">ACTION</th>
+					<th scope="col">BUY</th>
+				</tr>
+			</thead>
+			<tbody th:each="product , status : ${products}">
+				<tr th:id="'row' + ${product.id}">
+					<th scope="row"><img alt=""
+						th:src="*{'data:image/jpeg;base64,'+{product.image}}"
+						style="width: 100px; height: 100px;">
+					</th>
+					<td>[[*{product.name}]]</td>
+					<td>[[*{product.category}]]</td>
+					<td>[[*{product.description}]]</td>
+					<td>[[*{product.price}]]</td>
+					<td th:if="${role}"><a
+						th:href="@{'/deleteProductById/'+${product.id}}"
+						class="fa fa-trash link-remove" id="deleteProductButton"
+						data-toggle="modal" data-target="#deleteProductModal"
+						th:rowNumber="${product.id}"></a> &nbsp; <a
+						th:href="@{'/edit/'+${product.id}}" class="fa fa-pencil"></a>
+					</td>
+					<td><a
+						th:href="@{'/buyProduct/'+${product.id}}" class="fa fa-plus"></a></td>
+				</tr>
+			</tbody>
+		</table>
+		<div th:if="${totalPages > 1}">
+			<div class="row col-sm-10">
+				<div class="col-sm-2">Page [[${currentPage}]] of
+					[[${totalPages}]]</div>
+			</div>
+			<div class="col-sm-1">
+				<span th:each="i:${#numbers.sequence(1,totalPages)}"> <a
+					th:if="${currentPage != i}" th:href="@{'/page/'+${i}}">[[${i}]]</a>
+					<span th:unless="${currentPage != i}">[[${i}]]</span>
+				</span>
+			</div>
+		</div>
+		<hr>
+	</div>
+	<div class="modal" id="deleteProductModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Modal Heading</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">Are you sure want to delete?</div>
+				<div class="modal-footer">
+					<a href="" id="delRef" class="btn btn-primary link-remove">Delete</a>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var contextPath = "[[@{/}]]";
+		var csrfHeader = "[[${_csrf.headerName}]]";
+		var csrfToken = "[[${_csrf.token}]]";
+	</script>
+	<script th:src="@{/js/productAction.js}"></script>
+	<script th:src="@{/js/showImagePreview.js}"></script>
+</body>
+</html>
+
+<!-- 		<div class="modal" id="changeInfoModal" tabindex="-1"
+							role="dialog">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4 class="modal-title">EDIT PRODUCT</h4>
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+									</div>
+									<div class="modal-body">
+										<form th:action="@{/editProductInfo}" method="post"
+											enctype="multipart/form-data">
+											<div class="form-group">
+												<input type="text" class="form-control" id="id" name="id"
+													th:value="${product.id}" style="width: 450px;"
+													hidden="hidden">
+											</div>
+											<div class="form-group">
+												<label for="firstName">NAME:</label> <input type="text"
+													class="form-control" id="name" name="name"
+													th:value="${product.name}" style="width: 450px;"
+													required="required">
+											</div>
+											<div class="form-group">
+												<label for="firstName">PRICE:</label> <input type="number"
+													class="form-control" id="price" name="price"
+													th:value="${product.price}" style="width: 450px;"
+													required="required">
+											</div>
+											<div class="form-group">
+												<label for="category">CATEGORY:</label>
+													<select name="category" required="required">
+														<option th:each="category : ${categories}"
+															th:text="${category}">
+													</select>
+											</div>
+											<div class="form-group">
+												<label for="firstName">DESCRIPTION:</label> <input
+													type="text" class="form-control" id="description"
+													name="description" th:value="${product.description}"
+													style="width: 450px;" required="required">
+											</div>
+											<button type="submit">SUBMIT</button>
+
+										</form>
+									</div>
+								</div>
+							</div>
+						</div> -->
+						
