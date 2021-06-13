@@ -1,21 +1,30 @@
 /**
  * 
  */
-/*$(document).ready(function() {
+$(document).ready(function() {
 	$(".plusButton").on("click", function(evt) {
 		evt.preventDefault();
-		productId = $(this).attr("pid");
-		qtyInput = $("#quantity" + productId);
-		number = $("#number" + productId);
-		if (qtyInput.val() > number.val()) {
-			$("#noticeNumber").modal('show');
-			newQty = parseInt(number.val());
-			qtyInput.val(newQty);
-			updateQuantity(productId, newQty);
-		}
+		increaseQuantity($(this))
 	});
 
 });
+
+function increaseQuantity(link) {
+	productId = link.attr("pid");
+	qtyInput = $("#quantity" + productId);
+	myNumber = $("#number" + productId);
+	newQty = parseInt(qtyInput.val()) + 1;
+	if (newQty > myNumber.val()) {
+		$("#noticeNumber").modal('show');
+		newQty = parseInt(myNumber.val());
+		qtyInput.val(newQty);
+		updateQuantity(productId, newQty);
+	}
+	else{
+		qtyInput.val(newQty);
+		updateQuantity(productId, newQty);
+	}
+}
 
 function updateQuantity(productId, quantity) {
 	url = contextPath + "updateQuantity/" + productId + "/" + quantity;
@@ -43,4 +52,4 @@ function updateTotal() {
 	});
 
 	$("#totalAmount").text(total + " VND");
-}*/
+}

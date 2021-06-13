@@ -70,7 +70,12 @@ public class CartServiceImp implements CartService {
 		CartItem cartItem = cartRepo.findByUserAndProduct(user, product);
 		if(cartItem != null) {
 			addedQuantity = cartItem.getQuantity() + quantity;
+			if(addedQuantity > product.getNumber()) {
+				cartItem.setQuantity(product.getNumber());
+			}
+			else {
 			cartItem.setQuantity(addedQuantity);
+			}
 		}else {
 			cartItem = new CartItem();
 			cartItem.setQuantity(quantity);

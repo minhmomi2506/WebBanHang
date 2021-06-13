@@ -50,7 +50,7 @@
 							<b style="color: blue;">Số lượng: [[*{product.number}]]</b>
 
 						</div>
-						<input type="text" th:value="${product.number}" th:id="'number'+${product.id}" hidden="hidden">
+						<input type="text" th:value="${product.number}" th:id="'number'+${product.id}" hidden="hidden" readonly="readonly">
 						<div
 							th:replace="quantity_control :: quantity_control(${item.quantity} , ${item.product.id})">
 							Quantity</div>
@@ -111,6 +111,6 @@
 		var csrfToken = "[[${_csrf.token}]]";
 	</script>
 	<script th:src="@{/js/add_To_Cart.js}"></script>
-	<script th:src="@{/js/checkNumberCart.js}"></script>
+	<script th:src="@{/js/cartNumber.js}"></script>
 </body>
 </html>
