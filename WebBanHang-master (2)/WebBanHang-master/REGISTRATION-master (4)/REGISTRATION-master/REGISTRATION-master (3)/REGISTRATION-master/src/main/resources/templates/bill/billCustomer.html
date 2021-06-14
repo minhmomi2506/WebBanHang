@@ -34,10 +34,12 @@
 					<th scope="col">TOTAL PRICE(VND)</th>
 					<th scope="col">HOW_TO_PAY</th>
 					<th scope="col">BUY_DATE</th>
+					<th scope="col">STATUS</th>
+					<th scope="col">DELETE</th>
 				</tr>
 			</thead>
 			<tbody th:each="bill : ${bills}">
-				<tr>
+				<tr th:id="'row' + ${bill.id}">
 					<th scope="row"><img alt=""
 						th:src="*{'data:image/jpeg;base64,'+{bill.product.image}}"
 						style="width: 100px; height: 100px;"></th>
@@ -48,10 +50,36 @@
 					<td>[[*{bill.toTal}]]</td>
 					<td>[[*{bill.howToPay}]]</td>
 					<td>[[*{bill.buyDate}]]</td>
+					<td>[[*{bill.status}]]</td>
+					<td><a th:href="@{'/deleteBillById/'+${bill.id}}" class="fa fa-trash link-remove"
+						id="deleteProductButton" data-toggle="modal"
+						data-target="#deleteBillModal" th:rowNumber="${bill.id}"></a>
+					</td>
 				</tr>
 			</tbody>
 		</table>
-		
+		<div class="modal" id="deleteBillModal" tabindex="-1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Modal Heading</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">Are you sure want to delete?</div>
+					<div class="modal-footer">
+						<a href="" id="delRef" class="btn btn-primary link-remove">Delete</a>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
 	</div>
+	<script type="text/javascript">
+		var contextPath = "[[@{/}]]";
+		var csrfHeader = "[[${_csrf.headerName}]]";
+		var csrfToken = "[[${_csrf.token}]]";
+	</script>
+	<script th:src="@{/js/bill.js}"></script>
 </body>
 </html>

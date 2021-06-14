@@ -30,6 +30,7 @@ import com.example.REGISTRATION.rabbitConfig.ProductConfigReceive;
 import com.example.REGISTRATION.repo.BillRepo;
 import com.example.REGISTRATION.repo.ProductRepo;
 import com.example.REGISTRATION.repo.UserRepo;
+import com.example.REGISTRATION.service.BillService;
 import com.example.REGISTRATION.service.CartService;
 import com.example.REGISTRATION.service.ProductService;
 import com.example.REGISTRATION.service.UserService;
@@ -48,6 +49,14 @@ public class RegistrationController {
 		howToPays.add("Thanh toán khi nhận hàng");
 		howToPays.add("Thanh toán bằng thẻ ngân hàng");
 		howToPays.add("Thanh toán bằng ví AirPays");
+	}
+	
+	static List<String> statuses = new ArrayList<String>();
+	static {
+		statuses.add("Đang xử lý");
+		statuses.add("Chờ nhận hàng");
+		statuses.add("Đang giao hàng");
+		statuses.add("Đã nhận hàng");
 	}
 	@Autowired
 	private RabbitTemplate rabbittemplate;
@@ -69,6 +78,9 @@ public class RegistrationController {
 	
 	@Autowired
 	private BillRepo billRepo;
+	
+	@Autowired
+	private BillService billService;
 
 	/* INSERT PRODUCT */
 
@@ -513,9 +525,36 @@ public class RegistrationController {
 	public String listBill(Principal principal , Model model) {
 		String email = principal.getName();
 		User user = userRepo.findUserByEmail(email);
-		List<Bill> bills = billRepo.findByUser(user);
-		model.addAttribute("bills", bills);
 		model.addAttribute("user", user);
-		return "other/bill";
+		if (user.getUser_role().equalsIgnoreCase("admin")) {
+			List<Bill> bills = billService.getAll();
+			model.addAttribute("bills", bills);
+			model.addAttribute("role", user.getUser_role());
+			return "bill/bill";
+		}
+		else {
+			List<Bill> bills = billService.findByUser(user);
+			model.addAttribute("bills", bills);
+			model.addAttribute("role", user.getUser_role());
+			return "bill/billCustomer";
+		}
 	}
+	
+	@GetMapping("/editBill/{id}")
+	public String editBill(@PathVariable Long id , Model model , Principal principal) {
+		Bill bill = billRepo.findBillById(id);
+		model.addAttribute("bill", bill);
+		String email = principal.getName();
+		User user = userRepo.findUserByEmail(email);
+		model.addAttribute("user", user);
+		model.addAttribute("statuses", statuses);
+		return "bill/edit";
+	}
+	
+	@PostMapping("/editBillInfo")
+	public String editBillInfo(Bill bill, String status) {
+		billService.editBill(bill.getId(), status);
+		return "redirect:/editBill/"+bill.getId();
+	}
+	
 }

@@ -1,0 +1,105 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1 style="text-align: center;">YOUR INFORMATION</h1>
+	<div th:replace="navbar :: navbar"></div>
+	<table class="table" id="billTable">
+		<thead class="thead-dark">
+			<tr>
+				<th scope="col">IMAGE</th>
+				<th scope="col">NAME</th>
+				<th scope="col">QUANTITY</th>
+				<th scope="col">PRICE(VND)</th>
+				<th scope="col">TOTAL PRICE(VND)</th>
+				<th scope="col">HOW_TO_PAY</th>
+				<th scope="col">BUY_DATE</th>
+				<th scope="col">USER'S PHONENUMBER</th>
+				<th scope="col">USER'S NAME</th>
+				<th scope="col">STATUS</th>
+				<th scope="col">EDIT</th>
+			</tr>
+		</thead>
+		<tbody th:object="${bill}">
+			<tr>
+				<th scope="row"><img alt=""
+					th:src="*{'data:image/jpeg;base64,'+{product.image}}"
+					style="width: 100px; height: 100px;"></th>
+				<td>[[*{product.name}]]</td>
+				<td>[[*{quantity}]]</td>
+				<td>[[*{product.price}]]</td>
+				<td>[[*{toTal}]]</td>
+				<td>[[*{howToPay}]]</td>
+				<td>[[*{buyDate}]]</td>
+				<td>[[*{user.phoneNumber}]]</td>
+				<td>[[*{user.fullName}]]</td>
+				<td>[[*{status}]]</td>
+				<td><a href="" class="fa fa-pencil" data-toggle="modal"
+					data-target="#changeInfoModal"></a></td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="modal" id="changeInfoModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">CHANGE INFO</h4>
+				</div>
+				<div class="modal-body">
+					<form class="text-center border border-light p-5"
+						th:action="@{/editBillInfo}" method="post"
+						th:object="${bill}" enctype="multipart/form-data">
+						<input type="text" name="id" id="id" class="form-control mb-4"
+							th:field="*{id}" hidden="hidden">
+						
+						<input type="text" name="name" id="name" class="form-control mb-4"
+							th:field="*{product.name}" readonly="readonly">
+							
+						<input type="text" name="quantity" id="quantity" class="form-control mb-4"
+							th:field="*{quantity}" readonly="readonly">
+							
+						<input type="text" name="price" id="price" class="form-control mb-4"
+							th:field="*{product.price}" readonly="readonly">
+							
+						<input type="text" name="total" id="total" class="form-control mb-4"
+							th:field="*{toTal}" readonly="readonly">
+							
+						<input type="text" name="howToPay" id="howToPay" class="form-control mb-4"
+							th:field="*{howToPay}" readonly="readonly">
+							
+						<input type="text" name="buyDate" id="buyDate" class="form-control mb-4"
+							th:field="*{buyDate}" readonly="readonly">
+							
+						<input type="text" name="phoneNumber" id="phoneNumber" class="form-control mb-4"
+							th:field="*{user.phoneNumber}" readonly="readonly">
+							
+						<input type="text" name="fullName" id="fullName" class="form-control mb-4"
+							th:field="*{user.fullName}" readonly="readonly">
+						
+						<div class="custom-file mb-4">
+							<select name="status" required="required">
+								<option th:text="*{status}">
+								<option th:each="status : ${statuses}" th:text="${status}">
+							</select>
+						</div>
+						<button class="btn btn-info btn-block" type="submit">edit</button></form>
+								
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -31,7 +31,7 @@
 					<th scope="col">DESCRIPTION</th>
 					<th scope="col">PRICE(VND)</th>
 					<th scope="col" th:if="${role}">ACTION</th>
-					<th scope="col">BUY</th>
+					<th scope="col" th:unless="${role}">BUY</th>
 				</tr>
 			</thead>
 			<tbody th:each="product , status : ${products}">
@@ -43,18 +43,15 @@
 					<td>[[*{product.category}]]</td>
 					<td>[[*{product.description}]]</td>
 					<td>[[*{product.price}]]</td>
-					<td th:if="${role}">
-						<div>
-							<a th:href="@{'/deleteProductById/'+${product.id}}"
-								class="btn btn-danger link-remove" id="deleteProductButton"
-								data-toggle="modal" data-target="#deleteProductModal"
-								th:rowNumber="${product.id}">Delete</a> &nbsp; <a
-								th:href="@{'/editProduct/'+${product.id}}"
-								class="btn btn-primary mt-4">Edit</a>
-						</div>
+					<td th:if="${role}"><a
+						th:href="@{'/deleteProductById/'+${product.id}}"
+						class="fa fa-trash link-remove" id="deleteProductButton"
+						data-toggle="modal" data-target="#deleteProductModal"
+						th:rowNumber="${product.id}"></a> &nbsp; <a
+						th:href="@{'/edit/'+${product.id}}" class="fa fa-pencil"></a>
 					</td>
-					<td><a th:href="@{'/buyProduct/'+${product.id}}"
-						class="btn btn-warning mt-4">BUY</a></td>
+					<td th:unless="${role}"><a
+						th:href="@{'/buyProduct/'+${product.id}}" class="fa fa-plus"></a></td>
 				</tr>
 			</tbody>
 		</table>

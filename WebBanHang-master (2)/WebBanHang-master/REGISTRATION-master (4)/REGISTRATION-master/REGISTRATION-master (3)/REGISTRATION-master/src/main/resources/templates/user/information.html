@@ -26,7 +26,8 @@
 				<td>PHONE NUMBER</td>
 				<td>ROLE</td>
 				<td>ACTION</td>
-				<td>WATCH YOUR HISTORY OF BUYING PRODUCT</td>
+				<td th:if="${role}">WATCH YOUR HISTORY OF SELLING PRODUCT</td>
+				<td th:unless="${role}">WATCH YOUR HISTORY OF BUYING</td>
 			</tr>
 		</thead>
 		<tbody>

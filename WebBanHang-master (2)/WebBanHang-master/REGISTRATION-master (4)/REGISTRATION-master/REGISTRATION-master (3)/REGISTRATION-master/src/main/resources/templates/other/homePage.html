@@ -35,7 +35,7 @@
 					<th scope="col">PRICE(VND)</th>
 					<th scope="col">NUMBER</th>
 					<th scope="col" th:if="${role}">ACTION</th>
-					<th scope="col">BUY</th>
+					<th scope="col" th:unless="${role}">BUY</th>
 				</tr>
 			</thead>
 			<tbody th:each="product , status : ${products}">
@@ -56,7 +56,7 @@
 						th:rowNumber="${product.id}"></a> &nbsp; <a
 						th:href="@{'/edit/'+${product.id}}" class="fa fa-pencil"></a>
 					</td>
-					<td><a
+					<td th:unless="${role}"><a
 						th:href="@{'/buyProduct/'+${product.id}}" class="fa fa-plus"></a></td>
 				</tr>
 			</tbody>

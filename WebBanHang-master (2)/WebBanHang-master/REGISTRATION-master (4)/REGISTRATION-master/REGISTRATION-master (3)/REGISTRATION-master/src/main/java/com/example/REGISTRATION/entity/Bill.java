@@ -44,4 +44,7 @@ public class Bill {
 	
 	@Column
 	private Date buyDate;
+	
+	@Column
+	private String status;
 }

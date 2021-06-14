@@ -7,7 +7,7 @@ $(document).ready(function() {
 		qtyInput = $("#quantity" + productId);
 		if (qtyInput.val() > 1) {
 			$("#noticeNumber").modal('show');
-			newQty = parseInt(qtyInput.val()) - 1;
+			newQty = parseInt(1);
 			if (newQty > 0) {
 				qtyInput.val(newQty);
 			}

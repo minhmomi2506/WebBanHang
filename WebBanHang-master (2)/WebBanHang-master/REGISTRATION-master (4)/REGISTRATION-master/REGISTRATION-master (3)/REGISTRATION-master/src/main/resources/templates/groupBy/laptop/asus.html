@@ -30,7 +30,7 @@
 					<th scope="col">DESCRIPTION</th>
 					<th scope="col">PRICE(VND)</th>
 					<th scope="col" th:if="${role}">ACTION</th>
-					<th scope="col">BUY</th>
+					<th scope="col" th:unless="${role}">BUY</th>
 				</tr>
 			</thead>
 			<tbody th:each="asus , status : ${asuses}">
@@ -49,7 +49,7 @@
 						th:rowNumber="${asus.id}"></a> &nbsp; <a
 						th:href="@{'/edit/'+${asus.id}}" class="fa fa-pencil"></a>
 					</td>
-					<td><a
+					<td th:unless="${role}"><a
 						th:href="@{'/buyProduct/'+${asus.id}}" class="fa fa-plus"></a></td>
 				</tr>
 			</tbody>

@@ -55,6 +55,7 @@ public class CartServiceImp implements CartService {
 			Product product = cartItem.getProduct();
 			product.setNumber(product.getNumber() - cartItem.getQuantity());
 			bill.setToTal(bill.getQuantity() * cartItem.getProduct().getPrice());
+			bill.setStatus("Đang xử lý");
 			productRepo.save(product);
 			billRepo.save(bill);
 		}

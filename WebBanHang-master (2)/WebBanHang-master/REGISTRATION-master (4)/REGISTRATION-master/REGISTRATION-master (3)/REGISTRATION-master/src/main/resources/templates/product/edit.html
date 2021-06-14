@@ -86,9 +86,14 @@
 
 						<!-- Description -->
 						<input type="text" class="form-control mb-4" id="description"
-							name="description" th:field="*{description}"> <input
-							type="text" class="form-control mb-4" id="category"
-							name="category" th:field="*{category}">
+							name="description" th:field="*{description}">
+
+						<div class="custom-file mb-4">
+							<select name="category" required="required">
+								<option th:text="*{category}">
+								<option th:each="category : ${categories}" th:text="${category}">
+							</select>
+						</div>
 
 						<!-- Sign in button -->
 						<button class="btn btn-info btn-block" type="submit">edit</button>
