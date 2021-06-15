@@ -1,6 +1,4 @@
-/**
- * 
- */
+var addProduct;
 $(document).ready(function() {
 	$(".link-remove").on("click", function(evt) {
 		evt.preventDefault();
@@ -21,12 +19,12 @@ function deleteBill(link) {
 			}
 		}).done(function() {
 			rowNumber = link.attr("rowNumber");
-			removeBill(rowNumber);
+			removeProduct(rowNumber);
 		});
 	});
 }
 
-function removeBill(rowNumber) {
+function removeProduct(rowNumber) {
 	rowId = "row" + rowNumber;
 	$("#billTable #" + rowId).remove();
 }

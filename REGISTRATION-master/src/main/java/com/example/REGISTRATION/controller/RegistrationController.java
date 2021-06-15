@@ -461,10 +461,10 @@ public class RegistrationController {
 	/* EDIT USER INFORMATION */
 
 	@PostMapping("/editUser")
-	public String editUser(User user,Principal principal , String fullName , String phoneNumber) {
+	public String editUser(User user,Principal principal , String fullName , String phoneNumber , String password) {
 		String email = principal.getName();
 		user = userRepo.findUserByEmail(email);
-		userService.editUserInformation(user, fullName, phoneNumber);
+		userService.editUserInformation(user, fullName, phoneNumber,password);
 		return "redirect:/info/"+user.getId();
 	}
 	
@@ -540,6 +540,7 @@ public class RegistrationController {
 		}
 	}
 	
+	/*EDIT BILL STATUS*/
 	@GetMapping("/editBill/{id}")
 	public String editBill(@PathVariable Long id , Model model , Principal principal) {
 		Bill bill = billRepo.findBillById(id);
@@ -555,6 +556,13 @@ public class RegistrationController {
 	public String editBillInfo(Bill bill, String status) {
 		billService.editBill(bill.getId(), status);
 		return "redirect:/editBill/"+bill.getId();
+	}
+	
+	/*DELETE BILL*/
+	@PostMapping("/deleteBill/{id}")
+	public String deleteBill(@PathVariable Long id) {
+		billService.deleteBill(id);
+		return "redirect:/listBill";
 	}
 	
 }

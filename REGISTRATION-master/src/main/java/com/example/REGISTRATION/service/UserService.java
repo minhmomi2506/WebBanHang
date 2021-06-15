@@ -47,9 +47,12 @@ public class UserService implements UserDetailsService {
 		userRepo.deleteUserById(id);
 	}
 	
-	public void editUserInformation(User user , String fullName , String phoneNumber) {
+	public void editUserInformation(User user , String fullName , String phoneNumber , String password) {
 		user.setFullName(fullName);
 		user.setPhoneNumber(phoneNumber);
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String encodedPassword = encoder.encode(password);
+		user.setPassword(encodedPassword);
 		userRepo.save(user);
 	}
 	

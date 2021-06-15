@@ -73,8 +73,8 @@
 				<li class="nav-item" th:object="${user}"><a
 					th:href="@{'/info/'+${user.id}}" class="nav-link"
 					style="color: white;">[[${user.fullName}]]</a></li>
-				<li class="nav-item"><a th:href="@{/list_users}"
-					class="nav-link" style="color: white;">LIST ALL USERS</a></li>
+				<li class="nav-item" th:if="${role}"><a th:href="@{/list_users}"
+					class="nav-link" style="color: white;" >LIST ALL USERS</a></li>
 				<li class="nav-item" th:if="${role}"><a th:href="@{/addProduct}"
 					class="nav-link" style="color: white;" th:if="${role}"
 					data-toggle="modal" data-target="#addProductModal">ADD PRODUCT</a>

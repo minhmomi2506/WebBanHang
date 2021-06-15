@@ -51,10 +51,8 @@
 					<td>[[*{bill.howToPay}]]</td>
 					<td>[[*{bill.buyDate}]]</td>
 					<td>[[*{bill.status}]]</td>
-					<td><a th:href="@{'/deleteBillById/'+${bill.id}}" class="fa fa-trash link-remove"
-						id="deleteProductButton" data-toggle="modal"
-						data-target="#deleteBillModal" th:rowNumber="${bill.id}"></a>
-					</td>
+					<td><a th:href="@{'/deleteBillById/'+${bill.id}}" class="fa fa-trash link-remove" id="deleteBillButton"
+						data-toggle="modal" data-target="#deleteBillModal" th:rowNumber="${bill.id}"></a></td>
 				</tr>
 			</tbody>
 		</table>

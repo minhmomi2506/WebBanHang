@@ -17,9 +17,9 @@ public class BillController {
 	@Autowired
 	private BillService billService;
 	
-	/*DELETE BILL*/
+	/*DELETE PRODUCT*/
 	@PostMapping("/deleteBillById/{id}")
-	public void deleteProduct(@PathVariable Long id) {
+	public void deleteBill(@PathVariable Long id) {
 		Bill bill = billRepo.findBillById(id);
 		billService.deleteBill(bill.getId());
 	}
