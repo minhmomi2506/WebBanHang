@@ -45,7 +45,7 @@
 						style="width: 100px; height: 100px;">
 					</th>
 					<td>[[*{product.name}]]</td>
-					<td>[[*{product.category}]]</td>
+					<td>[[*{product.category.categoryName}]]</td>
 					<td>[[*{product.description}]]</td>
 					<td>[[*{product.price}]]</td>
 					<td>[[*{product.number}]]</td>
@@ -61,18 +61,6 @@
 				</tr>
 			</tbody>
 		</table>
-		<div th:if="${totalPages > 1}">
-			<div class="row col-sm-10">
-				<div class="col-sm-2">Page [[${currentPage}]] of
-					[[${totalPages}]]</div>
-			</div>
-			<div class="col-sm-1">
-				<span th:each="i:${#numbers.sequence(1,totalPages)}"> <a
-					th:if="${currentPage != i}" th:href="@{'/page/'+${i}}">[[${i}]]</a>
-					<span th:unless="${currentPage != i}">[[${i}]]</span>
-				</span>
-			</div>
-		</div>
 		<hr>
 	</div>
 	<div class="modal" id="deleteProductModal" tabindex="-1" role="dialog">

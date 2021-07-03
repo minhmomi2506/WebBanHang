@@ -8,13 +8,11 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.REGISTRATION.entity.Category;
 import com.example.REGISTRATION.entity.Product;
 import com.example.REGISTRATION.repo.ProductRepo;
 
@@ -52,13 +50,6 @@ public class ProductServiceImp implements ProductService {
 		return productRepo.findAll();
 	}
 
-	@Override
-	public Page<Product> findPaginated(int pageNum, int pageSize) {
-		// TODO Auto-generated method stub
-		Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
-		return this.productRepo.findAll(pageable);
-	}
-
 //	@Override
 //	public Map<Long, Product> findAll() {
 //		return hashOperations.entries(TABLE_NAME);
@@ -91,8 +82,10 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
-	public void editProduct(Long id, String name, String description, int price, int number, String category) {
-		Product product = productRepo.findProductById(id);
+	public void editProduct(Long id, String name, String description, int price, int number, Category category) {
+ 		Product product = productRepo.findProductById(id);
+ 		category = product.getCategory();
+ 		System.out.println(product.getCategory().getCategoryName());
 		product.setName(name);
 		product.setDescription(description);
 		product.setPrice(price);
@@ -147,7 +140,7 @@ public class ProductServiceImp implements ProductService {
 		List<Product> products = productRepo.findAll();
 		List<Product> productSearch = new ArrayList<Product>();
 		for (Product product : products) {
-			if (product.getCategory().equalsIgnoreCase("Tai nghe")) {
+			if (product.getCategory().getCategoryName().equalsIgnoreCase("Tai nghe")) {
 				productSearch.add(product);
 			}
 		}
@@ -169,7 +162,7 @@ public class ProductServiceImp implements ProductService {
 		for (Product product : products) {
 			for (int i = 0; i <= product.getName().length(); i++) {
 				for (int j = i; j <= product.getName().length(); j++) {
-					if (product.getCategory().equalsIgnoreCase("Tai nghe")
+					if (product.getCategory().getCategoryName().equalsIgnoreCase("Tai nghe")
 							&& product.getName().substring(i, j).equalsIgnoreCase("Không dây")) {
 						productSearch.add(product);
 					}
@@ -191,7 +184,7 @@ public class ProductServiceImp implements ProductService {
 				if (dem == 1)
 					break;
 				for (int j = i; j <= product.getName().length(); j++) {
-					if (product.getCategory().equalsIgnoreCase("Tai nghe")) {
+					if (product.getCategory().getCategoryName().equalsIgnoreCase("Tai nghe")) {
 						if (product.getName().substring(i, j).equalsIgnoreCase("Bluetooth")
 								|| product.getName().substring(i, j).equalsIgnoreCase("Không dây")) {
 							productSearch.add(product);
@@ -213,7 +206,7 @@ public class ProductServiceImp implements ProductService {
 		List<Product> products = productRepo.findAll();
 		List<Product> productSearch = new ArrayList<Product>();
 		for (Product product : products) {
-			if (product.getCategory().equalsIgnoreCase("Điện thoại")) {
+			if (product.getCategory().getCategoryName().equalsIgnoreCase("Điện thoại")) {
 				productSearch.add(product);
 			}
 		}
@@ -228,7 +221,7 @@ public class ProductServiceImp implements ProductService {
 		for (Product product : products) {
 			for (int i = 0; i <= product.getName().length(); i++) {
 				for (int j = i; j <= product.getName().length(); j++) {
-					if (product.getCategory().equalsIgnoreCase("Điện thoại")
+					if (product.getCategory().getCategoryName().equalsIgnoreCase("Điện thoại")
 							&& product.getName().substring(i, j).equalsIgnoreCase("Samsung")) {
 						productSearch.add(product);
 					}
@@ -246,7 +239,7 @@ public class ProductServiceImp implements ProductService {
 		for (Product product : products) {
 			for (int i = 0; i <= product.getName().length(); i++) {
 				for (int j = i; j <= product.getName().length(); j++) {
-					if (product.getCategory().equalsIgnoreCase("Điện thoại")
+					if (product.getCategory().getCategoryName().equalsIgnoreCase("Điện thoại")
 							&& product.getName().substring(i, j).equalsIgnoreCase("iphone")) {
 						productSearch.add(product);
 					}
@@ -263,7 +256,7 @@ public class ProductServiceImp implements ProductService {
 		for (Product product : products) {
 			for (int i = 0; i <= product.getName().length(); i++) {
 				for (int j = i; j <= product.getName().length(); j++) {
-					if (product.getCategory().equalsIgnoreCase("Điện thoại")
+					if (product.getCategory().getCategoryName().equalsIgnoreCase("Điện thoại")
 							&& product.getName().substring(i, j).equalsIgnoreCase("Xiaomi")) {
 						productSearch.add(product);
 					}
@@ -280,7 +273,7 @@ public class ProductServiceImp implements ProductService {
 		for (Product product : products) {
 			for (int i = 0; i <= product.getName().length(); i++) {
 				for (int j = i; j <= product.getName().length(); j++) {
-					if (product.getCategory().equalsIgnoreCase("Điện thoại")
+					if (product.getCategory().getCategoryName().equalsIgnoreCase("Điện thoại")
 							&& product.getName().substring(i, j).equalsIgnoreCase("Huawei")) {
 						productSearch.add(product);
 					}
@@ -296,7 +289,7 @@ public class ProductServiceImp implements ProductService {
 		List<Product> products = productRepo.findAll();
 		List<Product> productSearch = new ArrayList<Product>();
 		for (Product product : products) {
-			if (product.getCategory().equalsIgnoreCase("Laptop")) {
+			if (product.getCategory().getCategoryName().equalsIgnoreCase("Laptop")) {
 				productSearch.add(product);
 			}
 		}
@@ -312,7 +305,7 @@ public class ProductServiceImp implements ProductService {
 		for (Product product : products) {
 			for (int i = 0; i <= product.getName().length(); i++) {
 				for (int j = i; j <= product.getName().length(); j++) {
-					if (product.getCategory().equalsIgnoreCase("Laptop")
+					if (product.getCategory().getCategoryName().equalsIgnoreCase("Laptop")
 							&& product.getName().substring(i, j).equalsIgnoreCase("ASUS")) {
 						productSearch.add(product);
 					}
@@ -331,7 +324,7 @@ public class ProductServiceImp implements ProductService {
 		for (Product product : products) {
 			for (int i = 0; i <= product.getName().length(); i++) {
 				for (int j = i; j <= product.getName().length(); j++) {
-					if (product.getCategory().equalsIgnoreCase("Laptop")
+					if (product.getCategory().getCategoryName().equalsIgnoreCase("Laptop")
 							&& product.getName().substring(i, j).equalsIgnoreCase("Dell")) {
 						productSearch.add(product);
 					}
@@ -350,7 +343,7 @@ public class ProductServiceImp implements ProductService {
 		for (Product product : products) {
 			for (int i = 0; i <= product.getName().length(); i++) {
 				for (int j = i; j <= product.getName().length(); j++) {
-					if (product.getCategory().equalsIgnoreCase("Laptop")
+					if (product.getCategory().getCategoryName().equalsIgnoreCase("Laptop")
 							&& product.getName().substring(i, j).equalsIgnoreCase("Apple")) {
 						productSearch.add(product);
 					}
@@ -369,7 +362,7 @@ public class ProductServiceImp implements ProductService {
 		for (Product product : products) {
 			for (int i = 0; i <= product.getName().length(); i++) {
 				for (int j = i; j <= product.getName().length(); j++) {
-					if (product.getCategory().equalsIgnoreCase("Laptop")
+					if (product.getCategory().getCategoryName().equalsIgnoreCase("Laptop")
 							&& product.getName().substring(i, j).equalsIgnoreCase("Lenovo")) {
 						productSearch.add(product);
 					}
@@ -388,7 +381,7 @@ public class ProductServiceImp implements ProductService {
 		for (Product product : products) {
 			for (int i = 0; i <= product.getName().length(); i++) {
 				for (int j = i; j <= product.getName().length(); j++) {
-					if (product.getCategory().equalsIgnoreCase("Laptop")
+					if (product.getCategory().getCategoryName().equalsIgnoreCase("Laptop")
 							&& product.getName().substring(i, j).equalsIgnoreCase("hp")) {
 						productSearch.add(product);
 					}

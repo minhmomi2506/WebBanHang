@@ -7,7 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -35,8 +37,9 @@ public class Product implements Serializable{
 	@Column(columnDefinition = "MEDIUMBLOB")
 	private String image;
 	
-	@Column
-	private String category;
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private Category category;
 	
 	@Column
 	private int number;

@@ -25,6 +25,7 @@
 					<td>IMAGE</td>
 					<td>FULL NAME</td>
 					<td>PHONE NUMBER</td>
+					<td>ADDRESS</td>
 				</tr>
 			</thead>
 			<tbody th:each="user1,status : ${users}">
@@ -34,6 +35,7 @@
 						style="width: 100px; height: 100px;"></th>
 					<td th:text=${user1.fullName}></td>
 					<td th:text=${user1.phoneNumber}></td>
+					<td th:text=${user1.address}></td>
 				</tr>
 			</tbody>
 		</table>

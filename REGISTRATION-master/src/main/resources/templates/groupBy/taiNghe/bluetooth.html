@@ -39,7 +39,7 @@
 						th:src="*{'data:image/jpeg;base64,'+{taiNgheBluetooth.image}}"
 						style="width: 100px; height: 100px;"></th>
 					<td>[[*{taiNgheBluetooth.name}]]</td>
-					<td>[[*{taiNgheBluetooth.category}]]</td>
+					<td>[[*{taiNgheBluetooth.category.categoryName}]]</td>
 					<td>[[*{taiNgheBluetooth.description}]]</td>
 					<td>[[*{taiNgheBluetooth.price}]]</td>
 					<td th:if="${role}"><a

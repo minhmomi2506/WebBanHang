@@ -35,6 +35,7 @@
 					<th scope="col">BUY_DATE</th>
 					<th scope="col">USER'S PHONENUMBER</th>
 					<th scope="col">USER'S NAME</th>
+					<th scope="col">ADDRESS</th>
 					<th scope="col">STATUS</th>
 					<th scope="col">ACTION</th>
 				</tr>
@@ -52,6 +53,7 @@
 					<td>[[*{bill.buyDate}]]</td>
 					<td>[[*{bill.user.phoneNumber}]]</td>
 					<td>[[*{bill.user.fullName}]]</td>
+					<td>[[*{bill.user.address}]]</td>
 					<td>[[*{bill.status}]]</td>
 					<td><a th:href="@{'/editBill/'+${bill.id}}" class="fa fa-pencil"></a></td>
 				</tr>

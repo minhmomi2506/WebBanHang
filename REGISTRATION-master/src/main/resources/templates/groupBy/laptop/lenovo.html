@@ -39,7 +39,7 @@
 						th:src="*{'data:image/jpeg;base64,'+{lenovo.image}}"
 						style="width: 100px; height: 100px;"></th>
 					<td>[[*{lenovo.name}]]</td>
-					<td>[[*{lenovo.category}]]</td>
+					<td>[[*{lenovo.category.categoryName}]]</td>
 					<td>[[*{lenovo.description}]]</td>
 					<td>[[*{lenovo.price}]]</td>
 					<td th:if="${role}"><a

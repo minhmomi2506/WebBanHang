@@ -51,6 +51,9 @@ public class User implements Serializable{
 	@Column(columnDefinition = "MEDIUMBLOB")
 	private String image;
 	
+	@Column
+	private String address;
+	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "auth_provider")
 	private AuthenProvider authProvider;

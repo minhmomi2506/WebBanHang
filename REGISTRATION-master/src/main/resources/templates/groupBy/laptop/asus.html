@@ -39,7 +39,7 @@
 						th:src="*{'data:image/jpeg;base64,'+{asus.image}}"
 						style="width: 100px; height: 100px;"></th>
 					<td>[[*{asus.name}]]</td>
-					<td>[[*{asus.category}]]</td>
+					<td>[[*{asus.category.categoryName}]]</td>
 					<td>[[*{asus.description}]]</td>
 					<td>[[*{asus.price}]]</td>
 					<td th:if="${role}"><a

@@ -34,6 +34,7 @@
 					<th scope="col">TOTAL PRICE(VND)</th>
 					<th scope="col">HOW_TO_PAY</th>
 					<th scope="col">BUY_DATE</th>
+					<th scope="col">ADDRESS</th>
 					<th scope="col">STATUS</th>
 					<th scope="col">DELETE</th>
 				</tr>
@@ -51,6 +52,7 @@
 					<td>[[*{bill.howToPay}]]</td>
 					<td>[[*{bill.buyDate}]]</td>
 					<td>[[*{bill.status}]]</td>
+					<td>[[*{bill.user.address}]]</td>
 					<td><a th:href="@{'/deleteBillById/'+${bill.id}}" class="fa fa-trash link-remove" id="deleteBillButton"
 						data-toggle="modal" data-target="#deleteBillModal" th:rowNumber="${bill.id}"></a></td>
 				</tr>

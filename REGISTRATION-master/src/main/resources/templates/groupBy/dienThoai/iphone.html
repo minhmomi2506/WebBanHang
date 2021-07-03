@@ -39,7 +39,7 @@
 						th:src="*{'data:image/jpeg;base64,'+{iphone.image}}"
 						style="width: 100px; height: 100px;"></th>
 					<td>[[*{iphone.name}]]</td>
-					<td>[[*{iphone.category}]]</td>
+					<td>[[*{iphone.category.categoryName}]]</td>
 					<td>[[*{iphone.description}]]</td>
 					<td>[[*{iphone.price}]]</td>
 					<td th:if="${role}"><a

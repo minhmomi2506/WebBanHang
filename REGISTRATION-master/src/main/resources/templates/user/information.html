@@ -24,6 +24,7 @@
 				<td>EMAIL</td>
 				<td>FULL NAME</td>
 				<td>PHONE NUMBER</td>
+				<td th:unless="${role}">ADDRESS</td>
 				<td>ROLE</td>
 				<td>ACTION</td>
 				<td th:if="${role}">WATCH YOUR HISTORY OF SELLING PRODUCT</td>
@@ -39,6 +40,7 @@
 				<td th:text=${user.email}></td>
 				<td th:text=${user.fullName}></td>
 				<td th:text=${user.phoneNumber}></td>
+				<td th:unless="${role}">[[*{address}]]</td>
 				<td th:text=${user.user_role}></td>
 				<td><a th:href="@{'/edit/'+${user.id}}" class="fa fa-pencil"
 					data-toggle="modal" data-target="#changeInfoModal"></a></td>

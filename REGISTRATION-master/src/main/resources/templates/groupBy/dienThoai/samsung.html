@@ -39,7 +39,7 @@
 						th:src="*{'data:image/jpeg;base64,'+{phoneSamsung.image}}"
 						style="width: 100px; height: 100px;"></th>
 					<td>[[*{phoneSamsung.name}]]</td>
-					<td>[[*{phoneSamsung.category}]]</td>
+					<td>[[*{phoneSamsung.category.categoryName}]]</td>
 					<td>[[*{phoneSamsung.description}]]</td>
 					<td>[[*{phoneSamsung.price}]]</td>
 					<td th:if="${role}"><a

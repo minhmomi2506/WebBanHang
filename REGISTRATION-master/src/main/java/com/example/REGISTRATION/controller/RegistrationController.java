@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,10 +23,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.REGISTRATION.entity.Bill;
 import com.example.REGISTRATION.entity.CartItem;
+import com.example.REGISTRATION.entity.Category;
 import com.example.REGISTRATION.entity.Product;
 import com.example.REGISTRATION.entity.User;
 import com.example.REGISTRATION.rabbitConfig.ProductConfigReceive;
 import com.example.REGISTRATION.repo.BillRepo;
+import com.example.REGISTRATION.repo.CategoryRepo;
 import com.example.REGISTRATION.repo.ProductRepo;
 import com.example.REGISTRATION.repo.UserRepo;
 import com.example.REGISTRATION.service.BillService;
@@ -37,12 +38,9 @@ import com.example.REGISTRATION.service.UserService;
 
 @Controller
 public class RegistrationController {
-	static List<String> categories = new ArrayList<String>();
-	static {
-		categories.add("Tai nghe");
-		categories.add("Điện thoại");
-		categories.add("Laptop");
-	}
+	@Autowired
+	private CategoryRepo categoryRepo;
+
 	
 	static List<String> howToPays = new ArrayList<String>();
 	static {
@@ -58,6 +56,7 @@ public class RegistrationController {
 		statuses.add("Đang giao hàng");
 		statuses.add("Đã nhận hàng");
 	}
+	
 	@Autowired
 	private RabbitTemplate rabbittemplate;
 
@@ -86,6 +85,7 @@ public class RegistrationController {
 
 	@GetMapping("/addProduct")
 	public String showAddProduct(Model model) {
+		List<Category> categories = categoryRepo.findAll();
 		model.addAttribute("categories", categories);
 		return "product/AddProduct";
 	}
@@ -102,11 +102,17 @@ public class RegistrationController {
 	@GetMapping("/edit/{id}")
 	public String editProduct(@PathVariable Long id , Model model , Principal principal) {
 		Product product = productRepo.findProductById(id);
+		Category category = product.getCategory();
+		model.addAttribute("category", category);
 		model.addAttribute("product", product);
 		String email = principal.getName();
 		User user = userRepo.findUserByEmail(email);
 		model.addAttribute("user", user);
+		List<Category> categories = categoryRepo.findAll();
 		model.addAttribute("categories", categories);
+		if (user.getUser_role().equalsIgnoreCase("admin")) {
+			model.addAttribute("role", user.getUser_role());
+		}
 		return "product/edit";
 	}
 
@@ -117,8 +123,15 @@ public class RegistrationController {
 	}
 	
 	@PostMapping("/editProductInfo")
-	public String editProductInfo(Product product, String name , String description , int price , int number , String category) {
-		productService.editProduct(product.getId(), name, description, price, number , category);
+	public String editProductInfo(Long id, String name , String description , int price , int number , String categoryName) {
+		Product product = productRepo.findProductById(id);
+		Category category = categoryRepo.findByCategoryName(categoryName);
+		product.setName(name);
+		product.setDescription(description);
+		product.setPrice(price);
+		product.setNumber(number);
+		product.setCategory(category);
+		productRepo.save(product);
 		return "redirect:/edit/"+product.getId();
 	}
 	
@@ -146,7 +159,8 @@ public class RegistrationController {
 	/* SEARCH PRODUCT */
 	@RequestMapping("/searchProduct")
 	public String search(@RequestParam("productName") String name, @RequestParam int minp , @RequestParam int maxp , Model model, Principal principal) {
-		
+		List<Category> categories = categoryRepo.findAll();
+		model.addAttribute("categories", categories);
 		List<Product> products = productService.productSearch(name , minp , maxp);
 		model.addAttribute("products", products);
 		String email = principal.getName();
@@ -163,6 +177,8 @@ public class RegistrationController {
 	public String taiNghe(Model model, Principal principal) {
 		List<Product> products = productService.earPhone();
 		model.addAttribute("products", products);
+		List<Category> categories = categoryRepo.findAll();
+		model.addAttribute("categories", categories);
 		String email = principal.getName();
 		User user = userRepo.findUserByEmail(email);
 		if (user.getUser_role().equalsIgnoreCase("admin")) {
@@ -199,6 +215,8 @@ public class RegistrationController {
 		model.addAttribute("taiNgheKhongDays", taiNgheKhongDays);
 		String email = principal.getName();
 		User user = userRepo.findUserByEmail(email);
+		List<Category> categories = categoryRepo.findAll();
+		model.addAttribute("categories", categories);
 		if (user.getUser_role().equalsIgnoreCase("admin")) {
 			model.addAttribute("role", user.getUser_role());
 		}
@@ -213,6 +231,8 @@ public class RegistrationController {
 		model.addAttribute("taiNgheBluetooths", taiNgheBluetooths);
 		String email = principal.getName();
 		User user = userRepo.findUserByEmail(email);
+		List<Category> categories = categoryRepo.findAll();
+		model.addAttribute("categories", categories);
 		if (user.getUser_role().equalsIgnoreCase("admin")) {
 			model.addAttribute("role", user.getUser_role());
 		}
@@ -228,6 +248,8 @@ public class RegistrationController {
 		String email = principal.getName();
 		User user = userRepo.findUserByEmail(email);
 		model.addAttribute("user", user);
+		List<Category> categories = categoryRepo.findAll();
+		model.addAttribute("categories", categories);
 		if (user.getUser_role().equalsIgnoreCase("admin")) {
 			model.addAttribute("role", user.getUser_role());
 		}
@@ -242,6 +264,8 @@ public class RegistrationController {
 		model.addAttribute("phoneSamsungs", phoneSamsungs);
 		String email = principal.getName();
 		User user = userRepo.findUserByEmail(email);
+		List<Category> categories = categoryRepo.findAll();
+		model.addAttribute("categories", categories);
 		if (user.getUser_role().equalsIgnoreCase("admin")) {
 			model.addAttribute("role", user.getUser_role());
 		}
@@ -256,6 +280,8 @@ public class RegistrationController {
 		model.addAttribute("iphones", iphones);
 		String email = principal.getName();
 		User user = userRepo.findUserByEmail(email);
+		List<Category> categories = categoryRepo.findAll();
+		model.addAttribute("categories", categories);
 		if (user.getUser_role().equalsIgnoreCase("admin")) {
 			model.addAttribute("role", user.getUser_role());
 		}
@@ -271,6 +297,8 @@ public class RegistrationController {
 		String email = principal.getName();
 		User user = userRepo.findUserByEmail(email);
 		model.addAttribute("user", user);
+		List<Category> categories = categoryRepo.findAll();
+		model.addAttribute("categories", categories);
 		if (user.getUser_role().equalsIgnoreCase("admin")) {
 			model.addAttribute("role", user.getUser_role());
 		}
@@ -285,6 +313,8 @@ public class RegistrationController {
 		String email = principal.getName();
 		User user = userRepo.findUserByEmail(email);
 		model.addAttribute("user", user);
+		List<Category> categories = categoryRepo.findAll();
+		model.addAttribute("categories", categories);
 		if (user.getUser_role().equalsIgnoreCase("admin")) {
 			model.addAttribute("role", user.getUser_role());
 		}
@@ -299,6 +329,8 @@ public class RegistrationController {
 		String email = principal.getName();
 		User user = userRepo.findUserByEmail(email);
 		model.addAttribute("user", user);
+		List<Category> categories = categoryRepo.findAll();
+		model.addAttribute("categories", categories);
 		if (user.getUser_role().equalsIgnoreCase("admin")) {
 			model.addAttribute("role", user.getUser_role());
 		}
@@ -313,6 +345,8 @@ public class RegistrationController {
 		String email = principal.getName();
 		User user = userRepo.findUserByEmail(email);
 		model.addAttribute("user", user);
+		List<Category> categories = categoryRepo.findAll();
+		model.addAttribute("categories", categories);
 		if (user.getUser_role().equalsIgnoreCase("admin")) {
 			model.addAttribute("role", user.getUser_role());
 		}
@@ -327,6 +361,8 @@ public class RegistrationController {
 		String email = principal.getName();
 		User user = userRepo.findUserByEmail(email);
 		model.addAttribute("user", user);
+		List<Category> categories = categoryRepo.findAll();
+		model.addAttribute("categories", categories);
 		if (user.getUser_role().equalsIgnoreCase("admin")) {
 			model.addAttribute("role", user.getUser_role());
 		}
@@ -341,6 +377,8 @@ public class RegistrationController {
 		String email = principal.getName();
 		User user = userRepo.findUserByEmail(email);
 		model.addAttribute("user", user);
+		List<Category> categories = categoryRepo.findAll();
+		model.addAttribute("categories", categories);
 		if (user.getUser_role().equalsIgnoreCase("admin")) {
 			model.addAttribute("role", user.getUser_role());
 		}
@@ -355,6 +393,8 @@ public class RegistrationController {
 		String email = principal.getName();
 		User user = userRepo.findUserByEmail(email);
 		model.addAttribute("user", user);
+		List<Category> categories = categoryRepo.findAll();
+		model.addAttribute("categories", categories);
 		if (user.getUser_role().equalsIgnoreCase("admin")) {
 			model.addAttribute("role", user.getUser_role());
 		}
@@ -388,46 +428,26 @@ public class RegistrationController {
 	
 	@GetMapping("/")
 	public String home(Model model , Principal principal) {
-//		List<Product> products = productService.getAllProduct();
-//		model.addAttribute("products", products);
-//		String email = principal.getName();
-//		User user = userRepo.findUserByEmail(email);
-//		model.addAttribute("user", user);
-//		if (user.getUser_role().equalsIgnoreCase("admin")) {
-//			model.addAttribute("role", user.getUser_role());
-//		}
-//		return "other/homePage";
-//////		List<Product> products = productService.getAllProduct();
-		model.addAttribute("categories", categories);
-		return findPaginated(1, model, principal);
-	}
-
-	@RequestMapping("/page/{pageNum}")
-	public String findPaginated(@PathVariable int pageNum , Model model, Principal principal) {
-		model.addAttribute("categories", categories);
-		int pageSize = 5;
-		Page<Product> page = productService.findPaginated(pageNum, pageSize);
-		List<Product> products = page.getContent();
-		model.addAttribute("currentPage", pageNum);
-		model.addAttribute("totalPages", page.getTotalPages());
-		model.addAttribute("totalItems", page.getTotalElements());
+		List<Product> products = productService.getAllProduct();
 		model.addAttribute("products", products);
 		String email = principal.getName();
 		User user = userRepo.findUserByEmail(email);
 		model.addAttribute("user", user);
+		List<Category> categories = categoryRepo.findAll();
+		model.addAttribute("categories", categories);
 		if (user.getUser_role().equalsIgnoreCase("admin")) {
 			model.addAttribute("role", user.getUser_role());
 		}
 		return "other/homePage";
 	}
 
-	/* SIGN UP */
-
 	/* THONG KE LAPTOP HP */
 	@GetMapping("/laptopHp")
 	public String laptopHp(Model model, Principal principal) {
 		List<Product> hps = productService.laptopHp();
 		model.addAttribute("hps", hps);
+		List<Category> categories = categoryRepo.findAll();
+		model.addAttribute("categories", categories);
 		String email = principal.getName();
 		User user = userRepo.findUserByEmail(email);
 		model.addAttribute("user", user);
@@ -437,6 +457,7 @@ public class RegistrationController {
 		return "groupBy/laptop/hp";
 	}
 
+	/* SIGN UP */
 	@PostMapping("/save")
 	public String save(MultipartFile file, User user) {
 		userService.saveUserToDB(file, user);
