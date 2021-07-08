@@ -1,9 +1,8 @@
-var addProduct;
+
 $(document).ready(function() {
 	$(".link-remove").on("click", function(evt) {
 		evt.preventDefault();
 		deleteProduct($(this));
-		$("#deleteProductModal").modal('hide');
 	});
 });
 
@@ -27,4 +26,6 @@ function deleteProduct(link) {
 function removeProduct(rowNumber) {
 	rowId = "row" + rowNumber;
 	$("#productTable #" + rowId).remove();
+	$("#deleteSuccessModal").modal('show');
 }
+

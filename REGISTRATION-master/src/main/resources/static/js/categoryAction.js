@@ -1,19 +1,20 @@
-var addProduct;
+/**
+ * 
+ */
 $(document).ready(function() {
 	$(".link-remove").on("click", function(evt) {
 		evt.preventDefault();
-		deleteBill($(this));
-		$("#deleteBillModal").modal('hide');
+		deleteProduct($(this));
 	});
 });
 
-function deleteBill(link) {
+function deleteProduct(link) {
 	url = link.attr("href");
-	$("#deleteBillModal #delRef").attr("href", url);
-	$("#deleteBillModal #delRef").on("click", function() {
+	$("#deleteCategoryModal #delRef").attr("href", url);
+	$("#deleteCategoryModal #delRef").on("click", function() {
 		$.ajax({
 			type: "POST",
-			url: $("#deleteBillModal #delRef").attr("href"),
+			url: $("#deleteCategoryModal #delRef").attr("href"),
 			beforeSend: function(xhr) {
 				xhr.setRequestHeader(csrfHeader, csrfToken);
 			}
@@ -26,5 +27,6 @@ function deleteBill(link) {
 
 function removeProduct(rowNumber) {
 	rowId = "row" + rowNumber;
-	$("#billTable #" + rowId).remove();
+	$("#categoryTable #" + rowId).remove();
 }
+

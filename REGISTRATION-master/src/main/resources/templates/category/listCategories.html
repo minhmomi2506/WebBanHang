@@ -448,70 +448,27 @@
 			<section class="content">
 				<div class="col-12">
 					<hr>
-					<table class="table" id="billTable">
+					<table class="table" id="categoryTable">
 						<thead class="thead-dark">
 							<tr>
-								<th scope="col">IMAGE</th>
-								<th scope="col">NAME</th>
-								<th scope="col">QUANTITY</th>
-								<th scope="col">PRICE(VND)</th>
-								<th scope="col">HOW_TO_PAY</th>
-								<th scope="col">BUY_DATE</th>
-								<th scope="col">USER'S PHONENUMBER</th>
-								<th scope="col">USER'S NAME</th>
-								<th scope="col">ADDRESS</th>
-								<th scope="col">STATUS</th>
-								<th scope="col">ACTION</th>
+								<th scope="col">CATEGORY NAME</th>
+								<th scope="col" th:if="${role}">ACTION</th>
 							</tr>
 						</thead>
-						<tbody th:each="bill , status : ${bills}">
-							<tr>
-								<th scope="row"><img alt=""
-									th:src="*{'data:image/jpeg;base64,'+{bill.product.image}}"
-									style="width: 100px; height: 100px;"></th>
-								<td>[[*{bill.product.name}]]</td>
-								<td>[[*{bill.quantity}]]</td>
-								<td>[[*{bill.toTal}]]</td>
-								<td>[[*{bill.howToPay}]]</td>
-								<td>[[*{bill.buyDate}]]</td>
-								<td>[[*{bill.user.phoneNumber}]]</td>
-								<td>[[*{bill.user.fullName}]]</td>
-								<td>[[*{bill.user.address}]]</td>
-								<td>[[*{bill.status}]]</td>
-								<td><a th:href="@{'/editBill/'+${bill.id}}"
-									class="fa fa-pencil link-edit" data-toggle="modal"
-									th:data-target="'#editBillModal'+${bill.id}"
-									th:billNumber="${bill.id}"></a>
-									<div class="modal" th:id="'editBillModal'+${bill.id}"
-										tabindex="-1" role="dialog" style="height: 500px;">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h4 class="modal-title">Sửa trạng thái đơn hàng</h4>
-													<button type="button" class="close" data-dismiss="modal">&times;</button>
-												</div>
-												<div class="modal-body">
-														<input type="text" name="id" class="form-control mb-4"
-															th:value="${bill.id}" hidden="hidden">
-														<div class="custom-file mb-4" th:each = "number : 10000000">
-															<select name="status" required="required">
-																<option th:text="${bill.status}">
-																<option th:each="status , count : ${statuses}"
-																	th:text="${status}" th:id="'status'+${bill.id}">
-							
-															</select>
-														</div>
-														<button class="btn btn-info btn-block"
-															th:id="'editBillButton'+${bill.id}" type="button">edit</button>
-												</div>
-											</div>
-										</div>
-									</div></td>
+						<tbody th:each="category , status : ${categories}">
+							<tr th:id="'row' + ${category.id}">
+								<td>[[*{category.categoryName}]]</td>
+								<td th:if="${role}"><a
+									th:href="@{'/deleteCategory/'+${category.id}}"
+									class="fa fa-trash link-remove" id="deleteCategoryButton"
+									data-toggle="modal" data-target="#deleteCategoryModal"
+									th:rowNumber="${category.id}"></a></td>
 							</tr>
 						</tbody>
 					</table>
 					<hr>
 				</div>
+
 			</section>
 			<!-- /.content -->
 		</div>
@@ -531,13 +488,47 @@
 		</aside>
 		<!-- /.control-sidebar -->
 	</div>
+	<!-- ./wrapper -->
+
+	<!-- jQuery -->
+	<div class="modal" id="deleteCategoryModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Modal Heading</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">Are you sure want to delete?</div>
+				<div class="modal-footer">
+					<a href="" id="delRef" class="btn btn-primary link-remove">Delete</a>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<div class="modal" id="deleteSuccessModal" tabindex="-1" role="dialog"
+		style="height: 500px;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Thông báo</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<i class="fa fa-check" aria-hidden="true" style="color: green;"></i>
+					Xóa hạng mục thành công!
+				</div>
+			</div>
+		</div>
+	</div>
 	<script type="text/javascript">
 		var contextPath = "[[@{/}]]";
 		var csrfHeader = "[[${_csrf.headerName}]]";
 		var csrfToken = "[[${_csrf.token}]]";
 	</script>
-	<script th:src="@{/js/billAction.js}"></script>
+	<script th:src="@{/js/categoryAction.js}"></script>
+	<script th:src="@{/js/showImagePreview.js}"></script>
 </body>
 </html>
-
 
