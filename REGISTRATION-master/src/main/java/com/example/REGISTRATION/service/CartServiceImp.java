@@ -11,10 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.REGISTRATION.entity.Bill;
 import com.example.REGISTRATION.entity.CartItem;
 import com.example.REGISTRATION.entity.Product;
+import com.example.REGISTRATION.entity.Status;
 import com.example.REGISTRATION.entity.User;
 import com.example.REGISTRATION.repo.BillRepo;
 import com.example.REGISTRATION.repo.CartRepo;
 import com.example.REGISTRATION.repo.ProductRepo;
+import com.example.REGISTRATION.repo.StatusRepo;
 
 @Component
 @Transactional
@@ -27,6 +29,9 @@ public class CartServiceImp implements CartService {
 	
 	@Autowired
 	private BillRepo billRepo;
+	
+	@Autowired
+	private StatusRepo statusRepo;
 
 	@Override
 	public List<CartItem> listCartItems(User user) {
@@ -38,7 +43,7 @@ public class CartServiceImp implements CartService {
 		return productsInCart;
 	}
 	
-	/*BUY PRODUCT*/
+	/*CHECK OUT*/
 	@Override
 	public void checkOut(User user , String howToPay) {
 		// TODO Auto-generated method stub
@@ -55,7 +60,8 @@ public class CartServiceImp implements CartService {
 			Product product = cartItem.getProduct();
 			product.setNumber(product.getNumber() - cartItem.getQuantity());
 			bill.setToTal(bill.getQuantity() * cartItem.getProduct().getPrice());
-			bill.setStatus("Đang xử lý");
+			Status status = statusRepo.findStatusByStatusName("Đang xử lý");
+			bill.setStatus(status);
 			productRepo.save(product);
 			billRepo.save(bill);
 		}

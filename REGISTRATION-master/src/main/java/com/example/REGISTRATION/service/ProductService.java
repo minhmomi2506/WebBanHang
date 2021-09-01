@@ -9,7 +9,7 @@ import com.example.REGISTRATION.entity.Product;
 
 @Service
 public interface ProductService {
-	public void saveProductToDB(Product product , MultipartFile file);
+	public Product saveProductToDB(Product product, MultipartFile file);
 
 	public List<Product> getAllProduct();
 
@@ -17,19 +17,19 @@ public interface ProductService {
 	
 	void editProductImage(Long id, MultipartFile file) ;
 	
-	void editProduct(Long id , String name , String description , int price ,int number , String categoryName);
+	Product editProduct(Long id , Product product);
 	
 	Product findProductById(Long id);
 	
 	List<Product> productSearch(String name , int minp , int maxp);
 	
-	List<Product> groupBy(String categoryName);
+	List<Product> earPhone();
 	
 //	List<Product> earPhoneKhongDay();
 //	
 //	List<Product> earPhoneBluetooth();
 //	
-//	List<Product> mobilePhone();
+	List<Product> mobilePhone();
 //	
 //	List<Product> mobilePhoneSamsung();
 //	
@@ -49,5 +49,5 @@ public interface ProductService {
 //	
 //	List<Product> laptopHp();
 //	
-//	List<Product> laptop();
+	List<Product> laptop();
 }

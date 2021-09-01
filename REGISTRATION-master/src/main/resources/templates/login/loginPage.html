@@ -71,7 +71,7 @@
 				</div>
 				<div class="modal-body">
 					<form th:action="@{/save}" method="post"
-						enctype="multipart/form-data">
+						enctype="multipart/form-data" id="registerForm">
 						<div class="form-group">
 							<label for="email">EMAIL:</label> <input type="email"
 								class="form-control" id="email" placeholder="Enter email"
@@ -82,25 +82,26 @@
 								class="form-control" id="password" placeholder="Enter password"
 								name="password" required="required" style="width: 450px;">
 						</div>
-						<span id="message"></span>
 						<div class="form-group">
 							<label for="fullName">FULL NAME:</label> <input type="text"
 								class="form-control" id="fullName" name="fullName"
-								required="required" style="width: 450px;">
+								required="required" style="width: 450px;"
+								placeholder="Enter full name">
 						</div>
 						<div class="form-group">
 							<label for="phoneNumber">PHONE NUMBER:</label> <input type="text"
 								class="form-control" id="phoneNumber" name="phoneNumber"
-								required="required" style="width: 450px;">
+								required="required" style="width: 450px;"
+								placeholder="Enter phone number">
 						</div>
 						<div class="form-group">
 							<label for="address">ADDRESS:</label> <input type="text"
 								class="form-control" id="address" name="address"
-								required="required" style="width: 450px;">
+								required="required" style="width: 450px;"
+								placeholder="Enter address">
 						</div>
 						<div class="form-group">
-							<input type="file" name="file" id="file"
-								onchange="ShowImagePreview(this,document.getElementById('showImage'))">
+							<input type="file" name="file" id="file">
 						</div>
 						<div></div>
 						<button type="submit">Sign up</button>
@@ -109,7 +110,5 @@
 			</div>
 		</div>
 	</div>
-<script type="text/javascript"></script>
-<script th:src="@{/js/showImagePreview.js}"></script>
 </body>
 </html>

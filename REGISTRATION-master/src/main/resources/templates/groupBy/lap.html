@@ -1,8 +1,40 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
-<title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AdminLTE 3 | Dashboard</title>
+
+<!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet"
+	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- Tempusdominus Bootstrap 4 -->
+<link rel="stylesheet"
+	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<!-- iCheck -->
+<link rel="stylesheet"
+	href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+<!-- JQVMap -->
+<link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="dist/css/adminlte.min.css">
+<!-- overlayScrollbars -->
+<link rel="stylesheet"
+	href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+<!-- Daterange picker -->
+<link rel="stylesheet"
+	href="plugins/daterangepicker/daterangepicker.css">
+<!-- summernote -->
+<link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script
@@ -11,134 +43,107 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
-<link rel="stylesheet" type="text/css"
-	th:href="@{/css/dropDownList.css}" />
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+	$.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="plugins/moment/moment.min.js"></script>
+<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script
+	src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script
+	src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="dist/js/pages/dashboard.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
-<body>
-	<div th:fragment="navbar">
-		<nav class="navbar navbar-expand-sm bg-light"
-			style="text-align: center;">
-			<button class="fa fa-bars dropdown-toggle" data-toggle="dropdown"
-				style="background-color: black; color: white; height: 47.3px"></button>
-			<div class="dropdown-menu">
-				<form th:action="@{/taiNghe}">
-					<div class="dropdown">
-						<button class="fa fa-headphones dropbtn"
-							style="width: 100px; height: 50px; text-align: left;"
-							type="submit">Tai nghe</button>
-						<div class="dropdown-content">
-							<a th:href="@{/taiNgheKhongDay}" class="btn btn-primary">Tai
-								nghe không dây</a> <a th:href="@{/taiNgheBluetooth}"
-								class="btn btn-primary">Tai nghe Bluetooth</a>
-						</div>
-					</div>
-				</form>
-				<form th:action="@{/dienThoai}">
-					<div class="dropdown">
-						<button class="fa fa-mobile dropbtn"
-							style="width: 100px; height: 50px; text-align: left;"
-							type="submit">Điện thoại</button>
-						<div class="dropdown-content">
-							<a th:href="@{/dienThoaiSamsung}" class="btn btn-primary">Samsung</a>
-							<a th:href="@{/dienThoaiiphone}" class="btn btn-primary">iPhone</a>
-							<a th:href="@{/dienThoaiXiaomi}" class="btn btn-primary">Xiaomi</a>
-							<a th:href="@{/dienThoaiHuawei}" class="btn btn-primary">Huawei</a>
-						</div>
-					</div>
-				</form>
-				<form th:action="@{/laptop}">
-					<div class="dropdown">
-						<button class="fa fa-laptop dropbtn"
-							style="width: 100px; height: 50px; text-align: left;"
-							type="submit">Laptop</button>
-						<div class="dropdown-content">
-							<a th:href="@{/laptopApple}" class="btn btn-primary">Apple</a> <a
-								th:href="@{/laptopDell}" class="btn btn-primary">Dell</a> <a
-								th:href="@{/laptopASUS}" class="btn btn-primary">ASUS</a> <a
-								th:href="@{/laptopLenovo}" class="btn btn-primary">Lenovo</a> <a
-								th:href="@{/laptopHp}" class="btn btn-primary">hp</a>
-						</div>
-					</div>
-				</form>
-			</div>
-			<ul class="navbar-nav" style="background-color: black;">
-				<li class="nav-item" th:if="${role}"><a th:href="@{/list_users}"
-					class="nav-link" style="color: white;" >LIST ALL USERS</a></li>
-				<li class="nav-item" th:if="${role}"><a th:href="@{/addProduct}"
-					class="nav-link" style="color: white;" th:if="${role}"
-					data-toggle="modal" data-target="#addProductModal">ADD PRODUCT</a>
-					<div class="modal" id="addProductModal" tabindex="-1" role="dialog">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h4 class="modal-title">ADD PRODUCT</h4>
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-								</div>
-								<div class="modal-body">
-									<form class="text-center border border-light p-5"
-										th:action="@{/addP}" method="post"
-										enctype="multipart/form-data">
+<body class="hold-transition sidebar-mini layout-fixed">
+	<div class="wrapper">
 
-										<!-- Name -->
-										<input type="text" name="name" id="name"
-											class="form-control mb-4" placeholder="Product Name">
+		<!-- Preloader -->
+		<div
+			class="preloader flex-column justify-content-center align-items-center">
+			<img class="animation__shake" src="dist/img/AdminLTELogo.png"
+				alt="AdminLTELogo" height="60" width="60">
+		</div>
 
-										<!-- Price -->
-										<input type="number" name="price" id="price"
-											class="form-control mb-4" placeholder="Product Price"
-											required="required">
+		<!-- Navbar -->
+		<nav
+			class="main-header navbar navbar-expand navbar-white navbar-light">
+			<!-- Left navbar links -->
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link" data-widget="pushmenu"
+					href="#" role="button"><i class="fas fa-bars"></i></a></li>
+				<li class="nav-item d-none d-sm-inline-block"><a th:href="@{/}"
+					class="nav-link">Home</a></li>
+				<li class="nav-item d-none d-sm-inline-block"><a href=""
+					id="aaa" class="nav-link">Contact</a></li>
+			</ul>
 
-										<!-- Description -->
-										<input type="text" name="description" id="description"
-											class="form-control mb-4" placeholder="Product Description">
-											
-										
-										<input type="number" name="number" id="number"
-											class="form-control mb-4" placeholder="Product Number">
-
-										<div class="custom-file mb-4">
-											<img alt="" src="" style="width: 200px; height: 200px;"
-												id="productImage"><div></div> <input type="file" name="file"
-												onchange="ShowImagePreview(this,document.getElementById('productImage'))" style="text-align: center;">
-										</div>
-
-										<div class="custom-file mb-4">
-											<select name="category" required="required">
-												<option th:each="category : ${categories}"
-													th:value="${category.id}" th:text = ${category.categoryName}></option>
-											</select>
-										</div>
-										<button class="btn btn-info btn-block" type="submit"
-											id="addProduct">add</button>
-									</form>
+			<!-- Right navbar links -->
+			<ul class="navbar-nav ml-auto">
+				<!-- Navbar Search -->
+				<li class="nav-item"><a class="nav-link"
+					data-widget="navbar-search" href="#" role="button"> <i
+						class="fas fa-search"></i>
+				</a>
+					<div class="navbar-search-block">
+						<form class="form-inline" th:action="@{/searchProduct}"
+							method="get">
+							<input class="form-control form-control-navbar" type="search"
+								placeholder="Search" aria-label="Search" name="productName">
+							Chọn mức giá:<input type="number" name="minp"
+								class="form-control form-control-navbar" value="0"><span
+								style="color: white;"></span> đến <input type="number"
+								name="maxp" class="form-control form-control-navbar"
+								value="100000000">
+							<div class="input-group input-group-sm">
+								<div class="input-group-append">
+									<button class="btn btn-navbar" type="submit">
+										<i class="fas fa-search"></i>
+									</button>
+									<button class="btn btn-navbar" type="button"
+										data-widget="navbar-search">
+										<i class="fas fa-times"></i>
+									</button>
 								</div>
 							</div>
-						</div>
+						</form>
 					</div></li>
-				<li class="nav-item">
-					<form th:action="@{/searchProduct}" class="nav-link" method="get">
-						<input type="text" placeholder="Search" name="productName"
-							id="productName"> <span style="color: white;">Giá
-							từ</span><input type="number" name="minp"
-							style="width: 100px; text-align: right;" value="0"><span
-							style="color: white;">đến</span><input type="number" name="maxp"
-							style="width: 100px; text-align: right;" value="100000000">
-						<button class="fa fa-search" aria-hidden="true" type="submit"
-							style="height: 29.5px;"></button>
-					</form>
-				</li>
-				<li class="nav-item"><a th:href="@{/cart}"
-					class="nav-link fa fa-shopping-cart" style="color: white;"></a></li>
 			</ul>
 		</nav>
-	</div>
-	<script th:src="@{/js/showImagePreview.js}"></script>
-</body>
-</html>
+		<!-- /.navbar -->
 
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+		<!-- Main Sidebar Container -->
+		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
 			<a th:href="@{/}" class="brand-link"> <img
 				src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
@@ -174,8 +179,6 @@
 						</div>
 					</div>
 				</div>
-
-				<!-- Sidebar Menu -->
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column"
 						data-widget="treeview" role="menu" data-accordion="false">
@@ -183,7 +186,21 @@
 							class="nav-link active"> <i
 								class="nav-icon fas fa-tachometer-alt"></i> Danh mục <i
 								class="right fas fa-angle-left"></i>
-						</a></li>
+						</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item"><a th:href="@{/taiNghe}"
+									class="nav-link"> <i class="fa fa-headphones nav-icon"></i>
+										Tai nghe
+								</a></li>
+								<li class="nav-item"><a th:href="@{/dienThoai}"
+									class="nav-link"> <i class="fa fa-mobile nav-icon"></i>
+										Điện thoại
+								</a></li>
+								<li class="nav-item"><a th:href="@{/laptop}"
+									class="nav-link"> <i class="fa fa-laptop nav-icon"></i>
+										Laptop
+								</a></li>
+							</ul></li>
 						<li class="nav-header" style="font-weight: bold;" th:if="${role}">SẢN
 							PHẨM</li>
 
@@ -214,22 +231,7 @@
 							th:href="@{/list_users}" class="nav-link"> <i
 								class="nav-icon far fa-calendar-alt"></i> Danh sách khách hàng
 						</a></li>
-						<li class="nav-item"><a href="#" class="nav-link"
-							th:if="${role}"> <i class="nav-icon fas fa-search"></i>
 
-								Search <i class="fas fa-angle-left right"></i>
-
-						</a>
-							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="pages/search/simple.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										Simple Search
-								</a></li>
-								<li class="nav-item"><a href="pages/search/enhanced.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										Enhanced
-								</a></li>
-							</ul></li>
 						<li class="nav-header" style="font-weight: bold;" th:if="${role}">BÁN
 							HÀNG</li>
 						<li class="nav-item"><a th:href="@{/listBill}"
@@ -274,10 +276,10 @@
 						<!-- /.col -->
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-								<li class="nav-item" th:unless="${role}">/<a
-									th:href="@{/cart}" class="nav-link fa fa-shopping-cart"
-									style="color: black;"></a></li>
+								<li class="breadcrumb-item"><a th:href="@{/}"><i>Home</i></a></li>
+								<li class="breadcrumb-item" th:unless="${role}"><a
+									th:href="@{/cart}" class="nav-link"><i class="fa fa-shopping-cart"></i><span
+										class="badge badge-danger navbar-badge" id="cartNumber">0</span></a></li>
 							</ol>
 						</div>
 						<!-- /.col -->
@@ -467,10 +469,11 @@
 								<td>[[*{product.description}]]</td>
 								<td>[[*{product.price}]]</td>
 								<td>[[*{product.number}]]</td>
+								<td th:unless="${role}"><a
+									th:href="@{'/buyProduct/'+${product.id}}" class="fa fa-plus"></a></td>
 								<td th:if="${role}"><a
 									th:href="@{'/deleteProductById/'+${product.id}}"
 									class="fa fa-trash link-remove" id="deleteProductButton"
-									data-toggle="modal" data-target="#deleteProductModal"
 									th:rowNumber="${product.id}"></a> &nbsp; <a href=""
 									class="fa fa-pencil" data-toggle="modal"
 									th:data-target="'#editProductInfoModal'+${product.id}"></a>
@@ -540,8 +543,6 @@
 											</div>
 										</div>
 									</div></td>
-								<td th:unless="${role}"><a
-									th:href="@{'/buyProduct/'+${product.id}}" class="fa fa-plus"></a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -569,34 +570,6 @@
 	<!-- ./wrapper -->
 
 	<!-- jQuery -->
-	<div class="modal" id="deleteProductModal" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Modal Heading</h4>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-				<div class="modal-body">Are you sure want to delete?</div>
-				<div class="modal-footer">
-					<a href="" id="delRef" class="btn btn-primary link-remove">Delete</a>
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-				</div>
-
-			</div>
-		</div>
-	</div>
-	<div class="modal" id="deleteSuccessModal" tabindex="-1" role="dialog"
-		style="height: 500px;">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<i class="fa fa-check" aria-hidden="true" style="color: green;"></i>
-				Xóa sản phẩm thành công!
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
 	<script type="text/javascript">
 		var contextPath = "[[@{/}]]";
 		var csrfHeader = "[[${_csrf.headerName}]]";
@@ -604,28 +577,5 @@
 	</script>
 	<script th:src="@{/js/productAction.js}"></script>
 	<script th:src="@{/js/showImagePreview.js}"></script>
-
-	<!-- REQUIRED SCRIPTS -->
-	<!-- jQuery -->
-	<script src="plugins/jquery/jquery.min.js"></script>
-	<!-- Bootstrap -->
-	<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- overlayScrollbars -->
-	<script
-		src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-	<!-- AdminLTE App -->
-	<script src="dist/js/adminlte.js"></script>
-
-	<!-- PAGE PLUGINS -->
-	<!-- jQuery Mapael -->
-	<script src="plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-	<script src="plugins/raphael/raphael.min.js"></script>
-	<script src="plugins/jquery-mapael/jquery.mapael.min.js"></script>
-	<script src="plugins/jquery-mapael/maps/usa_states.min.js"></script>
-	<!-- ChartJS -->
-	<script src="plugins/chart.js/Chart.min.js"></script>
-
-	<!-- AdminLTE for demo purposes -->
-	<script src="dist/js/demo.js"></script>
-	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-	<script src="dist/js/pages/dashboard2.js"></script>
+</body>
+</html>

@@ -47,21 +47,26 @@ public class UserService implements UserDetailsService {
 		userRepo.deleteUserById(id);
 	}
 	
-	public void editUserInformation(User user , String fullName , String phoneNumber , String address) {
-		user.setFullName(fullName);
-		user.setPhoneNumber(phoneNumber);
+	/*EDIT USER INFO*/
+	public User editUserInformation(Long id , User user) {
+		User user1 = userRepo.findUserById(id);
+		user1.setFullName(user.getFullName());
+		user1.setPhoneNumber(user.getPhoneNumber());
 //		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 //		String encodedPassword = encoder.encode(password);
 //		user.setPassword(encodedPassword);
-		user.setAddress(address);
-		userRepo.save(user);
+		user1.setAddress(user.getAddress());
+		userRepo.save(user1);
+		return user1;
 	}
 	
-	public void editUserPassword(User user , String password) {
+	public User editUserPassword(Long id , User user) {
+		User user1 = userRepo.findUserById(id);
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		String encodedPassword = encoder.encode(password);
-		user.setPassword(encodedPassword);
-		userRepo.save(user);
+		String encodedPassword = encoder.encode(user.getPassword());
+		user1.setPassword(encodedPassword);
+		userRepo.save(user1);
+		return user1;
 	}
 	
 	public void editUserImage(MultipartFile file , User user) {
@@ -78,6 +83,7 @@ public class UserService implements UserDetailsService {
 		userRepo.save(user);
 	}
 	
+	/*REGISTER*/
 	public void saveUserToDB(MultipartFile file, User user) {
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 		if (fileName.contains("..")) {

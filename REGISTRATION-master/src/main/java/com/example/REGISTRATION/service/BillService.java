@@ -13,7 +13,11 @@ public interface BillService {
 	
 	List<Bill> findByUser(User user);
 	
-	void editBill(Long id , String status);
+	Bill editBill(Long id , Bill bill);
 	
-	void deleteBill(Long id);
+	Bill cancelBill(Long id);
+	
+	int totalMoney(int month , int year);
+	
+	List<Bill> getAllByMonthAndYear(int month , int year);
 }

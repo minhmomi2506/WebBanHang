@@ -33,6 +33,10 @@
 <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
@@ -74,10 +78,12 @@
 <script src="dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard.js"></script>
-<link rel="stylesheet"
-	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
-<link rel="stylesheet" type="text/css"
-	th:href="@{/css/dropDownList.css}" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 	<div class="wrapper">
@@ -98,8 +104,8 @@
 					href="#" role="button"><i class="fas fa-bars"></i></a></li>
 				<li class="nav-item d-none d-sm-inline-block"><a th:href="@{/}"
 					class="nav-link">Home</a></li>
-				<li class="nav-item d-none d-sm-inline-block"><a href="#"
-					class="nav-link">Contact</a></li>
+				<li class="nav-item d-none d-sm-inline-block"><a href=""
+					id="aaa" class="nav-link">Contact</a></li>
 			</ul>
 
 			<!-- Right navbar links -->
@@ -112,14 +118,14 @@
 					<div class="navbar-search-block">
 						<form class="form-inline" th:action="@{/searchProduct}"
 							method="get">
+							<input class="form-control form-control-navbar" type="search"
+								placeholder="Search" aria-label="Search" name="productName">
+							Chọn mức giá:<input type="number" name="minp"
+								class="form-control form-control-navbar" value="0"><span
+								style="color: white;"></span> đến <input type="number"
+								name="maxp" class="form-control form-control-navbar"
+								value="100000000">
 							<div class="input-group input-group-sm">
-								<input class="form-control form-control-navbar" type="search"
-									placeholder="Search" aria-label="Search" name="productName"
-									id="productName"> <input type="number" name="minp"
-									style="width: 100px; text-align: right;" value="0"><span
-									style="color: white;">đến</span><input type="number"
-									name="maxp" style="width: 100px; text-align: right;"
-									value="100000000">
 								<div class="input-group-append">
 									<button class="btn btn-navbar" type="submit">
 										<i class="fas fa-search"></i>
@@ -132,10 +138,6 @@
 							</div>
 						</form>
 					</div></li>
-
-				<!-- Messages Dropdown Menu -->
-				</a>
-				<!-- Notifications Dropdown Menu -->
 			</ul>
 		</nav>
 		<!-- /.navbar -->
@@ -177,26 +179,27 @@
 						</div>
 					</div>
 				</div>
-
-				<!-- Sidebar Menu -->
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column"
 						data-widget="treeview" role="menu" data-accordion="false">
-						<!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
 						<li class="nav-item menu-close"><a href="#"
 							class="nav-link active"> <i
-								class="nav-icon fas fa-tachometer-alt"></i>
-								<p>
-									Danh mục <i class="right fas fa-angle-left"></i>
-								</p>
+								class="nav-icon fas fa-tachometer-alt"></i> Danh mục <i
+								class="right fas fa-angle-left"></i>
 						</a>
-							<ul class="nav nav-treeview" th:each="category : ${categories}">
-								<li class="nav-item"><a th:href="@{'/' +${category.categoryName}}"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>[[${category.categoryName}]]</p>
+							<ul class="nav nav-treeview">
+								<li class="nav-item"><a th:href="@{/taiNghe}"
+									class="nav-link"> <i class="fa fa-headphones nav-icon"></i>
+										Tai nghe
 								</a></li>
-
+								<li class="nav-item"><a th:href="@{/dienThoai}"
+									class="nav-link"> <i class="fa fa-mobile nav-icon"></i>
+										Điện thoại
+								</a></li>
+								<li class="nav-item"><a th:href="@{/laptop}"
+									class="nav-link"> <i class="fa fa-laptop nav-icon"></i>
+										Laptop
+								</a></li>
 							</ul></li>
 						<li class="nav-header" style="font-weight: bold;" th:if="${role}">SẢN
 							PHẨM</li>
@@ -204,8 +207,7 @@
 						<li class="nav-item" th:if="${role}"><a
 							th:href="@{/addProduct}" class="nav-link" data-toggle="modal"
 							data-target="#addProductModal"> <i
-								class="nav-icon fas fa-plus"></i>
-								<p>Thêm sản phẩm</p>
+								class="nav-icon fas fa-plus"></i> Thêm sản phẩm
 
 						</a></li>
 
@@ -213,15 +215,13 @@
 							MỤC</li>
 						<li class="nav-item" th:if="${role}"><a
 							th:href="@{/listCategories}" class="nav-link"> <i
-								class="nav-icon fas fa-list-ul"></i>
-								<p>Danh sách hạng mục</p>
+								class="nav-icon fas fa-list-ul"></i> Danh sách hạng mục
 
 						</a></li>
 						<li class="nav-item" th:if="${role}"><a
 							th:href="@{/addCategory}" class="nav-link" data-toggle="modal"
 							data-target="#addCategoryModal"> <i
-								class="nav-icon fas fa-plus"></i>
-								<p>Thêm hạng mục</p>
+								class="nav-icon fas fa-plus"></i> Thêm hạng mục
 
 						</a></li>
 
@@ -229,62 +229,39 @@
 							HÀNG</li>
 						<li class="nav-item" th:if="${role}"><a
 							th:href="@{/list_users}" class="nav-link"> <i
-								class="nav-icon far fa-calendar-alt"></i>
-								<p>Danh sách khách hàng</p>
+								class="nav-icon far fa-calendar-alt"></i> Danh sách khách hàng
 						</a></li>
-						<li class="nav-item"><a href="#" class="nav-link"
-							th:if="${role}"> <i class="nav-icon fas fa-search"></i>
-								<p>
-									Search <i class="fas fa-angle-left right"></i>
-								</p>
-						</a>
-							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="pages/search/simple.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>Simple Search</p>
-								</a></li>
-								<li class="nav-item"><a href="pages/search/enhanced.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>Enhanced</p>
-								</a></li>
-							</ul></li>
+
 						<li class="nav-header" style="font-weight: bold;" th:if="${role}">BÁN
 							HÀNG</li>
 						<li class="nav-item"><a th:href="@{/listBill}"
 							class="nav-link" th:if="${role}"> <i
-								class="nav-icon fas fa-list-ul"></i>
-								<p>Lịch sử bán hàng</p>
+								class="nav-icon fas fa-list-ul"></i> Lịch sử bán hàng
 						</a></li>
 						<li class="nav-header" style="font-weight: bold;"
 							th:unless="${role}">MUA HÀNG</li>
 						<li class="nav-item"><a th:href="@{/listBill}"
 							class="nav-link" th:unless="${role}"> <i
-								class="nav-icon fas fa-list-ul"></i>
-								<p>Lịch sử mua hàng</p>
+								class="nav-icon fas fa-list-ul"></i> Lịch sử mua hàng
 						</a></li>
 						<li class="nav-header" style="font-weight: bold;">THAO TÁC
 							KHÁC</li>
 						<li class="nav-item" th:object=${user}><a
 							th:href="@{'/edit/'+${user.id}}" class="nav-link"
 							data-toggle="modal" data-target="#changeInfoModal"> <i
-								class="nav-icon fa fa-info"></i>
-								<p>Sửa thông tin cá nhân</p>
+								class="nav-icon fa fa-info"></i> Sửa thông tin cá nhân
 						</a></li>
 						<li class="nav-item" th:object=${user}><a href=""
 							class="nav-link" data-toggle="modal"
 							data-target="#changePasswordModal"> <i
-								class="nav-icon fa fa-lock"></i>
-								<p>Đổi mật khẩu</p>
+								class="nav-icon fa fa-lock"></i> Đổi mật khẩu
 						</a></li>
 						<li class="nav-item"><a th:href="@{/logout}" class="nav-link">
-								<i class="nav-icon fa fa-sign-out"></i>
-								<p>Đăng xuất</p>
+								<i class="nav-icon fa fa-sign-out"></i> Đăng xuất
 						</a></li>
 					</ul>
 				</nav>
-				<!-- /.sidebar-menu -->
 			</div>
-			<!-- /.sidebar -->
 		</aside>
 
 		<!-- Content Wrapper. Contains page content -->
@@ -299,10 +276,10 @@
 						<!-- /.col -->
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-								<li class="nav-item" th:unless="${role}">/<a
-									th:href="@{/cart}" class="nav-link fa fa-shopping-cart"
-									style="color: black;"></a></li>
+								<li class="breadcrumb-item"><a th:href="@{/}"><i>Home</i></a></li>
+								<li class="breadcrumb-item" th:unless="${role}"><a
+									th:href="@{/cart}" class="nav-link"><i class="fa fa-shopping-cart"></i><span
+										class="badge badge-danger navbar-badge" id="cartNumber">0</span></a></li>
 							</ol>
 						</div>
 						<!-- /.col -->
@@ -492,10 +469,11 @@
 								<td>[[*{product.description}]]</td>
 								<td>[[*{product.price}]]</td>
 								<td>[[*{product.number}]]</td>
+								<td th:unless="${role}"><a
+									th:href="@{'/buyProduct/'+${product.id}}" class="fa fa-plus"></a></td>
 								<td th:if="${role}"><a
 									th:href="@{'/deleteProductById/'+${product.id}}"
 									class="fa fa-trash link-remove" id="deleteProductButton"
-									data-toggle="modal" data-target="#deleteProductModal"
 									th:rowNumber="${product.id}"></a> &nbsp; <a href=""
 									class="fa fa-pencil" data-toggle="modal"
 									th:data-target="'#editProductInfoModal'+${product.id}"></a>
@@ -565,8 +543,6 @@
 											</div>
 										</div>
 									</div></td>
-								<td th:unless="${role}"><a
-									th:href="@{'/buyProduct/'+${product.id}}" class="fa fa-plus"></a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -594,34 +570,6 @@
 	<!-- ./wrapper -->
 
 	<!-- jQuery -->
-	<div class="modal" id="deleteProductModal" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Modal Heading</h4>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-				<div class="modal-body">Are you sure want to delete?</div>
-				<div class="modal-footer">
-					<a href="" id="delRef" class="btn btn-primary link-remove">Delete</a>
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-				</div>
-
-			</div>
-		</div>
-	</div>
-	<div class="modal" id="deleteSuccessModal" tabindex="-1" role="dialog"
-		style="height: 500px;">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<i class="fa fa-check" aria-hidden="true" style="color: green;"></i>
-				Xóa sản phẩm thành công!
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
 	<script type="text/javascript">
 		var contextPath = "[[@{/}]]";
 		var csrfHeader = "[[${_csrf.headerName}]]";

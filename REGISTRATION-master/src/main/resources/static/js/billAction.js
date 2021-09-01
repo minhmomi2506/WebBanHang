@@ -1,30 +1,67 @@
 /**
  * 
- */$(document).ready(function() {
-	 $(".link-edit").on("click", function(evt) {
-		 evt.preventDefault();
-		 editBill($(this));
-	 });
- });
+ */
+$(document).ready(function() {
+	$(".link-cancel").on("click", function(evt) {
+		evt.preventDefault();
+		cancelBill($(this));
+	});
 
-function editBill(link) {
-	billNumber = link.attr("billNumber");
-	count = link.attr("count");
-	status = $("#status"+billNumber+count).text();
-	url = contextPath + "editBill/" + billNumber+"/"+status;
-	$("#editBillButton"+billNumber).on("click", function() {
-		alert(url);
+	$(".editBill").submit(function(evt) {
+		evt.preventDefault();
+		ajaxEditBillStatus($(this));
+	});
+});
+
+function ajaxEditBillStatus(link) {
+	billId = link.attr("rowNumber");
+	var formData = {
+		status: {
+			id: $("#editBillStatus" + billId).val(),
+			statusName: $("#editBillStatus" + billId + " option:selected").text()
+		}
+	}
+	$.ajax({
+		type: "PUT",
+		contentType: "application/json",
+		url: contextPath + "editBill/" + billId,
+		data: JSON.stringify(formData),
+		dataType: 'json',
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(csrfHeader, csrfToken);
+		}
+	}).done(function() {
+		alert("Sửa trạng thái đơn hàng thành công");
+		$("#editBillStatus" + billId + " option:selected").text($("#editBillStatus" + billId + " option:selected").text());
+		var rIndex, billTable = document.getElementById("billTable");
+		for (var i = 0; i < billTable.rows.length; i++) {
+			billTable.rows[i].onclick = function() {
+				rIndex = this.rowIndex;
+				billTable.rows[rIndex].cells[9].innerHTML = $("#editBillStatus" + billId + " option:selected").text();
+			}
+		}
+	});
+}
+
+function cancelBill(link) {
+	rowNumber = link.attr("rowNumber");
+	url = contextPath + "cancelBill/" + rowNumber;
+	result = confirm("Delete?");
+	if (result) {
 		$.ajax({
-			type: "POST",
+			type: "PUT",
 			url: url,
+			contentType: "application/json",
+			dataType: 'json',
 			beforeSend: function(xhr) {
 				xhr.setRequestHeader(csrfHeader, csrfToken);
 			}
 		}).done(function(data) {
-			alert("Cập nhật thành công!");
-			alert(data);
-		}).fail(function() {
-			alert("Fail");
+			alert("Đã hủy đơn");
 		});
-	});
+	}
+}
+
+function getAllBills() {
+
 }

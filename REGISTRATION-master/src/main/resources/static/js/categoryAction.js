@@ -2,30 +2,81 @@
  * 
  */
 $(document).ready(function() {
-	$(".link-remove").on("click", function(evt) {
+	$(".link-remove-category").on("click", function(evt) {
 		evt.preventDefault();
-		deleteProduct($(this));
+		deleteCategory($(this));
 	});
+
+	$("#addCategoryForm").submit(function(evt) {
+		evt.preventDefault();
+		ajaxPostCategory();
+	});
+
+/*	$("#aaa").on("click",function() {
+		getAll();
+	});*/
 });
 
-function deleteProduct(link) {
-	url = link.attr("href");
-	$("#deleteCategoryModal #delRef").attr("href", url);
-	$("#deleteCategoryModal #delRef").on("click", function() {
+function getAll() {
+	$.ajax({
+		method: "GET",
+		url: contextPath + "getAllCategories"
+	}).done(function(responseJson) {
+		/*alert(responseJson);*/
+		$.each(responseJson, function(index, category) {
+			alert(category.categoryName);
+		});
+	}).fail(function() {
+		alert("Fail");
+	});
+}
+
+/*INSERT CATEGORY*/
+function ajaxPostCategory() {
+	var formData = {
+		categoryName: $("#addCategoryName").val()
+	}
+
+	$.ajax({
+		type: "POST",
+		contentType: "application/json",
+		url: contextPath + "addCategory",
+		data: JSON.stringify(formData),
+		dataType: 'json',
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(csrfHeader, csrfToken);
+		}
+	}).done(function(category) {
+		alert("Thêm hạng mục thành công");
+		var categoryTable = document.getElementById("categoryTable");
+		var newRow = categoryTable.insertRow(categoryTable.length),
+			cell1 = newRow.insertCell(0),
+			cell2 = newRow.insertCell(1);
+		cell1.innerHTML = $("#addCategoryName").val();
+		cell2.innerHTML = $("#deleteCategoryAction").html();
+	});
+}
+
+/*DELETE CATEGORY*/
+function deleteCategory(link) {
+	rowNumber = link.attr("rowNumber");
+	result = confirm("Delete?");
+	if (result) {
 		$.ajax({
-			type: "POST",
-			url: $("#deleteCategoryModal #delRef").attr("href"),
+			type: "DELETE",
+			url: contextPath + "deleteCategory/" + rowNumber,
 			beforeSend: function(xhr) {
 				xhr.setRequestHeader(csrfHeader, csrfToken);
 			}
 		}).done(function() {
-			rowNumber = link.attr("rowNumber");
-			removeProduct(rowNumber);
+			removeCategory(rowNumber);
+		}).fail(function() {
+			alert("Xóa thất bại");
 		});
-	});
+	}
 }
 
-function removeProduct(rowNumber) {
+function removeCategory(rowNumber) {
 	rowId = "row" + rowNumber;
 	$("#categoryTable #" + rowId).remove();
 }

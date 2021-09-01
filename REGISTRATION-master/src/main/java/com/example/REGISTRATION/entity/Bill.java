@@ -45,6 +45,7 @@ public class Bill {
 	@Column
 	private Date buyDate;
 	
-	@Column
-	private String status;
+	@ManyToOne
+	@JoinColumn(name = "status_id")
+	private Status status;
 }

@@ -1,13 +1,17 @@
 package com.example.REGISTRATION.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.REGISTRATION.entity.CartItem;
 import com.example.REGISTRATION.entity.User;
 import com.example.REGISTRATION.repo.UserRepo;
 import com.example.REGISTRATION.service.CartService;
@@ -53,11 +57,19 @@ public class CartController {
 	}
 
 	/* DELETE FROM CART */
-	@PostMapping("/deleteFromCart/{productId}")
+	@DeleteMapping("/deleteFromCart/{productId}")
 	public void deleteFromCart(@PathVariable Long productId, Principal principal) {
 		String email = principal.getName();
 		User user = userRepo.findUserByEmail(email);
 		cartService.deleteFromCart(productId, user);
+	}
+	
+	/*GET ALL*/
+	@GetMapping("/getAllFromCart")
+	public List<CartItem> getAllFromCart(Principal principal){
+		String email = principal.getName();
+		User user = userRepo.findUserByEmail(email);
+		return cartService.listCartItems(user);
 	}
 
 }

@@ -1,8 +1,12 @@
+/**
+ * 
+ */
 var addToCart;
 var fieldProductId;
 var checkOut;
 $(document).ready(function() {
 	addToCart = $("#addToCart");
+	checkOut = $("#checkOut");
 	fieldProductId = $("#fieldProductId");
 	addToCart.click(function() {
 		addProductToCart();
@@ -24,6 +28,10 @@ $(document).ready(function() {
 	});
 
 	updateTotal();
+	
+	checkOut.click(function() {
+		checkOut();
+	});
 });
 
 /*DELETE FROM CART*/
@@ -47,7 +55,6 @@ function removeProduct(rowNumber) {
 	$("#" + rowId).remove();
 }
 
-/*DECREASE QUANTITY*/
 function decreaseQuantity(link) {
 	productId = link.attr("pid");
 	qtyInput = $("#quantity" + productId);
@@ -58,7 +65,6 @@ function decreaseQuantity(link) {
 	}
 }
 
-/*INCREASE QUANTITY*/
 function increaseQuantity(link) {
 	productId = link.attr("pid");
 	qtyInput = $("#quantity" + productId);
@@ -88,22 +94,18 @@ function addProductToCart() {
 	productId = fieldProductId.text();
 	quantity = $("#quantity" + productId).val();
 	url = contextPath + "addProductToCart/" + productId + "/" + quantity;
-	if (parseInt($("#numberP").val() - $("#numberInCart").val()) == 0) {
-		alert("Số lượng sản phẩm này trong giỏ hàng đã đầy");
-	}
-	else {
-		$.ajax({
-			type: "POST",
-			url: url,
-			beforeSend: function(xhr) {
-				xhr.setRequestHeader(csrfHeader, csrfToken);
-			}
-		}).done(function(addedQuantity) {
-			alert(" Sản phẩm đã được thêm vào giỏ hàng thành công");
-		}).fail(function() {
-			alert("Fail");
-		})
-	}
+	$.ajax({
+		type: "POST",
+		url: url,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(csrfHeader, csrfToken);
+		}
+	}).done(function() {
+		$("#buyModal").modal('show');
+	}).fail(function() {
+		alert("Fail");
+	})
+	alert(productId);
 }
 
 function updateSubtotal(newSubtotal, productId) {
@@ -119,3 +121,5 @@ function updateTotal() {
 
 	$("#totalAmount").text(total + " VND");
 }
+
+

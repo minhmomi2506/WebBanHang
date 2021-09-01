@@ -123,8 +123,13 @@
 								placeholder="Search" aria-label="Search" name="productName">
 							Chọn mức giá:<input type="number" name="minp"
 								class="form-control form-control-navbar" value="0"><span
-								style="color: white;">đến</span><input type="number" name="maxp"
-								class="form-control form-control-navbar" value="100000000">
+								style="color: white;"></span> đến <input type="number"
+								name="maxp" class="form-control form-control-navbar"
+								value="100000000"> Chọn hạng mục: <select
+								name="categoryName" required="required">
+								<option th:each="category : ${categories}"
+									th:text="${category.categoryName}"></option>
+							</select>
 							<div class="input-group input-group-sm">
 								<div class="input-group-append">
 									<button class="btn btn-navbar" type="submit">
@@ -144,7 +149,9 @@
 
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
-			<!-- Brand Logo -->
+			B
+			<!-- rand Logo
+ -->
 			<a th:href="@{/}" class="brand-link"> <img
 				src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
 				class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -192,8 +199,8 @@
 						<li class="nav-header" style="font-weight: bold;" th:if="${role}">SẢN
 							PHẨM</li>
 
-						<li class="nav-item" th:if="${role}"><a
-							th:href="@{/addProduct}" class="nav-link" data-toggle="modal"
+						<li class="nav-item" th:if="${role}"><a href=""
+							class="nav-link" data-toggle="modal"
 							data-target="#addProductModal"> <i
 								class="nav-icon fas fa-plus"></i> Thêm sản phẩm
 
@@ -206,8 +213,8 @@
 								class="nav-icon fas fa-list-ul"></i> Danh sách hạng mục
 
 						</a></li>
-						<li class="nav-item" th:if="${role}"><a
-							th:href="@{/addCategory}" class="nav-link" data-toggle="modal"
+						<li class="nav-item" th:if="${role}"><a href=""
+							class="nav-link" data-toggle="modal"
 							data-target="#addCategoryModal"> <i
 								class="nav-icon fas fa-plus"></i> Thêm hạng mục
 
@@ -301,36 +308,38 @@
 						</div>
 						<div class="modal-body">
 							<form class="text-center border border-light p-5"
-								th:action="@{/addP}" method="post" enctype="multipart/form-data">
+								th:action="@{/addP}" id="addProductForm" method="post"
+								enctype="multipart/form-data">
 
 								<!-- Name -->
-								<input type="text" name="name" id="name"
+								<input type="text" name="name" id="productName"
 									class="form-control mb-4" placeholder="Product Name">
 
 								<!-- Price -->
-								<input type="number" name="price" id="price"
+								<input type="number" name="price" id="productPrice"
 									class="form-control mb-4" placeholder="Product Price"
 									required="required">
 
 								<!-- Description -->
-								<input type="text" name="description" id="description"
+								<input type="text" name="description" id="productDescription"
 									class="form-control mb-4" placeholder="Product Description">
 
 
-								<input type="number" name="number" id="number"
+								<input type="number" name="number" id="productNumber"
 									class="form-control mb-4" placeholder="Product Number">
 
 								<div class="custom-file mb-4">
 									<img alt="" src="" style="width: 200px; height: 200px;"
 										id="productImage">
 									<div></div>
-									<input type="file" name="file"
+									<input type="file" name="file" id="productFile"
 										onchange="ShowImagePreview(this,document.getElementById('productImage'))"
 										style="text-align: center;">
 								</div>
 
 								<div class="custom-file mb-4">
-									<select name="category" required="required">
+									<select name="category" required="required"
+										id="productCategory">
 										<option th:each="category : ${categories}"
 											th:value="${category.id}" th:text=${category.categoryName}></option>
 									</select>
@@ -350,9 +359,9 @@
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 						</div>
 						<div class="modal-body">
-							<form class="text-center border border-light p-5"
-								th:action="@{/addCategory}" method="post">
-								<input type="text" name="categoryName" id="categoryName"
+							<form class="text-center border border-light p-5" action=""
+								method="post" id="addCategoryForm">
+								<input type="text" name="categoryName" id="addCategoryName"
 									class="form-control mb-4" placeholder="Category Name">
 
 								<button class="btn btn-info btn-block" type="submit"
@@ -457,22 +466,18 @@
 						</thead>
 						<tbody th:each="category , status : ${categories}">
 							<tr th:id="'row' + ${category.id}">
-								<td>[[*{category.categoryName}]]</td>
-								<td th:if="${role}"><a
-									th:href="@{'/deleteCategory/'+${category.id}}"
-									class="fa fa-trash link-remove" id="deleteCategoryButton"
-									data-toggle="modal" data-target="#deleteCategoryModal"
+								<td id="body">[[*{category.categoryName}]]</td>
+								<td th:if="${role}" id="deleteCategoryAction" class="deleteColumn"><a
+									href=""
+									class="fa fa-trash link-remove-category" id="deleteCategoryLink"
 									th:rowNumber="${category.id}"></a></td>
 							</tr>
 						</tbody>
 					</table>
 					<hr>
 				</div>
-
 			</section>
-			<!-- /.content -->
 		</div>
-		<!-- /.content-wrapper -->
 		<footer class="main-footer">
 			<strong>Copyright &copy; 2014-2021 <a
 				href="https://adminlte.io">AdminLTE.io</a>.
@@ -481,46 +486,7 @@
 				<b>Version</b> 3.1.0
 			</div>
 		</footer>
-
-		<!-- Control Sidebar -->
-		<aside class="control-sidebar control-sidebar-dark">
-			<!-- Control sidebar content goes here -->
-		</aside>
-		<!-- /.control-sidebar -->
-	</div>
-	<!-- ./wrapper -->
-
-	<!-- jQuery -->
-	<div class="modal" id="deleteCategoryModal" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Modal Heading</h4>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-				<div class="modal-body">Are you sure want to delete?</div>
-				<div class="modal-footer">
-					<a href="" id="delRef" class="btn btn-primary link-remove">Delete</a>
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-				</div>
-
-			</div>
-		</div>
-	</div>
-	<div class="modal" id="deleteSuccessModal" tabindex="-1" role="dialog"
-		style="height: 500px;">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Thông báo</h4>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-				<div class="modal-body">
-					<i class="fa fa-check" aria-hidden="true" style="color: green;"></i>
-					Xóa hạng mục thành công!
-				</div>
-			</div>
-		</div>
+		<aside class="control-sidebar control-sidebar-dark"></aside>
 	</div>
 	<script type="text/javascript">
 		var contextPath = "[[@{/}]]";
@@ -531,4 +497,3 @@
 	<script th:src="@{/js/showImagePreview.js}"></script>
 </body>
 </html>
-

@@ -12,11 +12,14 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "product")
-@Data
+@Data@NoArgsConstructor
+@AllArgsConstructor
 public class Product implements Serializable{
 	private static final long serialVersionUID = 1L;
 
