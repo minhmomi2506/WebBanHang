@@ -488,7 +488,8 @@
 								<td id="price">[[*{product.price}]]</td>
 								<td>[[*{product.number}]]</td>
 								<td th:unless="${role}"><a
-									th:href="@{'/buyProduct/'+${product.id}}" class="fa fa-plus"></a></td>
+									th:href="@{'/buyProduct/'+${product.id}}" class="fa fa-plus"></a>
+								</td>
 								<td th:if="${role}"><a href=""
 									class="fa fa-trash link-remove" id="deleteProductButton"
 									th:rowNumber="${product.id}"></a> &nbsp; <a href=""

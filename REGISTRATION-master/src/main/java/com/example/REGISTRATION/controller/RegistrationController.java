@@ -47,8 +47,6 @@ public class RegistrationController {
 	static List<String> howToPays = new ArrayList<String>();
 	static {
 		howToPays.add("Thanh toán khi nhận hàng");
-		howToPays.add("Thanh toán bằng thẻ ngân hàng");
-		howToPays.add("Thanh toán bằng ví AirPays");
 	}
 
 	@Autowired
@@ -142,7 +140,7 @@ public class RegistrationController {
 
 	/* STATISTICS */
 	@RequestMapping("/statistic")
-	public String statistic(Principal principal , Model model) {
+	public String statistic(Principal principal, Model model) {
 		String email = principal.getName();
 		User user = userRepo.findUserByEmail(email);
 		model.addAttribute("user", user);
@@ -335,13 +333,4 @@ public class RegistrationController {
 		}
 		return "category/listCategories";
 	}
-
-	/* BILL GROUPBY */
-//	@GetMapping("/billGroupBy")
-//	public String billGroupBy(Model model) {
-//		List<BillGroupby> billGroupbies = billService.groupBy();
-//		model.addAttribute("billGroupbies", billGroupbies);
-//		return "bill/groupBy";
-//	}
-
 }

@@ -37,15 +37,17 @@ public class BillController {
 
 	/* STATISTICS */
 	@GetMapping("/statistic/{month}/{year}")
-	public int statistic(@PathVariable int month , @PathVariable int year) {
+	public int statistic(@PathVariable int month, @PathVariable int year) {
 		int totalMoney = billService.totalMoney(month, year);
 		return totalMoney;
 	}
-	
+
 	/* BILLS BY MONTH AND YEAR */
 	@GetMapping("/billsByMonthAndYear/{month}/{year}")
-	public List<Bill> billsByMonthAndYear(@PathVariable int month , @PathVariable int year){
+	public List<Bill> billsByMonthAndYear(@PathVariable int month, @PathVariable int year) {
 		List<Bill> billsByMonthAndYear = billService.getAllByMonthAndYear(month, year);
 		return billsByMonthAndYear;
 	}
+	
+	
 }

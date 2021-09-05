@@ -46,7 +46,7 @@ function ajaxEditBillStatus(link) {
 function cancelBill(link) {
 	rowNumber = link.attr("rowNumber");
 	url = contextPath + "cancelBill/" + rowNumber;
-	result = confirm("Delete?");
+	result = confirm("Hủy đơn?");
 	if (result) {
 		$.ajax({
 			type: "PUT",
@@ -58,10 +58,8 @@ function cancelBill(link) {
 			}
 		}).done(function(data) {
 			alert("Đã hủy đơn");
+			$("#customerBillStatus"+rowNumber).hide();
+			$("#status"+rowNumber).text("Hủy đơn");
 		});
 	}
-}
-
-function getAllBills() {
-
 }

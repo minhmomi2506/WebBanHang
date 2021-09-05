@@ -454,11 +454,11 @@
 								<td>[[*{bill.buyDate}]]</td>
 								<td>[[*{bill.user.phoneNumber}]]</td>
 								<td>[[*{bill.user.address}]]</td>
-								<td>[[*{bill.status.statusName}]]</td>
-								<td id="customerBillStatus"
+								<td th:id = "'status'+${bill.id}">[[*{bill.status.statusName}]]</td>
+								<td
 									th:unless="${bill.status.statusName == 'Hủy đơn'} OR ${bill.status.statusName == 'Giao hàng thành công'} OR ${bill.status.statusName == 'Đang giao hàng'}"><a
 									style="color: red;" href="" class="fa fa-times link-cancel"
-									data-toggle="modal" data-target="#cancelBillModal"
+									th:id="'customerBillStatus'+${bill.id}"
 									th:rowNumber="${bill.id}"></a></td>
 							</tr>
 						</tbody>
