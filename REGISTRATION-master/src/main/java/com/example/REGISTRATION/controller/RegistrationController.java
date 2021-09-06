@@ -7,7 +7,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,7 +26,6 @@ import com.example.REGISTRATION.entity.Category;
 import com.example.REGISTRATION.entity.Product;
 import com.example.REGISTRATION.entity.Status;
 import com.example.REGISTRATION.entity.User;
-import com.example.REGISTRATION.rabbitConfig.ProductConfigReceive;
 import com.example.REGISTRATION.repo.CartRepo;
 import com.example.REGISTRATION.repo.CategoryRepo;
 import com.example.REGISTRATION.repo.ProductRepo;
@@ -76,14 +74,14 @@ public class RegistrationController {
 	@Autowired
 	private StatusRepo statusRepo;
 
-	@Autowired
-	private RabbitTemplate rabbittemplate;
+//	@Autowired
+//	private RabbitTemplate rabbittemplate;
 
 	/* INSERT PRODUCT */
 
 	@PostMapping("/addP")
 	public String saveProduct(Product product, MultipartFile productImage) {
-		rabbittemplate.convertAndSend(ProductConfigReceive.EXCHANGE_NAME1, ProductConfigReceive.ROUTING_KEY1, product);
+//		rabbittemplate.convertAndSend(ProductConfigReceive.EXCHANGE_NAME1, ProductConfigReceive.ROUTING_KEY1, product);
 		productService.saveProductToDB(product, productImage);
 		return "redirect:/";
 	}
@@ -101,8 +99,8 @@ public class RegistrationController {
 	public String infoProduct(@PathVariable Long id, Model model, Principal principal) {
 		Product product = productRepo.findProductById(id);
 		model.addAttribute("product", product);
-		String email = principal.getName();
-		User user = userRepo.findUserByEmail(email);
+		String username = principal.getName();
+		User user = userRepo.findUserByUsername(username);
 		model.addAttribute("user", user);
 		List<CartItem> cartItems = cartRepo.findByUser(user);
 		Product product1 = productRepo.findProductById(id);
@@ -111,7 +109,7 @@ public class RegistrationController {
 				model.addAttribute("numberInCart", cartItem.getQuantity());
 			}
 		}
-		return "product/buyProduct";
+		return "customer/product/buyProduct";
 	}
 
 	/* SEARCH PRODUCT */
@@ -122,29 +120,23 @@ public class RegistrationController {
 		model.addAttribute("categories", categories);
 		List<Product> products = productService.productSearch(name, minp, maxp);
 		model.addAttribute("products", products);
-		String email = principal.getName();
-		User user = userRepo.findUserByEmail(email);
+		String username = principal.getName();
+		User user = userRepo.findUserByUsername(username);
 		model.addAttribute("user", user);
-		List<CartItem> cartItems = cartService.listCartItems(user);
 		if (user.getUser_role().equalsIgnoreCase("admin")) {
 			model.addAttribute("role", user.getUser_role());
-		} else {
-			int count = 0;
-			for (int i = 0; i < cartItems.size(); i++) {
-				count++;
-				model.addAttribute("count", count);
-			}
+			return "admin/product/searchProduct";
 		}
-		return "product/searchProduct";
+		return "customer/product/searchProductCustomer";
 	}
 
 	/* STATISTICS */
 	@RequestMapping("/statistic")
 	public String statistic(Principal principal, Model model) {
-		String email = principal.getName();
-		User user = userRepo.findUserByEmail(email);
+		String username = principal.getName();
+		User user = userRepo.findUserByUsername(username);
 		model.addAttribute("user", user);
-		return "statistic/statistic";
+		return "admin/statistic/statistic";
 	}
 
 	/* TAI NGHE */
@@ -152,13 +144,16 @@ public class RegistrationController {
 	public String taiNghe(Model model, Principal principal) {
 		List<Product> earPhones = productService.earPhone();
 		model.addAttribute("products", earPhones);
-		String email = principal.getName();
-		User user = userRepo.findUserByEmail(email);
+		String username = principal.getName();
+		User user = userRepo.findUserByUsername(username);
 		model.addAttribute("user", user);
 		if (user.getUser_role().equalsIgnoreCase("admin")) {
 			model.addAttribute("role", user.getUser_role());
+			return "admin/groupBy/earPhone";
 		}
-		return "groupBy/earPhone";
+		else {
+			return "customer/groupBy/earPhoneCustomer";
+		}
 	}
 
 	/* DIEN THOAI */
@@ -166,13 +161,16 @@ public class RegistrationController {
 	public String dienThoai(Model model, Principal principal) {
 		List<Product> mobilePhones = productService.mobilePhone();
 		model.addAttribute("products", mobilePhones);
-		String email = principal.getName();
-		User user = userRepo.findUserByEmail(email);
+		String username = principal.getName();
+		User user = userRepo.findUserByUsername(username);
 		model.addAttribute("user", user);
 		if (user.getUser_role().equalsIgnoreCase("admin")) {
 			model.addAttribute("role", user.getUser_role());
+			return "admin/groupBy/mobilePhone";
 		}
-		return "groupBy/mobilePhone";
+		else {
+			return "customer/groupBy/mobilePhoneCustomer";
+		}
 	}
 
 	/* LAPTOP */
@@ -180,13 +178,14 @@ public class RegistrationController {
 	public String laptop(Model model, Principal principal) {
 		List<Product> mobilePhones = productService.laptop();
 		model.addAttribute("products", mobilePhones);
-		String email = principal.getName();
-		User user = userRepo.findUserByEmail(email);
+		String username = principal.getName();
+		User user = userRepo.findUserByUsername(username);
 		model.addAttribute("user", user);
 		if (user.getUser_role().equalsIgnoreCase("admin")) {
 			model.addAttribute("role", user.getUser_role());
+			return "admin/groupBy/lap";
 		}
-		return "groupBy/lap";
+		return "customer/groupBy/lapCustomer";
 	}
 
 	/* LOG IN */
@@ -222,15 +221,18 @@ public class RegistrationController {
 	public String home(Model model, Principal principal) {
 		List<Product> products = productService.getAllProduct();
 		model.addAttribute("products", products);
-		String email = principal.getName();
-		User user = userRepo.findUserByEmail(email);
+		String username = principal.getName();
+		User user = userRepo.findUserByUsername(username);
 		model.addAttribute("user", user);
 		List<Category> categories = categoryRepo.findAll();
 		model.addAttribute("categories", categories);
 		if (user.getUser_role().equalsIgnoreCase("admin")) {
 			model.addAttribute("role", user.getUser_role());
+			return "admin/other/homePage";
 		}
-		return "other/homePage";
+		else {
+			return "customer/other/homePageCustomer";
+		}
 	}
 
 	/* SIGN UP */
@@ -246,19 +248,19 @@ public class RegistrationController {
 	public String list(Model model, HttpSession session, Principal principal) {
 		List<User> users = userRepo.findAll();
 		model.addAttribute("users", users);
-		String email = principal.getName();
-		User user = userRepo.findUserByEmail(email);
+		String username = principal.getName();
+		User user = userRepo.findUserByUsername(username);
 		model.addAttribute("user", user);
 		if (user.getUser_role().equalsIgnoreCase("admin")) {
 			model.addAttribute("role", user.getUser_role());
 		}
-		return "user/list_users";
+		return "admin/user/list_users";
 	}
 
 	@PostMapping("/editUserImage")
 	public String editUserImage(User user, MultipartFile file, Principal principal) {
-		String email = principal.getName();
-		user = userRepo.findUserByEmail(email);
+		String username = principal.getName();
+		user = userRepo.findUserByUsername(username);
 		userService.editUserImage(file, user);
 		return "redirect:/";
 	}
@@ -267,15 +269,15 @@ public class RegistrationController {
 	@GetMapping("/cart")
 	public String showShoppingCart(Model model, Principal principal) {
 		model.addAttribute("howToPays", howToPays);
-		String email = principal.getName();
-		User user = userRepo.findUserByEmail(email);
+		String username = principal.getName();
+		User user = userRepo.findUserByUsername(username);
 		List<CartItem> cartItems = cartService.listCartItems(user);
 		model.addAttribute("cartItems", cartItems);
 		model.addAttribute("user", user);
 		if (user.getUser_role().equalsIgnoreCase("admin")) {
 			model.addAttribute("role", user.getUser_role());
 		}
-		return "cart/shopping_cart";
+		return "customer/cart/shopping_cart";
 
 	}
 
@@ -288,8 +290,8 @@ public class RegistrationController {
 	/* BUY PRODUCT FROM CART */
 	@PostMapping("/checkOut")
 	public String checkOut(String howToPay, Principal principal) {
-		String email = principal.getName();
-		User user = userRepo.findUserByEmail(email);
+		String username = principal.getName();
+		User user = userRepo.findUserByUsername(username);
 		cartService.checkOut(user, howToPay);
 		return "redirect:/cart";
 	}
@@ -297,8 +299,8 @@ public class RegistrationController {
 	/* LIST BILL */
 	@GetMapping("/listBill")
 	public String listBill(Principal principal, Model model) {
-		String email = principal.getName();
-		User user = userRepo.findUserByEmail(email);
+		String username = principal.getName();
+		User user = userRepo.findUserByUsername(username);
 		model.addAttribute("user", user);
 		List<Status> statuses1 = statusRepo.findAll();
 		List<Status> statuses = new ArrayList<Status>();
@@ -312,11 +314,11 @@ public class RegistrationController {
 			model.addAttribute("bills", bills);
 			model.addAttribute("role", user.getUser_role());
 			model.addAttribute("statuses", statuses);
-			return "bill/bill";
+			return "admin/bill/bill";
 		} else {
 			List<Bill> bills = billService.findByUser(user);
 			model.addAttribute("bills", bills);
-			return "bill/billCustomer";
+			return "customer/bill/billCustomer";
 		}
 	}
 
@@ -325,12 +327,12 @@ public class RegistrationController {
 	public String listCategories(Principal principal, Model model) {
 		List<Category> categories = categoryService.findAll();
 		model.addAttribute("categories", categories);
-		String email = principal.getName();
-		User user = userRepo.findUserByEmail(email);
+		String username = principal.getName();
+		User user = userRepo.findUserByUsername(username);
 		model.addAttribute("user", user);
 		if (user.getUser_role().equalsIgnoreCase("admin")) {
 			model.addAttribute("role", user.getUser_role());
 		}
-		return "category/listCategories";
+		return "admin/category/listCategories";
 	}
 }

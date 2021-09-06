@@ -31,7 +31,7 @@ public class User implements Serializable{
 	private Long id;
 	
 	@Column(nullable = true , unique = true)
-	private String email;
+	private String username;
 	
 	@Column(nullable = true)
 	private String password;

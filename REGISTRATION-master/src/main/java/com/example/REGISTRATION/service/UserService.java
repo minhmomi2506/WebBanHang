@@ -27,8 +27,8 @@ public class UserService implements UserDetailsService {
 	private UserRepo userRepo;
 	
 	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		User user = userRepo.getUserByEmail(email);
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		User user = userRepo.getUserByUsername(username);
 		if(user == null) {
 			throw new UsernameNotFoundException("Khong tim thay");
 		}
@@ -39,8 +39,8 @@ public class UserService implements UserDetailsService {
 		return userRepo.findUserById(id);
 	}
 	
-	public User findUserByEmail(String email) {
-		return userRepo.findUserByEmail(email);
+	public User findUserByEmail(String username) {
+		return userRepo.findUserByUsername(username);
 	}
 	
 	public void deleteUser(Long id) {
@@ -100,20 +100,20 @@ public class UserService implements UserDetailsService {
 		userRepo.save(user);
 	}
 	
-	public void processOAuthPostLogin(String email) {
-		User existUser = userRepo.getUserByEmail(email);
+	public void processOAuthPostLogin(String username) {
+		User existUser = userRepo.getUserByUsername(username);
 		if(existUser == null) {
 			User user = new User();
-			user.setEmail(email);
+			user.setUsername(username);
 			user.setAuthProvider(AuthenProvider.SOCIAL);
 			user.setEnabled(true);
 			userRepo.save(user);
 		}
 	}
 
-	public void registerNewUserAfterOAuthLoginSuccess(String email, String name, AuthenProvider authProvider) {
+	public void registerNewUserAfterOAuthLoginSuccess(String username, String name, AuthenProvider authProvider) {
 		User user = new User();
-		user.setEmail(email);
+		user.setUsername(username);
 		user.setFullName(name);
 		user.setEnabled(true);
 		user.setAuthProvider(authProvider);

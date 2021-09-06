@@ -11,7 +11,7 @@ import com.example.REGISTRATION.entity.User;
 
 @Repository
 public interface UserRepo extends JpaRepository<User, Long> {
-	User getUserByEmail(String email);
+	User getUserByUsername(String username);
 	User findUserById(Long id);
 	
 	@Transactional
@@ -20,5 +20,5 @@ public interface UserRepo extends JpaRepository<User, Long> {
 	
 	void deleteUserById(Long id);
 	
-	User findUserByEmail(String email);
+	User findUserByUsername(String username);
 }

@@ -40,8 +40,8 @@ public class CartController {
 	@PostMapping("/addProductToCart/{pid}/{qty}")
 	public String addToCart(@PathVariable("pid") Long id, @PathVariable("qty") int quantity, Model model,
 			Principal principal) {
-		String email = principal.getName();
-		User user = userRepo.findUserByEmail(email);
+		String username = principal.getName();
+		User user = userRepo.findUserByUsername(username);
 		int addedQuantity = cartService.addProduct(id, quantity, user);
 		model.addAttribute("user", user);
 		return addedQuantity + "";
@@ -50,8 +50,8 @@ public class CartController {
 	/* UPDATE QUANTITY */
 	@PostMapping("/updateQuantity/{pid}/{qty}")
 	public String updateQuantity(@PathVariable("pid") Long id, @PathVariable("qty") int quantity, Principal principal) {
-		String email = principal.getName();
-		User user = userRepo.findUserByEmail(email);
+		String username = principal.getName();
+		User user = userRepo.findUserByUsername(username);
 		int subTotal = cartService.updateQuantity(id, quantity, user);
 		return subTotal + "";
 	}
@@ -59,16 +59,16 @@ public class CartController {
 	/* DELETE FROM CART */
 	@DeleteMapping("/deleteFromCart/{productId}")
 	public void deleteFromCart(@PathVariable Long productId, Principal principal) {
-		String email = principal.getName();
-		User user = userRepo.findUserByEmail(email);
+		String username = principal.getName();
+		User user = userRepo.findUserByUsername(username);
 		cartService.deleteFromCart(productId, user);
 	}
 	
 	/*GET ALL*/
 	@GetMapping("/getAllFromCart")
 	public List<CartItem> getAllFromCart(Principal principal){
-		String email = principal.getName();
-		User user = userRepo.findUserByEmail(email);
+		String username = principal.getName();
+		User user = userRepo.findUserByUsername(username);
 		return cartService.listCartItems(user);
 	}
 

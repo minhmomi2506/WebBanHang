@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AdminLTE 3 | Dashboard</title>
+
+<!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet"
+	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- Tempusdominus Bootstrap 4 -->
+<link rel="stylesheet"
+	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<!-- iCheck -->
+<link rel="stylesheet"
+	href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+<!-- JQVMap -->
+<link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="dist/css/adminlte.min.css">
+<!-- overlayScrollbars -->
+<link rel="stylesheet"
+	href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+<!-- Daterange picker -->
+<link rel="stylesheet"
+	href="plugins/daterangepicker/daterangepicker.css">
+<!-- summernote -->
+<link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+	$.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="plugins/moment/moment.min.js"></script>
+<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script
+	src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script
+	src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="dist/js/pages/dashboard.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+	<div class="wrapper">
+
+		<!-- Preloader -->
+		<div
+			class="preloader flex-column justify-content-center align-items-center">
+			<img class="animation__shake" src="dist/img/AdminLTELogo.png"
+				alt="AdminLTELogo" height="60" width="60">
+		</div>
+
+		<!-- Navbar -->
+		<nav
+			class="main-header navbar navbar-expand navbar-white navbar-light">
+			<!-- Left navbar links -->
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link" data-widget="pushmenu"
+					href="#" role="button"><i class="fas fa-bars"></i></a></li>
+				<li class="nav-item d-none d-sm-inline-block"><a th:href="@{/}"
+					class="nav-link">Home</a></li>
+				<li class="nav-item d-none d-sm-inline-block"><a href=""
+					class="nav-link">Contact</a></li>
+			</ul>
+			<!-- Right navbar links -->
+			<ul class="navbar-nav ml-auto">
+				<!-- Navbar Search -->
+				<li class="nav-item"><a class="nav-link"
+					data-widget="navbar-search" href="#" role="button"> <i
+						class="fas fa-search"></i>
+				</a>
+					<div class="navbar-search-block">
+						<form class="form-inline" th:action="@{/searchProduct}"
+							method="get">
+							<input class="form-control form-control-navbar" type="search"
+								placeholder="Search" aria-label="Search" name="productName">
+							Chọn mức giá:<input type="number" name="minp"
+								class="form-control form-control-navbar" value="0"><span
+								style="color: white;"></span> đến <input type="number"
+								name="maxp" class="form-control form-control-navbar"
+								value="100000000">
+							<div class="input-group input-group-sm">
+								<div class="input-group-append">
+									<button class="btn btn-navbar" type="submit">
+										<i class="fas fa-search"></i>
+									</button>
+									<button class="btn btn-navbar" type="button"
+										data-widget="navbar-search">
+										<i class="fas fa-times"></i>
+									</button>
+								</div>
+							</div>
+						</form>
+					</div></li>
+			</ul>
+		</nav>
+		<!-- /.navbar -->
+
+		<!-- Main Sidebar Container -->
+		<aside class="main-sidebar sidebar-dark-primary elevation-4">
+			<!-- Brand Logo -->
+			<a th:href="@{/}" class="brand-link"> <img
+				src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
+				class="brand-image img-circle elevation-3" style="opacity: .8">
+				<span class="brand-text font-weight-light">AdminLTE 3</span>
+			</a>
+
+			<!-- Sidebar -->
+			<div class="sidebar">
+				<!-- Sidebar user panel (optional) -->
+				<div class="user-panel mt-3 pb-3 mb-3 d-flex" th:object="${user}">
+					<div class="image">
+						<a href="" data-toggle="modal" data-target="#changeImageModal">
+							<img th:src="*{'data:image/jpeg;base64,'+{image}}"
+							class="img-circle elevation-2" alt="User Image"
+							style="size: 100px;">
+						</a>
+					</div>
+					<div class="info">
+						<div class="d-block" id="userFullName" style="color: white;">[[*{fullName}]]</div>
+					</div>
+				</div>
+
+				<!-- SidebarSearch Form -->
+				<div class="form-inline">
+					<div class="input-group" data-widget="sidebar-search">
+						<input class="form-control form-control-sidebar" type="search"
+							placeholder="Search" aria-label="Search">
+						<div class="input-group-append">
+							<button class="btn btn-sidebar">
+								<i class="fas fa-search fa-fw"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				<nav class="mt-2">
+					<ul class="nav nav-pills nav-sidebar flex-column"
+						data-widget="treeview" role="menu" data-accordion="false">
+						<li class="nav-item menu-close"><a href="#"
+							class="nav-link active"> <i
+								class="nav-icon fas fa-tachometer-alt"></i> Danh mục <i
+								class="right fas fa-angle-left"></i>
+						</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item"><a th:href="@{/taiNghe}"
+									class="nav-link"> <i class="fa fa-headphones nav-icon"></i>
+										Tai nghe
+								</a></li>
+								<li class="nav-item"><a th:href="@{/dienThoai}"
+									class="nav-link"> <i class="fa fa-mobile nav-icon"></i>
+										Điện thoại
+								</a></li>
+								<li class="nav-item"><a th:href="@{/laptop}"
+									class="nav-link"> <i class="fa fa-laptop nav-icon"></i>
+										Laptop
+								</a></li>
+							</ul></li>
+						<li class="nav-header" style="font-weight: bold;" th:if="${role}">SẢN
+							PHẨM</li>
+
+						<li class="nav-item" th:if="${role}"><a class="nav-link"
+							data-toggle="modal" data-target="#addProductModal"> <i
+								class="nav-icon fas fa-plus"></i> Thêm sản phẩm
+
+						</a></li>
+
+						<li class="nav-header" style="font-weight: bold;" th:if="${role}">HẠNG
+							MỤC</li>
+						<li class="nav-item" th:if="${role}"><a
+							th:href="@{/listCategories}" class="nav-link"> <i
+								class="nav-icon fas fa-list-ul"></i> Danh sách hạng mục
+
+						</a></li>
+						<li class="nav-item" th:if="${role}"><a
+							th:href="@{/addCategory}" class="nav-link" data-toggle="modal"
+							data-target="#addCategoryModal"> <i
+								class="nav-icon fas fa-plus"></i> Thêm hạng mục
+
+						</a></li>
+
+						<li class="nav-header" style="font-weight: bold;" th:if="${role}">KHÁCH
+							HÀNG</li>
+						<li class="nav-item" th:if="${role}"><a
+							th:href="@{/list_users}" class="nav-link"> <i
+								class="nav-icon far fa-calendar-alt"></i> Danh sách khách hàng
+						</a></li>
+
+						<li class="nav-header" style="font-weight: bold;" th:if="${role}">BÁN
+							HÀNG</li>
+						<li class="nav-item"><a th:href="@{/listBill}"
+							class="nav-link" th:if="${role}"> <i
+								class="nav-icon fas fa-list-ul"></i> Lịch sử bán hàng
+						</a></li>
+						<li class="nav-header" style="font-weight: bold;"
+							th:unless="${role}">MUA HÀNG</li>
+						<li class="nav-item"><a th:href="@{/listBill}"
+							class="nav-link" th:unless="${role}"> <i
+								class="nav-icon fas fa-list-ul"></i> Lịch sử mua hàng
+						</a></li>
+						<li class="nav-header" style="font-weight: bold;" th:if="${role}">THỐNG
+							KÊ
+						<li class="nav-item" th:if="${role}"><a
+							th:href="@{/statistic}" class="nav-link"> <i
+								class="nav-icon far fa-calendar-alt"></i> Thống kê doanh thu
+						</a></li>
+
+
+						<li class="nav-header" style="font-weight: bold;">THAO TÁC
+							KHÁC</li>
+						<li class="nav-item" th:object=${user}><a
+							th:href="@{'/edit/'+${user.id}}" class="nav-link"
+							data-toggle="modal" data-target="#changeInfoModal"> <i
+								class="nav-icon fa fa-info"></i> Sửa thông tin cá nhân
+						</a></li>
+						<li class="nav-item" th:object=${user}><a href=""
+							class="nav-link" data-toggle="modal"
+							data-target="#changePasswordModal"> <i
+								class="nav-icon fa fa-lock"></i> Đổi mật khẩu
+						</a></li>
+						<li class="nav-item"><a th:href="@{/logout}" class="nav-link">
+								<i class="nav-icon fa fa-sign-out"></i> Đăng xuất
+						</a></li>
+					</ul>
+				</nav>
+			</div>
+		</aside>
+
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<div class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1 class="m-0">Dashboard</h1>
+						</div>
+						<!-- /.col -->
+						<div class="col-sm-6">
+							<ol class="breadcrumb float-sm-right">
+								<li class="breadcrumb-item"><a th:href="@{/}"><i>Home</i></a></li>
+							</ol>
+						</div>
+						<!-- /.col -->
+					</div>
+					<!-- /.row -->
+				</div>
+				<!-- /.container-fluid -->
+			</div>
+			<!-- /.content-header -->
+			<div class="modal" id="addProductModal" tabindex="-1" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">THÊM SẢN PHẨM</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+							<form th:action="@{/addP}"
+								class="text-center border border-light p-5" method="post"
+								enctype="multipart/form-data" id="addProductForm">
+
+								<!-- Name -->
+								<input type="text" name="name" id="productName"
+									class="form-control mb-4" placeholder="Tên sản phẩm">
+
+								<!-- Price -->
+								<input type="number" name="price" id="productPrice"
+									class="form-control mb-4" placeholder="Gía sản phẩm"
+									required="required">
+
+								<!-- Description -->
+								<input type="text" name="description" id="productDescription"
+									class="form-control mb-4" placeholder="Mô tả sản phẩm">
+
+
+								<input type="number" name="number" id="productNumber"
+									class="form-control mb-4" placeholder="Số lượng sản phẩm">
+
+								<div class="custom-file mb-4">
+									<img alt="" src="" style="width: 200px; height: 200px;"
+										id="productImage">
+									<div></div>
+									<input type="file" name="productImage" id="productImage"
+										onchange="ShowImagePreview(this,document.getElementById('productImage'))">
+								</div>
+
+								<div class="custom-file mb-4">
+									<select name="category" required="required"
+										id="productCategory">
+										<option th:each="category : ${categories}"
+											th:value="${category.id}" th:text=${category.categoryName}></option>
+									</select>
+								</div>
+								<button class="btn btn-info btn-block" type="submit"
+									id="addProduct">Thêm sản phẩm</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal" id="addCategoryModal" tabindex="-1" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">THÊM HẠNG MỤC</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+							<form class="text-center border border-light p-5"
+								id="addCategoryForm" method="post">
+								<input type="text" name="categoryName" id="addCategoryName"
+									class="form-control mb-4" placeholder="Tên hạng mục">
+
+								<button class="btn btn-info btn-block" type="submit"
+									id="addCategory">Thêm hạng mục</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal" id="changeImageModal" tabindex="-1" role="dialog">
+				<form th:action="@{/editUserImage}" enctype="multipart/form-data"
+					th:object="${user}" method="post">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-body" style="text-align: center;">
+								<img alt="" th:src="*{'data:image/jpeg;base64,'+{image}}"
+									style="width: 200px; height: 200px;" id="myImage"> <input
+									type="file" name="file"
+									onchange="ShowImagePreview(this,document.getElementById('myImage'))">
+								<button type="submit">Lưu</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal" id="changeInfoModal" tabindex="-1" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">CHỈNH SỬA THÔNG TIN</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+							<form enctype="multipart/form-data" th:object="${user}"
+								id="editUserInfoForm">
+								<div class="form-group">
+									<input type="text" class="form-control" id="editUserId"
+										name="id" th:field="*{id}" style="width: 350px;"
+										hidden="hidden">
+								</div>
+								<div class="form-group">
+									<label for="firstName">TÊN:</label> <input type="text"
+										class="form-control" id="editUserFullName" name="fullName"
+										th:field="*{fullName}" style="width: 350px;"
+										required="required">
+								</div>
+								<div class="form-group">
+									<label for="firstName">SĐT:</label> <input type="text"
+										class="form-control" id="editUserPhoneNumber"
+										name="phoneNumber" th:field="*{phoneNumber}"
+										style="width: 350px;" required="required">
+								</div>
+								<div class="form-group">
+									<label for="address">ĐỊA CHỈ:</label> <input type="text"
+										class="form-control" id="editUserAddress" name="address"
+										th:field="*{address}" style="width: 350px;"
+										required="required">
+								</div>
+								<button type="submit">SỬA</button>
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal" id="changePasswordModal" tabindex="-1"
+				role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">ĐỔI MẬT KHẨU</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+							<form id="editUserPasswordForm" th:object="${user}">
+								<div class="form-group">
+									<input type="text" class="form-control" id="editUserPasswordId"
+										name="id" th:field="*{id}" style="width: 350px;"
+										hidden="hidden">
+								</div>
+								<div class="form-group">
+									<label for="password">NHẬP MẬT KHẨU MỚI:</label> <input
+										type="password" class="form-control" id="editUserPassword"
+										name="password" style="width: 450px;" required="required"
+										placeholder="Nhập mật khẩu mới">
+								</div>
+								<div id="retypePasswordAlert" style="color: red;"></div>
+								<div id="retypePasswordSuccess" style="color: green;"></div>
+								<div class="form-group">
+									<label for="retypePassword">NHẬP LẠI MẬT KHẨU:</label> <input
+										type="password" class="form-control" id="retypePassword"
+										placeholder="Nhập lại mật khẩu" required="required"
+										style="width: 450px;">
+								</div>
+								<button type="submit" id="editUserPasswordButton">SỬA</button>
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Main content -->
+			<section class="content">
+				<div class="col-12">
+					<hr>
+					<table class="table" id="productTable">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">ẢNH</th>
+								<th scope="col">TÊN</th>
+								<th scope="col">HẠNG MỤC</th>
+								<th scope="col">MÔ TẢ</th>
+								<th scope="col">GIÁ(VND)</th>
+								<th scope="col">SỐ LƯỢNG</th>
+								<th scope="col">THAO TÁC</th>
+							</tr>
+						</thead>
+						<tbody th:each="product , status : ${products}">
+							<tr th:id="'row' + ${product.id}">
+								<th scope="row"><img data-toggle="modal"
+									th:data-target="'#editProductImageModal'+${product.id}" alt=""
+									th:src="*{'data:image/jpeg;base64,'+{product.image}}"
+									style="width: 100px; height: 100px;"></th>
+								<td>[[*{product.name}]]</td>
+								<td>[[*{product.category.categoryName}]]</td>
+								<td>[[*{product.description}]]</td>
+								<td id="price">[[*{product.price}]]</td>
+								<td>[[*{product.number}]]</td>
+								<td><a href=""
+									class="fa fa-trash link-remove" id="deleteProductButton"
+									th:rowNumber="${product.id}"></a> &nbsp; <a href=""
+									class="fa fa-pencil" data-toggle="modal"
+									th:data-target="'#editProductInfoModal'+${product.id}"></a>
+									<div class="modal" th:id="'editProductInfoModal'+${product.id}"
+										tabindex="-1" role="dialog">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title">SỬA THÔNG TIN SẢN PHẨM</h4>
+												</div>
+												<div class="modal-body">
+													<form class="text-center border border-light p-5 editP"
+														th:object="${product}" enctype="multipart/form-data"
+														id="editProductForm" th:productNumber="${product.id}">
+														<input type="text" name="id" id="id"
+															class="form-control mb-4" th:value="${product.id}"
+															hidden="hidden">
+														<!-- Name -->
+														<input type="text" name="name"
+															th:id="'editProductName'+${product.id}"
+															class="form-control mb-4" th:value="${product.name}">
+
+														<!-- Price -->
+														<input type="number" name="price"
+															th:id="'editProductPrice'+${product.id}"
+															class="form-control mb-4" th:value="${product.price}">
+
+														<input type="number" name="number"
+															th:id="'editProductNumber'+${product.id}"
+															class="form-control mb-4" th:value="${product.number}">
+
+														<!-- Description -->
+														<input type="text" class="form-control mb-4"
+															th:id="'editProductDescription'+${product.id}"
+															name="description" th:value="${product.description}">
+
+														<div class="custom-file mb-4">
+															<select name="categoryName" required="required"
+																th:id="'editProductCategory'+${product.id}">
+																<option th:value="${product.category.id}"
+																	th:text="${product.category.categoryName}"></option>
+																<option th:each="category1 : ${categories}"
+																	th:value="${category1.id}"
+																	th:text="${category1.categoryName}"></option>
+															</select>
+														</div>
+
+														<!-- Sign in button -->
+														<button class="btn btn-info btn-block" type="submit">Sửa</button>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="modal"
+										th:id="'editProductImageModal'+${product.id}" tabindex="-1"
+										role="dialog">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-body" style="text-align: center;">
+													<form th:action="@{/editProductImage}"
+														enctype="multipart/form-data" method="post"
+														th:object="${product}">
+														<input type="text" name="id" id="id"
+															th:value="${product.id}" hidden="hidden"> <img
+															alt=""
+															th:src="${'data:image/jpeg;base64,'+{product.image}}"
+															style="width: 200px; height: 200px;" id="previewImage"
+															class="previewProductImage"> <input type="file"
+															name="file" id="file" class="editProductImage"
+															onchange="showPreview(this);">
+														<button type="submit">Sửa</button>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div></td>
+							</tr>
+						</tbody>
+					</table>
+					<hr>
+				</div>
+			</section>
+			<!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
+		<footer class="main-footer">
+			<strong>Copyright &copy; 2014-2021 <a
+				href="https://adminlte.io">AdminLTE.io</a>.
+			</strong> All rights reserved.
+			<div class="float-right d-none d-sm-inline-block">
+				<b>Version</b> 3.1.0
+			</div>
+		</footer>
+
+		<!-- Control Sidebar -->
+		<aside class="control-sidebar control-sidebar-dark">
+			<!-- Control sidebar content goes here -->
+		</aside>
+		<!-- /.control-sidebar -->
+	</div>
+	<!-- ./wrapper -->
+
+	<!-- jQuery -->
+	<script type="text/javascript">
+		var contextPath = "[[@{/}]]";
+		var csrfHeader = "[[${_csrf.headerName}]]";
+		var csrfToken = "[[${_csrf.token}]]";
+	</script>
+	<script th:src="@{/js/productAction.js}"></script>
+	<script th:src="@{/js/userAction.js}"></script>
+	<script th:src="@{/js/categoryAction.js}"></script>
+	<script th:src="@{/js/showImagePreview.js}"></script>
+	<script th:src="@{/js/previewEditImage.js}"></script>
+	<script th:src="@{/js/showCartMiniNumber.js}"></script>
+	<script th:src="@{/js/retypePasswordAction.js}"></script>
+</body>
+</html>

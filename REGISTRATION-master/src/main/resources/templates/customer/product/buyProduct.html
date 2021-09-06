@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+</head>
+<body>
+	<div class="row">
+		<div class="col-sm-8">
+			<th:block th:object="${product}">
+				<div class="row border rounded">
+					<div class="col"></div>
+					<div class="col-3">
+						<img alt="" th:src="*{'data:image/jpeg;base64,'+{image}}"
+							style="width: 100px; height: 100px;" class="img-fluid">
+					</div>
+					<b id="fieldProductId" hidden="hidden">[[*{id}]]</b>
+					<div class="col-6">
+						<div>
+							<b style="color: blue;">Name: [[*{name}]]</b>
+
+						</div>
+						<b style="color: blue;">Price: [[*{price}]] VND</b>
+						<div>
+							<b style="color: blue;">Descripion: [[*{description}]]</b>
+						</div>
+						<div>
+							<b style="color: blue;">Number: [[*{number}]]</b>
+						</div>
+					</div>
+				</div>
+				<div class="row-m-1">&nbsp;</div>
+			</th:block>
+		</div>
+		<div class="col-sm-4">
+			<div
+				th:replace="quantity_control :: quantity_control(1 , ${product.id})">
+				<div>Enter the number of products you want to buy:</div>
+				<input type="text" class="form-control" id="fieldQuantity">
+			</div>
+			<input type="text" th:field="${product.number}" th:id = "numberP" hidden="hidden">
+			<input type="text" th:value="${numberInCart}" th:id = "numberInCart" hidden="hidden">
+			<div>
+				<button th:if="${product.number} > 0" type="submit" id="addToCart">Add product to your
+					cart</button>
+				<button th:if="${product.number} <= 0" type="submit" id="addToCart" disabled="disabled">Add product to your
+					cart</button>
+			</div>
+		</div>
+	</div>
+	<div class="modal" id="noticeNumber" tabindex="-1" role="dialog" style="margin-top: 250px;">
+		<div class="modal-dialog" style="font-size: 25px;">
+			<div class="modal-content">
+				<div class="modal-body"><i class="fa fa-times" aria-hidden="true" style="color: red;"></i> Số lượng sản phẩm này có thể đặt đã đạt tối đa!</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var contextPath = "[[@{/}]]";
+		var csrfHeader = "[[${_csrf.headerName}]]";
+		var csrfToken = "[[${_csrf.token}]]";
+	</script>
+	<script th:src="@{/js/add_To_Cart.js}"></script>
+	<script th:src="@{/js/checkNumber.js}"></script>
+</body>
+</html>
