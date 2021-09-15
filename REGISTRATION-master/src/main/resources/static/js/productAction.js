@@ -14,7 +14,13 @@ $(document).ready(function() {
 		evt.preventDefault();
 		ajaxEditProduct($(this));
 	});
+	
+	aaa();
 });
+
+function aaa(){
+	alert("aaa");
+}
 
 
 /*ADD PRODUCT*/
