@@ -23,13 +23,13 @@ import com.example.REGISTRATION.repo.StatusRepo;
 public class CartServiceImp implements CartService {
 	@Autowired
 	private CartRepo cartRepo;
-	
+
 	@Autowired
 	private ProductRepo productRepo;
-	
+
 	@Autowired
 	private BillRepo billRepo;
-	
+
 	@Autowired
 	private StatusRepo statusRepo;
 
@@ -37,20 +37,20 @@ public class CartServiceImp implements CartService {
 	public List<CartItem> listCartItems(User user) {
 		List<CartItem> cartItems = cartRepo.findByUser(user);
 		List<CartItem> productsInCart = new ArrayList<CartItem>();
-		for(CartItem cartItem : cartItems) {
-				productsInCart.add(cartItem);
+		for (CartItem cartItem : cartItems) {
+			productsInCart.add(cartItem);
 		}
 		return productsInCart;
 	}
-	
-	/*CHECK OUT*/
+
+	/* CHECK OUT */
 	@Override
-	public void checkOut(User user , String howToPay) {
+	public void checkOut(User user, String howToPay) {
 		// TODO Auto-generated method stub
 		List<CartItem> cartItems = cartRepo.findByUser(user);
 		long millis = System.currentTimeMillis();
 		Date date = new Date(millis);
-		for(CartItem cartItem : cartItems) {
+		for (CartItem cartItem : cartItems) {
 			Bill bill = new Bill();
 			bill.setBuyDate(date);
 			bill.setHowToPay(howToPay);
@@ -66,24 +66,22 @@ public class CartServiceImp implements CartService {
 			billRepo.save(bill);
 		}
 		cartRepo.deleteByUser(user.getId());
-		
 	}
-	
-	/*ADD PRODUCT TO CART */
+
+	/* ADD PRODUCT TO CART */
 	@Override
 	public int addProduct(Long productId, int quantity, User user) {
 		int addedQuantity = quantity;
 		Product product = productRepo.findProductById(productId);
 		CartItem cartItem = cartRepo.findByUserAndProduct(user, product);
-		if(cartItem != null) {
+		if (cartItem != null) {
 			addedQuantity = cartItem.getQuantity() + quantity;
-			if(addedQuantity > product.getNumber()) {
+			if (addedQuantity > product.getNumber()) {
 				cartItem.setQuantity(product.getNumber());
+			} else {
+				cartItem.setQuantity(addedQuantity);
 			}
-			else {
-			cartItem.setQuantity(addedQuantity);
-			}
-		}else {
+		} else {
 			cartItem = new CartItem();
 			cartItem.setQuantity(quantity);
 			cartItem.setUser(user);
@@ -92,8 +90,8 @@ public class CartServiceImp implements CartService {
 		cartRepo.save(cartItem);
 		return addedQuantity;
 	}
-	
-	/*UPDATE QUANTITY */
+
+	/* UPDATE QUANTITY */
 	@Override
 	public int updateQuantity(Long productId, int quantity, User user) {
 		cartRepo.updateQuantity(quantity, productId, user.getId());
@@ -101,8 +99,8 @@ public class CartServiceImp implements CartService {
 		int subTotal = product.getPrice() * quantity;
 		return subTotal;
 	}
-	
-	/*DELETE FROM CART */
+
+	/* DELETE FROM CART */
 	@Override
 	public void deleteFromCart(Long productId, User user) {
 		Product product = productRepo.findProductById(productId);

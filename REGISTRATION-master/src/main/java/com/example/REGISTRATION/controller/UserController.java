@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.REGISTRATION.entity.User;
-import com.example.REGISTRATION.repo.UserRepo;
 import com.example.REGISTRATION.service.UserService;
 
 @RestController
@@ -22,13 +21,10 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
-	private UserRepo userRepo;
-	
 	/*LIST USERS*/
-	@GetMapping("/listAllUsers")
+	@GetMapping("/listUsers")
 	public List<User> listAllUsers(){
-		List<User> users = userRepo.findAll();
+		List<User> users = userService.findAll();
 		return users;
 	}
 

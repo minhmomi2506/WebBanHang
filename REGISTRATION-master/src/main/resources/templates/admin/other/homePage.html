@@ -538,7 +538,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="modal"
+									<div class="modal editProductImage"
 										th:id="'editProductImageModal'+${product.id}" tabindex="-1"
 										role="dialog">
 										<div class="modal-dialog">
@@ -547,7 +547,7 @@
 													<form th:action="@{/editProductImage}"
 														enctype="multipart/form-data" method="post"
 														th:object="${product}">
-														<input type="text" name="id" id="id"
+														<input type="text" name="id" id="editProductImageInput" class="editProductImageInput"
 															th:value="${product.id}" hidden="hidden"> <img
 															alt=""
 															th:src="${'data:image/jpeg;base64,'+{product.image}}"

@@ -2,7 +2,7 @@ $(document).ready(function() {
 	$("#editUserPassword").on("input", function() {
 		retypePasswordCheck();
 	});
-	$("#editUserPassword").on("input", function() {
+	$("#retypePassword").on("input", function() {
 		retypePasswordCheck();
 	});
 });

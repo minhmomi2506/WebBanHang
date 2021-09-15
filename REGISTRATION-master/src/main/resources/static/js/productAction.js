@@ -16,6 +16,7 @@ $(document).ready(function() {
 	});
 });
 
+
 /*ADD PRODUCT*/
 /*function ajaxAddProduct(link) {
 	var formData = {

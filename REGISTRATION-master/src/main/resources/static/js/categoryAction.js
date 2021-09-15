@@ -12,9 +12,10 @@ $(document).ready(function() {
 		ajaxPostCategory();
 	});
 
-/*	$("#aaa").on("click",function() {
-		getAll();
-	});*/
+	/*	$("#aaa").on("click",function() {
+			getAll();
+		});*/
+	/*getAll();*/
 });
 
 function getAll() {
@@ -48,12 +49,13 @@ function ajaxPostCategory() {
 		}
 	}).done(function(category) {
 		alert("Thêm hạng mục thành công");
-		var categoryTable = document.getElementById("categoryTable");
+		/*var categoryTable = document.getElementById("categoryTable");
 		var newRow = categoryTable.insertRow(categoryTable.length),
 			cell1 = newRow.insertCell(0),
 			cell2 = newRow.insertCell(1);
 		cell1.innerHTML = $("#addCategoryName").val();
-		cell2.innerHTML = $("#deleteCategoryAction").html();
+		cell2.innerHTML = $("#deleteCategoryAction").html();*/
+		$("#categoryTable").append("<tr><td>"+$("#addCategoryName").val()+"</td><td>more data</td></tr>");
 	});
 }
 

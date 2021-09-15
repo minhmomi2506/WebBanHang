@@ -2,6 +2,7 @@ package com.example.REGISTRATION.service;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -33,6 +34,10 @@ public class UserService implements UserDetailsService {
 			throw new UsernameNotFoundException("Khong tim thay");
 		}
 		return new MyUserDetails(user);
+	}
+	
+	public List<User> findAll() {
+		return userRepo.findAll();
 	}
 	
 	public User findUserById(Long id) {
