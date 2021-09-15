@@ -49,27 +49,40 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/register", "/save", "/oauth2/**").permitAll().anyRequest()
-				.authenticated().and().formLogin().loginPage("/login").usernameParameter("username")
-				.passwordParameter("password").successHandler(authSuccessHandler)
-				.and().oauth2Login().loginPage("/login").userInfoEndpoint().userService(oauth2UserService).and()
-				.successHandler(oauth2LoginSuccessHandler).and().logout().permitAll().and().logout()
-				.logoutSuccessUrl("/login").logoutUrl("/logout").permitAll();
+		http.authorizeRequests()
+		.antMatchers("/addP" , "/editProductImage","/statistic","/list_users","/listCategories").hasAuthority("ADMIN")
+		.antMatchers("/buyProduct/**").hasAuthority("USER")
+		.antMatchers("/register","/save","/oauth2/**").permitAll()
+		.anyRequest().authenticated()
+		.and()
+		.formLogin().permitAll().loginPage("/login")
+		.usernameParameter("username")
+		.passwordParameter("password")
+		.defaultSuccessUrl("/")
+		.successHandler(authSuccessHandler)
+		.and()
+		.oauth2Login()
+			.loginPage("/login")
+			.userInfoEndpoint().userService(oauth2UserService)
+			.and()
+			.successHandler(oauth2LoginSuccessHandler)
+		.and()
+		.logout().permitAll()
+		.and().logout().logoutSuccessUrl("/login").logoutUrl("/logout").permitAll();
 
 	}
-
+	
 	@Autowired
 	private OAuth2LoginSuccessHandler oauth2LoginSuccessHandler;
-
+	
 	@Autowired
 	private CustomAuthenticationSuccessHandler authSuccessHandler;
-
-//	@Autowired
-//	private CustomSuccessHandler customSuccessHandler;
-
-	@Override
-	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/static/**", "/js/**","/plugins/**","/dist/**");
-	}
-
+	
+	 @Override
+     public void configure(WebSecurity web) throws Exception {
+         web
+             .ignoring()
+             .antMatchers("/static/**", "/js/**");
+     }
+	
 }

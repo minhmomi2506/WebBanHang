@@ -44,9 +44,6 @@ public class User implements Serializable{
 	@Column(nullable = true)
 	private String phoneNumber;
 	
-	@Column
-	private String user_role = "USER";
-	
 	private boolean enabled = true;
 	
 	@Lob

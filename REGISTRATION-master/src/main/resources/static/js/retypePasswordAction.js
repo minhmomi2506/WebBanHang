@@ -8,9 +8,9 @@ $(document).ready(function() {
 });
 
 function retypePasswordCheck() {
-	if ($("#editUserPassword").val().length <= 4) {
+	if ($("#editUserPassword").val().length < 4) {
 		document.getElementById("retypePasswordAlert").style.display = "block";
-		document.getElementById("retypePasswordAlert").innerHTML = "Mật khẩu phải dài ít nhất 5 kí tự";
+		document.getElementById("retypePasswordAlert").innerHTML = "Mật khẩu phải dài ít nhất 4 kí tự";
 		document.getElementById("retypePasswordSuccess").style.display = "none";
 		document.getElementById("editUserPasswordButton").disabled = true;
 	}

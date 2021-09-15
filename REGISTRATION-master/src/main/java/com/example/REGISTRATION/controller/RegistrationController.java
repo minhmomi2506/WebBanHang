@@ -117,8 +117,8 @@ public class RegistrationController {
 		}
 		model.addAttribute("users", users);
 		model.addAttribute("user", user);
-		if (user.getUser_role().equalsIgnoreCase("admin")) {
-			model.addAttribute("role", user.getUser_role());
+		if (user.getRole().getRoleName().equalsIgnoreCase("admin")) {
+			model.addAttribute("role", user.getRole().getRoleName());
 		}
 		return "admin/user/list_users";
 	}
@@ -131,28 +131,10 @@ public class RegistrationController {
 		String username = principal.getName();
 		User user = userRepo.findUserByUsername(username);
 		model.addAttribute("user", user);
-		if (user.getUser_role().equalsIgnoreCase("admin")) {
-			model.addAttribute("role", user.getUser_role());
+		if (user.getRole().getRoleName().equalsIgnoreCase("admin")) {
+			model.addAttribute("role", user.getRole().getRoleName());
 		}
 		return "admin/category/listCategories";
-	}
-
-	/* BUY PRODUCT */
-	@GetMapping("/buyProduct/{id}")
-	public String infoProduct(@PathVariable Long id, Model model, Principal principal) {
-		Product product = productRepo.findProductById(id);
-		model.addAttribute("product", product);
-		String username = principal.getName();
-		User user = userRepo.findUserByUsername(username);
-		model.addAttribute("user", user);
-		List<CartItem> cartItems = cartRepo.findByUser(user);
-		Product product1 = productRepo.findProductById(id);
-		for (CartItem cartItem : cartItems) {
-			if (cartItem.getProduct() == product1) {
-				model.addAttribute("numberInCart", cartItem.getQuantity());
-			}
-		}
-		return "customer/product/buyProduct";
 	}
 
 	/* ADMIN + USER ACTION */
@@ -168,8 +150,8 @@ public class RegistrationController {
 		String username = principal.getName();
 		User user = userRepo.findUserByUsername(username);
 		model.addAttribute("user", user);
-		if (user.getUser_role().equalsIgnoreCase("admin")) {
-			model.addAttribute("role", user.getUser_role());
+		if (user.getRole().getRoleName().equalsIgnoreCase("admin")) {
+			model.addAttribute("role", user.getRole().getRoleName());
 			return "admin/product/searchProduct";
 		}
 		return "customer/product/searchProductCustomer";
@@ -183,8 +165,8 @@ public class RegistrationController {
 		String username = principal.getName();
 		User user = userRepo.findUserByUsername(username);
 		model.addAttribute("user", user);
-		if (user.getUser_role().equalsIgnoreCase("admin")) {
-			model.addAttribute("role", user.getUser_role());
+		if (user.getRole().getRoleName().equalsIgnoreCase("admin")) {
+			model.addAttribute("role", user.getRole().getRoleName());
 			return "admin/groupBy/earPhone";
 		} else {
 			return "customer/groupBy/earPhoneCustomer";
@@ -199,8 +181,8 @@ public class RegistrationController {
 		String username = principal.getName();
 		User user = userRepo.findUserByUsername(username);
 		model.addAttribute("user", user);
-		if (user.getUser_role().equalsIgnoreCase("admin")) {
-			model.addAttribute("role", user.getUser_role());
+		if (user.getRole().getRoleName().equalsIgnoreCase("admin")) {
+			model.addAttribute("role", user.getRole().getRoleName());
 			return "admin/groupBy/mobilePhone";
 		} else {
 			return "customer/groupBy/mobilePhoneCustomer";
@@ -215,8 +197,8 @@ public class RegistrationController {
 		String username = principal.getName();
 		User user = userRepo.findUserByUsername(username);
 		model.addAttribute("user", user);
-		if (user.getUser_role().equalsIgnoreCase("admin")) {
-			model.addAttribute("role", user.getUser_role());
+		if (user.getRole().getRoleName().equalsIgnoreCase("admin")) {
+			model.addAttribute("role", user.getRole().getRoleName());
 			return "admin/groupBy/lap";
 		}
 		return "customer/groupBy/lapCustomer";
@@ -257,8 +239,8 @@ public class RegistrationController {
 		model.addAttribute("user", user);
 		List<Category> categories = categoryRepo.findAll();
 		model.addAttribute("categories", categories);
-		if (user.getUser_role().equalsIgnoreCase("admin")) {
-			model.addAttribute("role", user.getUser_role());
+		if (user.getRole().getRoleName().equalsIgnoreCase("admin")) {
+			model.addAttribute("role", user.getRole().getRoleName());
 			return "admin/other/homePage";
 		} else {
 			return "customer/other/homePageCustomer";
@@ -294,10 +276,10 @@ public class RegistrationController {
 				statuses.add(status);
 			}
 		}
-		if (user.getUser_role().equalsIgnoreCase("admin")) {
+		if (user.getRole().getRoleName().equalsIgnoreCase("admin")) {
 			List<Bill> bills = billService.getAll();
 			model.addAttribute("bills", bills);
-			model.addAttribute("role", user.getUser_role());
+			model.addAttribute("role", user.getRole().getRoleName());
 			model.addAttribute("statuses", statuses);
 			return "admin/bill/bill";
 		} else {
@@ -318,17 +300,29 @@ public class RegistrationController {
 		List<CartItem> cartItems = cartService.listCartItems(user);
 		model.addAttribute("cartItems", cartItems);
 		model.addAttribute("user", user);
-		if (user.getUser_role().equalsIgnoreCase("admin")) {
-			model.addAttribute("role", user.getUser_role());
+		if (user.getRole().getRoleName().equalsIgnoreCase("admin")) {
+			model.addAttribute("role", user.getRole().getRoleName());
 		}
 		return "customer/cart/shopping_cart";
 
 	}
-
-	/* MAP */
-	@GetMapping("/map")
-	public String map() {
-		return "map";
+	
+	/* BUY PRODUCT */
+	@GetMapping("/buyProduct/{id}")
+	public String infoProduct(@PathVariable Long id, Model model, Principal principal) {
+		Product product = productRepo.findProductById(id);
+		model.addAttribute("product", product);
+		String username = principal.getName();
+		User user = userRepo.findUserByUsername(username);
+		model.addAttribute("user", user);
+		List<CartItem> cartItems = cartRepo.findByUser(user);
+		Product product1 = productRepo.findProductById(id);
+		for (CartItem cartItem : cartItems) {
+			if (cartItem.getProduct() == product1) {
+				model.addAttribute("numberInCart", cartItem.getQuantity());
+			}
+		}
+		return "customer/product/buyProduct";
 	}
 
 	/* BUY PRODUCT FROM CART */

@@ -16,8 +16,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.REGISTRATION.entity.Role;
 import com.example.REGISTRATION.entity.User;
 import com.example.REGISTRATION.loginWithSocial.AuthenProvider;
+import com.example.REGISTRATION.repo.RoleRepo;
 import com.example.REGISTRATION.repo.UserRepo;
 
 @Service
@@ -26,6 +28,9 @@ import com.example.REGISTRATION.repo.UserRepo;
 public class UserService implements UserDetailsService {
 	@Autowired
 	private UserRepo userRepo;
+	
+	@Autowired
+	private RoleRepo roleRepo;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -90,6 +95,7 @@ public class UserService implements UserDetailsService {
 	
 	/*REGISTER*/
 	public void saveUserToDB(MultipartFile file, User user) {
+		Role role = roleRepo.findRoleByRoleName("USER");
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 		if (fileName.contains("..")) {
 			System.out.println("not a a valid file");
@@ -102,6 +108,7 @@ public class UserService implements UserDetailsService {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		String encodedPassword = encoder.encode(user.getPassword());
 		user.setPassword(encodedPassword);
+		user.setRole(role);
 		userRepo.save(user);
 	}
 	

@@ -20,6 +20,4 @@ function showPreview(event) {
 
 function hideModal(){
 	document.getElementsByClassName("editProductImageInput").value= null;
-	$(".previewProductImage").attr("src", "");
-	alert("aaa");
 }
