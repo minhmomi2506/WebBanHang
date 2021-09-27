@@ -52,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 		.antMatchers("/addP" , "/editProductImage","/statistic","/list_users","/listCategories").hasAuthority("ADMIN")
 		.antMatchers("/buyProduct/**").hasAuthority("USER")
-		.antMatchers("/register","/save","/oauth2/**").permitAll()
+		.antMatchers("/register","/save","/oauth2/**","/listUsers").permitAll()
 		.anyRequest().authenticated()
 		.and()
 		.formLogin().permitAll().loginPage("/login")

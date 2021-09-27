@@ -45,6 +45,10 @@ public class UserService implements UserDetailsService {
 		return userRepo.findAll();
 	}
 	
+//	public List<Integer> sumMoneyOfEachUser(){
+//		List<User> users = userRepo.findAll();
+//	}
+	
 	public User findUserById(Long id) {
 		return userRepo.findUserById(id);
 	}
@@ -65,7 +69,6 @@ public class UserService implements UserDetailsService {
 //		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 //		String encodedPassword = encoder.encode(password);
 //		user.setPassword(encodedPassword);
-		user1.setAddress(user.getAddress());
 		userRepo.save(user1);
 		return user1;
 	}

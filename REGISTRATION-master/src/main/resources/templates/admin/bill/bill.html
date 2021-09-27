@@ -8,7 +8,6 @@
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-
 <!-- Font Awesome -->
 <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
 <!-- Ionicons -->
@@ -88,22 +87,29 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 	<div class="wrapper">
+
+		<!-- Preloader -->
 		<div
 			class="preloader flex-column justify-content-center align-items-center">
 			<img class="animation__shake" src="dist/img/AdminLTELogo.png"
 				alt="AdminLTELogo" height="60" width="60">
 		</div>
+
+		<!-- Navbar -->
 		<nav
 			class="main-header navbar navbar-expand navbar-white navbar-light">
+			<!-- Left navbar links -->
 			<ul class="navbar-nav">
 				<li class="nav-item"><a class="nav-link" data-widget="pushmenu"
 					href="#" role="button"><i class="fas fa-bars"></i></a></li>
 				<li class="nav-item d-none d-sm-inline-block"><a th:href="@{/}"
 					class="nav-link">Home</a></li>
-				<li class="nav-item d-none d-sm-inline-block"><a href="#"
+				<li class="nav-item d-none d-sm-inline-block"><a href=""
 					class="nav-link">Contact</a></li>
 			</ul>
+			<!-- Right navbar links -->
 			<ul class="navbar-nav ml-auto">
+				<!-- Navbar Search -->
 				<li class="nav-item"><a class="nav-link"
 					data-widget="navbar-search" href="#" role="button"> <i
 						class="fas fa-search"></i>
@@ -115,8 +121,9 @@
 								placeholder="Search" aria-label="Search" name="productName">
 							Chọn mức giá:<input type="number" name="minp"
 								class="form-control form-control-navbar" value="0"><span
-								style="color: white;">đến</span><input type="number" name="maxp"
-								class="form-control form-control-navbar" value="100000000">
+								style="color: white;"></span> đến <input type="number"
+								name="maxp" class="form-control form-control-navbar"
+								value="100000000">
 							<div class="input-group input-group-sm">
 								<div class="input-group-append">
 									<button class="btn btn-navbar" type="submit">
@@ -132,14 +139,20 @@
 					</div></li>
 			</ul>
 		</nav>
+		<!-- /.navbar -->
+
+		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
+			<!-- Brand Logo -->
 			<a th:href="@{/}" class="brand-link"> <img
 				src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
 				class="brand-image img-circle elevation-3" style="opacity: .8">
 				<span class="brand-text font-weight-light">AdminLTE 3</span>
 			</a>
 
+			<!-- Sidebar -->
 			<div class="sidebar">
+				<!-- Sidebar user panel (optional) -->
 				<div class="user-panel mt-3 pb-3 mb-3 d-flex" th:object="${user}">
 					<div class="image">
 						<a href="" data-toggle="modal" data-target="#changeImageModal">
@@ -149,10 +162,11 @@
 						</a>
 					</div>
 					<div class="info">
-						<a href="" class="d-block">[[*{fullName}]]</a>
+						<div class="d-block" id="userFullName" style="color: white;">[[*{fullName}]]</div>
 					</div>
 				</div>
 
+				<!-- SidebarSearch Form -->
 				<div class="form-inline">
 					<div class="input-group" data-widget="sidebar-search">
 						<input class="form-control form-control-sidebar" type="search"
@@ -164,7 +178,6 @@
 						</div>
 					</div>
 				</div>
-
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column"
 						data-widget="treeview" role="menu" data-accordion="false">
@@ -172,13 +185,26 @@
 							class="nav-link active"> <i
 								class="nav-icon fas fa-tachometer-alt"></i> Danh mục <i
 								class="right fas fa-angle-left"></i>
-						</a></li>
+						</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item"><a th:href="@{/taiNghe}"
+									class="nav-link"> <i class="fa fa-headphones nav-icon"></i>
+										Tai nghe
+								</a></li>
+								<li class="nav-item"><a th:href="@{/dienThoai}"
+									class="nav-link"> <i class="fa fa-mobile nav-icon"></i>
+										Điện thoại
+								</a></li>
+								<li class="nav-item"><a th:href="@{/laptop}"
+									class="nav-link"> <i class="fa fa-laptop nav-icon"></i>
+										Laptop
+								</a></li>
+							</ul></li>
 						<li class="nav-header" style="font-weight: bold;" th:if="${role}">SẢN
 							PHẨM</li>
 
-						<li class="nav-item" th:if="${role}"><a
-							th:href="@{/addProduct}" class="nav-link" data-toggle="modal"
-							data-target="#addProductModal"> <i
+						<li class="nav-item" th:if="${role}"><a class="nav-link"
+							data-toggle="modal" data-target="#addProductModal"> <i
 								class="nav-icon fas fa-plus"></i> Thêm sản phẩm
 
 						</a></li>
@@ -203,22 +229,7 @@
 							th:href="@{/list_users}" class="nav-link"> <i
 								class="nav-icon far fa-calendar-alt"></i> Danh sách khách hàng
 						</a></li>
-						<li class="nav-item"><a href="#" class="nav-link"
-							th:if="${role}"> <i class="nav-icon fas fa-search"></i>
 
-								Search <i class="fas fa-angle-left right"></i>
-
-						</a>
-							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="pages/search/simple.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										Simple Search
-								</a></li>
-								<li class="nav-item"><a href="pages/search/enhanced.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										Enhanced
-								</a></li>
-							</ul></li>
 						<li class="nav-header" style="font-weight: bold;" th:if="${role}">BÁN
 							HÀNG</li>
 						<li class="nav-item"><a th:href="@{/listBill}"
@@ -231,6 +242,14 @@
 							class="nav-link" th:unless="${role}"> <i
 								class="nav-icon fas fa-list-ul"></i> Lịch sử mua hàng
 						</a></li>
+						<li class="nav-header" style="font-weight: bold;" th:if="${role}">THỐNG
+							KÊ
+						<li class="nav-item" th:if="${role}"><a
+							th:href="@{/statistic}" class="nav-link"> <i
+								class="nav-icon far fa-calendar-alt"></i> Thống kê doanh thu
+						</a></li>
+
+
 						<li class="nav-header" style="font-weight: bold;">THAO TÁC
 							KHÁC</li>
 						<li class="nav-item" th:object=${user}><a
@@ -251,68 +270,74 @@
 			</div>
 		</aside>
 
+		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
-
+			<!-- Content Header (Page header) -->
 			<div class="content-header">
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
 							<h1 class="m-0">Dashboard</h1>
 						</div>
+						<!-- /.col -->
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-								<li class="nav-item" th:unless="${role}">/<a
-									th:href="@{/cart}" class="nav-link fa fa-shopping-cart"
-									style="color: black;"></a></li>
+								<li class="breadcrumb-item"><a th:href="@{/}"><i>Home</i></a></li>
 							</ol>
 						</div>
-
+						<!-- /.col -->
 					</div>
-
+					<!-- /.row -->
 				</div>
-
+				<!-- /.container-fluid -->
 			</div>
-
+			<!-- /.content-header -->
 			<div class="modal" id="addProductModal" tabindex="-1" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h4 class="modal-title">ADD PRODUCT</h4>
+							<h4 class="modal-title">THÊM SẢN PHẨM</h4>
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 						</div>
 						<div class="modal-body">
-							<form class="text-center border border-light p-5"
-								th:action="@{/addP}" method="post" enctype="multipart/form-data">
+							<form th:action="@{/addP}"
+								class="text-center border border-light p-5" method="post"
+								enctype="multipart/form-data" id="addProductForm">
 
-								Name <input type="text" name="name" id="name"
-									class="form-control mb-4" placeholder="Product Name">
+								<!-- Name -->
+								<input type="text" name="name" id="productName"
+									class="form-control mb-4" placeholder="Tên sản phẩm">
 
-								Price <input type="number" name="price" id="price"
-									class="form-control mb-4" placeholder="Product Price"
-									required="required"> Description <input type="text"
-									name="description" id="description" class="form-control mb-4"
-									placeholder="Product Description"> <input type="number"
-									name="number" id="number" class="form-control mb-4"
-									placeholder="Product Number">
+								<!-- Price -->
+								<input type="number" name="price" id="productPrice"
+									class="form-control mb-4" placeholder="Gía sản phẩm"
+									required="required">
+
+								<!-- Description -->
+								<input type="text" name="description" id="productDescription"
+									class="form-control mb-4" placeholder="Mô tả sản phẩm">
+
+
+								<input type="number" name="number" id="productNumber"
+									class="form-control mb-4" placeholder="Số lượng sản phẩm">
 
 								<div class="custom-file mb-4">
 									<img alt="" src="" style="width: 200px; height: 200px;"
 										id="productImage">
 									<div></div>
-									<input type="file" name="file"
-										onchange="ShowImagePreview(this,document.getElementById('productImage'))"
-										style="text-align: center;">
+									<input type="file" name="productImage" id="productImage"
+										onchange="ShowImagePreview(this,document.getElementById('productImage'))">
 								</div>
 
 								<div class="custom-file mb-4">
-									<select name="category" required="required">
+									<select name="category" required="required"
+										id="productCategory">
 										<option th:each="category : ${categories}"
 											th:value="${category.id}" th:text=${category.categoryName}></option>
 									</select>
 								</div>
 								<button class="btn btn-info btn-block" type="submit"
-									id="addProduct">add</button>
+									id="addProduct">Thêm sản phẩm</button>
 							</form>
 						</div>
 					</div>
@@ -322,17 +347,17 @@
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h4 class="modal-title">ADD CATEGORY</h4>
+							<h4 class="modal-title">THÊM HẠNG MỤC</h4>
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 						</div>
 						<div class="modal-body">
 							<form class="text-center border border-light p-5"
-								th:action="@{/addCategory}" method="post">
-								<input type="text" name="categoryName" id="categoryName"
-									class="form-control mb-4" placeholder="Category Name">
+								method="post" th:action="@{/addCategory}">
+								<input type="text" name="categoryName" id="addCategoryName"
+									class="form-control mb-4" placeholder="Tên hạng mục">
 
 								<button class="btn btn-info btn-block" type="submit"
-									id="addCategory">add</button>
+									id="addCategory">Thêm hạng mục</button>
 							</form>
 						</div>
 					</div>
@@ -348,7 +373,7 @@
 									style="width: 200px; height: 200px;" id="myImage"> <input
 									type="file" name="file"
 									onchange="ShowImagePreview(this,document.getElementById('myImage'))">
-								<button type="submit">Save</button>
+								<button type="submit">Lưu</button>
 							</div>
 						</div>
 					</div>
@@ -358,35 +383,31 @@
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h4 class="modal-title">EDIT USER</h4>
+							<h4 class="modal-title">CHỈNH SỬA THÔNG TIN</h4>
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 						</div>
 						<div class="modal-body">
-							<form th:action="@{/editUser}" method="post"
-								enctype="multipart/form-data" th:object="${user}">
+							<form enctype="multipart/form-data" th:object="${user}"
+								id="editUserInfoForm">
 								<div class="form-group">
-									<input type="text" class="form-control" id="id" name="id"
-										th:field="*{id}" style="width: 350px;" hidden="hidden">
+									<input type="text" class="form-control" id="editUserId"
+										name="id" th:field="*{id}" style="width: 350px;"
+										hidden="hidden">
 								</div>
 								<div class="form-group">
-									<label for="firstName">FULL NAME:</label> <input type="text"
-										class="form-control" id="fullName" name="fullName"
+									<label for="fullName">TÊN:</label> <input type="text"
+										class="form-control" id="editUserFullName" name="fullName"
 										th:field="*{fullName}" style="width: 350px;"
 										required="required">
 								</div>
+								<div id="duplicateEditPhoneNumberAlert" style="color: red;"></div>
 								<div class="form-group">
-									<label for="firstName">PHONE NUMBER:</label> <input type="text"
-										class="form-control" id="phoneNumber" name="phoneNumber"
-										th:field="*{phoneNumber}" style="width: 350px;"
-										required="required">
+									<label for="phoneNumber">SĐT:</label> <input type="text"
+										class="form-control" id="editUserPhoneNumber"
+										name="phoneNumber" th:field="*{phoneNumber}"
+										style="width: 350px;" required="required">
 								</div>
-								<div class="form-group">
-									<label for="address">ADDRESS:</label> <input type="text"
-										class="form-control" id=" address" name="address"
-										th:field="*{address}" style="width: 350px;"
-										required="required">
-								</div>
-								<button type="submit">SUBMIT</button>
+								<button type="submit" id="editUserInfoButton">SỬA</button>
 
 							</form>
 						</div>
@@ -402,24 +423,34 @@
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 						</div>
 						<div class="modal-body">
-							<form th:action="@{/editUserPassword}" method="post"
-								enctype="multipart/form-data" th:object="${user}">
+							<form id="editUserPasswordForm" th:object="${user}">
 								<div class="form-group">
-									<input type="text" class="form-control" id="id" name="id"
-										th:field="*{id}" style="width: 350px;" hidden="hidden">
+									<input type="text" class="form-control" id="editUserPasswordId"
+										name="id" th:field="*{id}" style="width: 350px;"
+										hidden="hidden">
 								</div>
 								<div class="form-group">
-									<label for="firstName">MẬT KHẨU MỚI:</label> <input type="text"
-										class="form-control" id="password" name="password"
-										style="width: 350px;" required="required">
+									<label for="password">NHẬP MẬT KHẨU MỚI:</label> <input
+										type="password" class="form-control" id="editUserPassword"
+										name="password" style="width: 450px;" required="required"
+										placeholder="Nhập mật khẩu mới">
 								</div>
-								<button type="submit">THAY ĐỔI</button>
+								<div id="retypePasswordAlert" style="color: red;"></div>
+								<div id="retypePasswordSuccess" style="color: green;"></div>
+								<div class="form-group">
+									<label for="retypePassword">NHẬP LẠI MẬT KHẨU:</label> <input
+										type="password" class="form-control" id="retypePassword"
+										placeholder="Nhập lại mật khẩu" required="required"
+										style="width: 450px;">
+								</div>
+								<button type="submit" id="editUserPasswordButton">SỬA</button>
 
 							</form>
 						</div>
 					</div>
 				</div>
 			</div>
+			<!-- Main content -->
 			<section class="content">
 				<div class="col-12">
 					<hr>
@@ -451,7 +482,7 @@
 								<td>[[*{bill.buyDate}]]</td>
 								<td>[[*{bill.user.phoneNumber}]]</td>
 								<td>[[*{bill.user.fullName}]]</td>
-								<td>[[*{bill.user.address}]]</td>
+								<td>[[*{bill.address}]]</td>
 								<td>[[*{bill.status.statusName}]]</td>
 								<td><a href="" class="fa fa-pencil link-edit"
 									data-toggle="modal"
@@ -465,14 +496,16 @@
 													<button type="button" class="close" data-dismiss="modal">&times;</button>
 												</div>
 												<div class="modal-body">
-													<form id="editBillStatusForm" class="editBill" th:rowNumber = "${bill.id}">
+													<form id="editBillStatusForm" class="editBill"
+														th:rowNumber="${bill.id}">
 														<input type="text" name="id" id="editBillStatusId"
 															class="form-control mb-4" th:value="${bill.id}"
 															hidden="hidden">
 														<div class="custom-file mb-4">
-															<select th:id="'editBillStatus'+${bill.id}" name="statusName"
-																required="required">
-																<option th:value="${bill.status.id}" th:text="${bill.status.statusName}">
+															<select th:id="'editBillStatus'+${bill.id}"
+																name="statusName" required="required">
+																<option th:value="${bill.status.id}"
+																	th:text="${bill.status.statusName}">
 																<option th:each="status , count : ${statuses}"
 																	th:value="${status.id}" th:text="${status.statusName}">
 															</select>
@@ -489,7 +522,9 @@
 					<hr>
 				</div>
 			</section>
+			<!-- /.content -->
 		</div>
+		<!-- /.content-wrapper -->
 		<footer class="main-footer">
 			<strong>Copyright &copy; 2014-2021 <a
 				href="https://adminlte.io">AdminLTE.io</a>.
@@ -498,18 +533,29 @@
 				<b>Version</b> 3.1.0
 			</div>
 		</footer>
-		<aside class="control-sidebar control-sidebar-dark"></aside>
+
+		<!-- Control Sidebar -->
+		<aside class="control-sidebar control-sidebar-dark">
+			<!-- Control sidebar content goes here -->
+		</aside>
+		<!-- /.control-sidebar -->
 	</div>
+	<!-- ./wrapper -->
+
+	<!-- jQuery -->
 	<script type="text/javascript">
 		var contextPath = "[[@{/}]]";
 		var csrfHeader = "[[${_csrf.headerName}]]";
 		var csrfToken = "[[${_csrf.token}]]";
 	</script>
 	<script th:src="@{/js/productAction.js}"></script>
-	<script th:src="@{/js/billAction.js}"></script>
 	<script th:src="@{/js/userAction.js}"></script>
 	<script th:src="@{/js/categoryAction.js}"></script>
 	<script th:src="@{/js/showImagePreview.js}"></script>
+	<script th:src="@{/js/previewEditImage.js}"></script>
+	<script th:src="@{/js/showCartMiniNumber.js}"></script>
+	<script th:src="@{/js/retypePasswordAction.js}"></script>
+	<script th:src="@{/js/billAction.js}"></script>
+	<script th:src="@{/js/statisticAction.js}"></script>
 </body>
 </html>
-

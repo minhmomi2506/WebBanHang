@@ -24,9 +24,9 @@ public class CategoryServiceImp implements CategoryService {
 	
 	/*INSERT CATEGORY*/
 	@Override
-	public Category insertCategory(Category category) {
+	public void insertCategory(Category category) {
 		// TODO Auto-generated method stub
-		return categoryRepo.save(category);
+		categoryRepo.save(category);
 	}
 	
 	/*DELETE CATEGORY*/

@@ -1,7 +1,24 @@
-/**
- * 
- */
 $(document).ready(function() {
+	$("#editUserPhoneNumber").on("input", function() {
+		$.ajax({
+			type: "GET",
+			url: contextPath + "listUsers"
+		}).done(function(result) {
+			let count = 0;
+			$.each(result, function(index, user) {
+				if (user.phoneNumber == $("#editUserPhoneNumber").val()) {
+					document.getElementById("duplicateEditPhoneNumberAlert").style.display = "block";
+					document.getElementById("duplicateEditPhoneNumberAlert").innerHTML = "Có người đăng kí SĐT này rồi";
+					document.getElementById("editUserInfoButton").disabled = true;
+					count++;
+				}
+			});
+			if (count == 0) {
+				document.getElementById("duplicateEditPhoneNumberAlert").style.display = "none";
+				document.getElementById("editUserInfoButton").disabled = false;
+			}
+		});
+	});
 
 	$("#editUserInfoForm").submit(function(evt) {
 		evt.preventDefault();
@@ -18,8 +35,7 @@ function ajaxEditUserInfo(link) {
 	userId = $("#editUserId").val();
 	var formData = {
 		fullName: $("#editUserFullName").val(),
-		phoneNumber: $("#editUserPhoneNumber").val(),
-		address: $("#editUserAddress").val()
+		phoneNumber: $("#editUserPhoneNumber").val()
 	}
 	$.ajax({
 		type: "PUT",

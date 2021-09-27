@@ -412,12 +412,6 @@
 										th:field="*{phoneNumber}" style="width: 350px;"
 										required="required">
 								</div>
-								<div class="form-group">
-									<label for="address">ADDRESS:</label> <input type="text"
-										class="form-control" id=" address" name="address"
-										th:field="*{address}" style="width: 350px;"
-										required="required">
-								</div>
 								<button type="submit">SUBMIT</button>
 
 							</form>
@@ -504,21 +498,25 @@
 						</div>
 						<div class="col-sm-4">
 							<div>
-								<span class="h3">Estimated amount: </span>
+								<span class="h3">Tổng tiền: </span>
 							</div>
 							<div class="mt-2">
 								<span class="h2" id="totalAmount"><span class="h4">&nbsp;VND</span></span>
 							</div>
 							<form th:action="@{/checkOut}" method="post" id="buyProductForm">
 								<div class="custom-file mb-4">
+									<div>Chọn phương thức thanh toán</div>
 									<select name="howToPay" required="required" id="howToPay">
 										<option th:each="howToPay : ${howToPays}"
 											th:text="${howToPay}">
 									</select>
 								</div>
+								<div class="custom-file mb-4">
+									<input name="address" placeholder="Nhập địa chỉ nhận đơn hàng" style="width: 500px; height: 40px;" required="required">
+								</div>
 								<div class="mt-2">
 									<button class="btn btn-danger p-3 mt-2" type="submit"
-										id="checkOut" data-toggle="modal" data-target="#buyProductModal">Check out</button>
+										id="checkOut" data-toggle="modal" data-target="#buyProductModal">Mua hàng</button>
 								</div>
 							</form>
 						</div>

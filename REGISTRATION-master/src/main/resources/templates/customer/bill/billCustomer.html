@@ -384,12 +384,6 @@
 										th:field="*{phoneNumber}" style="width: 350px;"
 										required="required">
 								</div>
-								<div class="form-group">
-									<label for="address">ADDRESS:</label> <input type="text"
-										class="form-control" id=" address" name="address"
-										th:field="*{address}" style="width: 350px;"
-										required="required">
-								</div>
 								<button type="submit">SUBMIT</button>
 
 							</form>
@@ -453,7 +447,7 @@
 								<td>[[*{bill.howToPay}]]</td>
 								<td>[[*{bill.buyDate}]]</td>
 								<td>[[*{bill.user.phoneNumber}]]</td>
-								<td>[[*{bill.user.address}]]</td>
+								<td>[[*{bill.address}]]</td>
 								<td th:id = "'status'+${bill.id}">[[*{bill.status.statusName}]]</td>
 								<td
 									th:unless="${bill.status.statusName == 'Hủy đơn'} OR ${bill.status.statusName == 'Giao hàng thành công'} OR ${bill.status.statusName == 'Đang giao hàng'}"><a

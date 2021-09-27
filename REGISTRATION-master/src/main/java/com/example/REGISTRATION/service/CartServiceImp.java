@@ -45,7 +45,7 @@ public class CartServiceImp implements CartService {
 
 	/* CHECK OUT */
 	@Override
-	public void checkOut(User user, String howToPay) {
+	public void checkOut(User user, String howToPay , String address) {
 		// TODO Auto-generated method stub
 		List<CartItem> cartItems = cartRepo.findByUser(user);
 		long millis = System.currentTimeMillis();
@@ -54,6 +54,7 @@ public class CartServiceImp implements CartService {
 			Bill bill = new Bill();
 			bill.setBuyDate(date);
 			bill.setHowToPay(howToPay);
+			bill.setAddress(address);
 			bill.setQuantity(cartItem.getQuantity());
 			bill.setUser(cartItem.getUser());
 			bill.setProduct(cartItem.getProduct());

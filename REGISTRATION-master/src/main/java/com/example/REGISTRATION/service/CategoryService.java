@@ -10,7 +10,7 @@ import com.example.REGISTRATION.entity.Category;
 public interface CategoryService {
 	List<Category> findAll();
 	
-	Category insertCategory(Category category);
+	void insertCategory(Category category);
 	
 	void deleteCategory(Long id);
 }

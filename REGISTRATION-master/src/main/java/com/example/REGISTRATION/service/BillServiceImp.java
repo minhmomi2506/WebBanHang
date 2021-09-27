@@ -65,7 +65,7 @@ public class BillServiceImp implements BillService {
 		List<Bill> bills = billRepo.findAll();
 		int totalMoney = 0;
 		for(Bill bill : bills) {
-			if(bill.getBuyDate().getMonth() - month + 1 == 0 && bill.getBuyDate().getYear() - year + 1900 == 0) {
+			if(bill.getStatus().getStatusName().equalsIgnoreCase("Giao hàng thành công") && bill.getBuyDate().getMonth() - month + 1 == 0 && bill.getBuyDate().getYear() - year + 1900 == 0) {
 				totalMoney = totalMoney + bill.getToTal();
 			}
 		}
@@ -78,7 +78,7 @@ public class BillServiceImp implements BillService {
 		List<Bill> bills = billRepo.findAll();
 		List<Bill> billsByMonthAndYear = new ArrayList<Bill>();
 		for(Bill bill : bills) {
-			if(bill.getBuyDate().getMonth() - month + 1 == 0 && bill.getBuyDate().getYear() - year + 1900 == 0) {
+			if(bill.getStatus().getStatusName().equalsIgnoreCase("Giao hàng thành công") && bill.getBuyDate().getMonth() - month + 1 == 0 && bill.getBuyDate().getYear() - year + 1900 == 0) {
 				billsByMonthAndYear.add(bill);
 			}
 		}

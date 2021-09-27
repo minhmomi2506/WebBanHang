@@ -93,6 +93,13 @@ public class RegistrationController {
 		productService.editProductImage(id, file);
 		return "redirect:/";
 	}
+	
+	/*INSERT CATEGORY*/
+	@PostMapping("/addCategory")
+	public String insertCategory(Category category) {
+		categoryService.insertCategory(category);
+		return "redirect:/listCategories";
+	}
 
 	/* STATISTICS */
 	@RequestMapping("/statistic")
@@ -100,6 +107,9 @@ public class RegistrationController {
 		String username = principal.getName();
 		User user = userRepo.findUserByUsername(username);
 		model.addAttribute("user", user);
+		if (user.getRole().getRoleName().equalsIgnoreCase("admin")) {
+			model.addAttribute("role", user.getRole().getRoleName());
+		}
 		return "admin/statistic/statistic";
 	}
 
@@ -306,7 +316,7 @@ public class RegistrationController {
 		return "customer/cart/shopping_cart";
 
 	}
-	
+
 	/* BUY PRODUCT */
 	@GetMapping("/buyProduct/{id}")
 	public String infoProduct(@PathVariable Long id, Model model, Principal principal) {
@@ -327,10 +337,10 @@ public class RegistrationController {
 
 	/* BUY PRODUCT FROM CART */
 	@PostMapping("/checkOut")
-	public String checkOut(String howToPay, Principal principal) {
+	public String checkOut(String howToPay, String address, Principal principal) {
 		String username = principal.getName();
 		User user = userRepo.findUserByUsername(username);
-		cartService.checkOut(user, howToPay);
+		cartService.checkOut(user, howToPay, address);
 		return "redirect:/cart";
 	}
 }

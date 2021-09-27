@@ -1,39 +1,22 @@
-/**
- * 
- */
 $(document).ready(function() {
 	$(".link-remove-category").on("click", function(evt) {
 		evt.preventDefault();
 		deleteCategory($(this));
 	});
 
-	$("#addCategoryForm").submit(function(evt) {
-		evt.preventDefault();
-		ajaxPostCategory();
-	});
+	/*	$("#addCategoryForm").submit(function(evt) {
+			evt.preventDefault();
+			ajaxPostCategory();
+		});*/
 
 	/*	$("#aaa").on("click",function() {
 			getAll();
 		});*/
-	/*getAll();*/
 });
 
-function getAll() {
-	$.ajax({
-		method: "GET",
-		url: contextPath + "getAllCategories"
-	}).done(function(responseJson) {
-		/*alert(responseJson);*/
-		$.each(responseJson, function(index, category) {
-			alert(category.categoryName);
-		});
-	}).fail(function() {
-		alert("Fail");
-	});
-}
 
 /*INSERT CATEGORY*/
-function ajaxPostCategory() {
+/*function ajaxPostCategory() {
 	var formData = {
 		categoryName: $("#addCategoryName").val()
 	}
@@ -49,15 +32,14 @@ function ajaxPostCategory() {
 		}
 	}).done(function(category) {
 		alert("Thêm hạng mục thành công");
-		/*var categoryTable = document.getElementById("categoryTable");
+		var categoryTable = document.getElementById("categoryTable");
 		var newRow = categoryTable.insertRow(categoryTable.length),
 			cell1 = newRow.insertCell(0),
 			cell2 = newRow.insertCell(1);
 		cell1.innerHTML = $("#addCategoryName").val();
-		cell2.innerHTML = $("#deleteCategoryAction").html();*/
-		$("#categoryTable").append("<tr><td>"+$("#addCategoryName").val()+"</td><td>more data</td></tr>");
+		cell2.innerHTML = $("#deleteCategoryAction").html();
 	});
-}
+}*/
 
 /*DELETE CATEGORY*/
 function deleteCategory(link) {
@@ -82,4 +64,3 @@ function removeCategory(rowNumber) {
 	rowId = "row" + rowNumber;
 	$("#categoryTable #" + rowId).remove();
 }
-

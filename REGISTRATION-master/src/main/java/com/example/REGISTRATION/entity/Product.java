@@ -2,6 +2,7 @@ package com.example.REGISTRATION.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,7 +41,7 @@ public class Product implements Serializable{
 	@Column(columnDefinition = "MEDIUMBLOB")
 	private String image;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "category_id")
 	private Category category;
 	

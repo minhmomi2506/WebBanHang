@@ -285,24 +285,19 @@
 										hidden="hidden">
 								</div>
 								<div class="form-group">
-									<label for="firstName">TÊN:</label> <input type="text"
+									<label for="fullName">TÊN:</label> <input type="text"
 										class="form-control" id="editUserFullName" name="fullName"
 										th:field="*{fullName}" style="width: 350px;"
 										required="required">
 								</div>
+								<div id="duplicateEditPhoneNumberAlert" style="color: red;"></div>
 								<div class="form-group">
-									<label for="firstName">SĐT:</label> <input type="text"
+									<label for="phoneNumber">SĐT:</label> <input type="text"
 										class="form-control" id="editUserPhoneNumber"
 										name="phoneNumber" th:field="*{phoneNumber}"
 										style="width: 350px;" required="required">
 								</div>
-								<div class="form-group">
-									<label for="address">ĐỊA CHỈ:</label> <input type="text"
-										class="form-control" id="editUserAddress" name="address"
-										th:field="*{address}" style="width: 350px;"
-										required="required">
-								</div>
-								<button type="submit">SỬA</button>
+								<button type="submit" id="editUserInfoButton">SỬA</button>
 
 							</form>
 						</div>

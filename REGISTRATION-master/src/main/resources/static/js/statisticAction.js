@@ -1,6 +1,7 @@
 /**
  * 
  */
+
 $(document).ready(function() {
 	$("#statistic").on("click", function(evt) {
 		evt.preventDefault();
@@ -35,7 +36,7 @@ function billsByMonthAndYear(month, year) {
 		url: url
 	}).done(function(result) {
 		$.each(result , function(i , bill) {
-			$("#tbody").append("<tr><td>"+bill.product.name+"</td><td>"+bill.quantity+"</td><td>"+bill.product.price+"</td><td>"+bill.howToPay+"</td><td>"+bill.buyDate+"</td><td>"+bill.user.phoneNumber+"</td><td>"+bill.user.fullName+"</td><td>"+bill.user.address+"</td><td>"+bill.status.statusName+"</td></tr>");
+			$("#tbody").append("<tr><th><img src='data:image/jpeg;base64,"+bill.product.image+"' style='width: 100px; height: 100px;'></th><td>"+bill.product.name+"</td><td>"+bill.quantity+"</td><td>"+bill.product.price+"</td><td>"+bill.howToPay+"</td><td>"+bill.buyDate+"</td><td>"+bill.user.phoneNumber+"</td><td>"+bill.user.fullName+"</td><td>"+bill.address+"</td><td>"+bill.status.statusName+"</td></tr>");
 		});
 	});
 }

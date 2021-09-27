@@ -21,6 +21,6 @@ public interface CartService {
 	
 	void deleteFromCart(Long productId , User user);
 	
-	void checkOut(User user , String howToPay);
+	void checkOut(User user , String howToPay, String address);
 	
 }

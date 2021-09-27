@@ -216,8 +216,8 @@
 								class="nav-icon fas fa-list-ul"></i> Danh sách hạng mục
 
 						</a></li>
-						<li class="nav-item" th:if="${role}"><a
-							th:href="@{/addCategory}" class="nav-link" data-toggle="modal"
+						<li class="nav-item" th:if="${role}"><a href=""
+							class="nav-link" data-toggle="modal"
 							data-target="#addCategoryModal"> <i
 								class="nav-icon fas fa-plus"></i> Thêm hạng mục
 
@@ -352,10 +352,9 @@
 						</div>
 						<div class="modal-body">
 							<form class="text-center border border-light p-5"
-								id="addCategoryForm" method="post">
-								<input type="text" name="categoryName" id="addCategoryName"
+								th:action="@{/addCategory}" method="post">
+								<input type="text" name="categoryName" id="CategoryName"
 									class="form-control mb-4" placeholder="Tên hạng mục">
-
 								<button class="btn btn-info btn-block" type="submit"
 									id="addCategory">Thêm hạng mục</button>
 							</form>
@@ -395,24 +394,19 @@
 										hidden="hidden">
 								</div>
 								<div class="form-group">
-									<label for="firstName">TÊN:</label> <input type="text"
+									<label for="fullName">TÊN:</label> <input type="text"
 										class="form-control" id="editUserFullName" name="fullName"
 										th:field="*{fullName}" style="width: 350px;"
 										required="required">
 								</div>
+								<div id="duplicateEditPhoneNumberAlert" style="color: red;"></div>
 								<div class="form-group">
-									<label for="firstName">SĐT:</label> <input type="text"
+									<label for="phoneNumber">SĐT:</label> <input type="text"
 										class="form-control" id="editUserPhoneNumber"
 										name="phoneNumber" th:field="*{phoneNumber}"
 										style="width: 350px;" required="required">
 								</div>
-								<div class="form-group">
-									<label for="address">ĐỊA CHỈ:</label> <input type="text"
-										class="form-control" id="editUserAddress" name="address"
-										th:field="*{address}" style="width: 350px;"
-										required="required">
-								</div>
-								<button type="submit">SỬA</button>
+								<button type="submit" id="editUserInfoButton">SỬA</button>
 
 							</form>
 						</div>
@@ -482,10 +476,9 @@
 								<td>[[*{product.description}]]</td>
 								<td id="price">[[*{product.price}]]</td>
 								<td>[[*{product.number}]]</td>
-								<td><a href=""
-									class="fa fa-trash link-remove" id="deleteProductButton"
-									th:rowNumber="${product.id}"></a> &nbsp; <a href=""
-									class="fa fa-pencil" data-toggle="modal"
+								<td><a href="" class="fa fa-trash link-remove"
+									id="deleteProductButton" th:rowNumber="${product.id}"></a>
+									&nbsp; <a href="" class="fa fa-pencil" data-toggle="modal"
 									th:data-target="'#editProductInfoModal'+${product.id}"></a>
 									<div class="modal" th:id="'editProductInfoModal'+${product.id}"
 										tabindex="-1" role="dialog">
@@ -547,9 +540,9 @@
 													<form th:action="@{/editProductImage}"
 														enctype="multipart/form-data" method="post"
 														th:object="${product}">
-														<input type="text" name="id" id="editProductImageInput" class="editProductImageInput"
-															th:value="${product.id}" hidden="hidden"> <img
-															alt=""
+														<input type="text" name="id" id="editProductImageInput"
+															class="editProductImageInput" th:value="${product.id}"
+															hidden="hidden"> <img alt=""
 															th:src="${'data:image/jpeg;base64,'+{product.image}}"
 															style="width: 200px; height: 200px;" id="previewImage"
 															class="previewProductImage"> <input type="file"
@@ -598,7 +591,8 @@
 	<script th:src="@{/js/categoryAction.js}"></script>
 	<script th:src="@{/js/showImagePreview.js}"></script>
 	<script th:src="@{/js/previewEditImage.js}"></script>
-	<script th:src="@{/js/showCartMiniNumber.js}"></script>
 	<script th:src="@{/js/retypePasswordAction.js}"></script>
+	<script th:src="@{/js/billAction.js}"></script>
+	<script th:src="@{/js/statisticAction.js}"></script>
 </body>
 </html>
