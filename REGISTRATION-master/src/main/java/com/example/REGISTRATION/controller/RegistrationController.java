@@ -282,7 +282,7 @@ public class RegistrationController {
 		List<Status> statuses1 = statusRepo.findAll();
 		List<Status> statuses = new ArrayList<Status>();
 		for (Status status : statuses1) {
-			if (status.getStatusName().equals("Hủy đơn") == false) {
+			if (status.getStatusName().equals("Hủy đơn") == false && status.getStatusName().equals("Giao hàng thành công") == false) {
 				statuses.add(status);
 			}
 		}

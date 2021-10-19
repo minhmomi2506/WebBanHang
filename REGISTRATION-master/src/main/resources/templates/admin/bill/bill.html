@@ -457,17 +457,17 @@
 					<table class="table" id="billTable">
 						<thead class="thead-dark">
 							<tr>
-								<th scope="col">IMAGE</th>
-								<th scope="col">NAME</th>
-								<th scope="col">QUANTITY</th>
-								<th scope="col">PRICE(VND)</th>
-								<th scope="col">HOW_TO_PAY</th>
-								<th scope="col">BUY_DATE</th>
-								<th scope="col">USER'S PHONENUMBER</th>
-								<th scope="col">USER'S NAME</th>
-								<th scope="col">ADDRESS</th>
-								<th scope="col">STATUS</th>
-								<th scope="col">ACTION</th>
+								<th scope="col">ẢNH</th>
+								<th scope="col">TÊN</th>
+								<th scope="col">SỐ LƯỢNG</th>
+								<th scope="col">GIÁ(VND)</th>
+								<th scope="col">PHƯƠNG THỨC THANH TOÁN</th>
+								<th scope="col">NGÀY MUA</th>
+								<th scope="col">SĐT NGƯỜI MUA</th>
+								<th scope="col">TÊN NGƯỜI MUA</th>
+								<th scope="col">ĐỊA CHỈ</th>
+								<th scope="col">TRẠNG THÁI</th>
+								<th scope="col">THAO TÁC</th>
 							</tr>
 						</thead>
 						<tbody th:each="bill , status : ${bills}">
@@ -484,7 +484,7 @@
 								<td>[[*{bill.user.fullName}]]</td>
 								<td>[[*{bill.address}]]</td>
 								<td>[[*{bill.status.statusName}]]</td>
-								<td><a href="" class="fa fa-pencil link-edit"
+								<td th:unless="${bill.status.statusName == 'Hủy đơn'} OR ${bill.status.statusName == 'Giao hàng thành công'}" ><a href="" class="fa fa-pencil link-edit"
 									data-toggle="modal"
 									th:data-target="'#editBillModal'+${bill.id}"></a>
 									<div class="modal" th:id="'editBillModal'+${bill.id}"
