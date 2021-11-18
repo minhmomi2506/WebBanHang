@@ -216,8 +216,8 @@
 								class="nav-icon fas fa-list-ul"></i> Danh sách hạng mục
 
 						</a></li>
-						<li class="nav-item" th:if="${role}"><a
-							th:href="@{/addCategory}" class="nav-link" data-toggle="modal"
+						<li class="nav-item" th:if="${role}"><a href=""
+							class="nav-link" data-toggle="modal"
 							data-target="#addCategoryModal"> <i
 								class="nav-icon fas fa-plus"></i> Thêm hạng mục
 
@@ -353,9 +353,8 @@
 						<div class="modal-body">
 							<form class="text-center border border-light p-5"
 								th:action="@{/addCategory}" method="post">
-								<input type="text" name="categoryName" id="addCategoryName"
+								<input type="text" name="categoryName" id="CategoryName"
 									class="form-control mb-4" placeholder="Tên hạng mục">
-
 								<button class="btn btn-info btn-block" type="submit"
 									id="addCategory">Thêm hạng mục</button>
 							</form>
@@ -451,7 +450,6 @@
 				</div>
 			</div>
 			<!-- Main content -->
-
 			<section class="content">
 				<div class="col-12">
 					<hr>
@@ -473,7 +471,6 @@
 							</tr>
 						</tbody>
 					</table>
-
 					<hr>
 				</div>
 			</section>
@@ -508,7 +505,6 @@
 	<script th:src="@{/js/categoryAction.js}"></script>
 	<script th:src="@{/js/showImagePreview.js}"></script>
 	<script th:src="@{/js/previewEditImage.js}"></script>
-	<script th:src="@{/js/showCartMiniNumber.js}"></script>
 	<script th:src="@{/js/retypePasswordAction.js}"></script>
 	<script th:src="@{/js/billAction.js}"></script>
 	<script th:src="@{/js/statisticAction.js}"></script>

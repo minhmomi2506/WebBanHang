@@ -34,6 +34,9 @@ public class Bill {
 	private User user;
 	
 	@Column
+	private int productPrice;
+	
+	@Column
 	private int quantity;
 	
 	@Column
