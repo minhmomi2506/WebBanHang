@@ -8,6 +8,14 @@ $(document).ready(function() {
 	$("#password").on("input", function() {
 		checkLengthPassword();
 	});
+	
+	$("#password").on("input", function() {
+		checkLengthPassword();
+	});
+	
+	$("#username").on("input", function() {
+		checkDuplicateUsername();
+	});
 });
 
 function checkLengthPassword() {
@@ -28,6 +36,27 @@ function checkLengthPassword() {
 			});
 		});*/
 	}
+}
+
+function checkDuplicateUsername(){
+	$.ajax({
+		type: "GET",
+		url: contextPath + "listUsers"
+	}).done(function(result) {
+		let count = 0;
+		$.each(result, function(index, user) {
+			if (user.username == $("#username").val()) {
+				document.getElementById("usernameAlert").style.display = "block";
+				document.getElementById("usernameAlert").innerHTML = "Có người đăng kí tên này rồi";
+				document.getElementById("signUp").disabled = true;
+				count++;
+			}
+		});
+		if (count == 0) {
+			document.getElementById("usernameAlert").style.display = "none";
+			document.getElementById("signUp").disabled = false;
+		}
+	});
 }
 
 function checkDuplicatePhoneNumber() {

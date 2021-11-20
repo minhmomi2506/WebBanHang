@@ -22,11 +22,12 @@
 		<form th:action="@{/login}" method="post"
 			style="max-width: 500px; margin: 0 auto;">
 			<div th:if="${param.error}">
-				<div class="alert alert-danger text-center">Tên tài khoản hoặc mật khẩu không đúng</div>
+				<div class="alert alert-danger text-center">Tên tài khoản hoặc
+					mật khẩu không đúng</div>
 			</div>
 
 			<div class="input-group mb-3">
-				<input type="text" class="form-control" name= "username"
+				<input type="text" class="form-control" name="username"
 					placeholder="Tên tài khoản" required="required">
 				<div class="input-group-append">
 					<div class="input-group-text">
@@ -58,7 +59,8 @@
 		</form>
 	</div>
 	<div class="text-center">
-		<a href="" data-toggle="modal" data-target="#registerModal">Không có tài khoản? Đăng kí tại đây</a>
+		<a href="" data-toggle="modal" data-target="#registerModal">Không
+			có tài khoản? Đăng kí tại đây</a>
 	</div>
 	<div class="modal" id="registerModal" tabindex="-1" role="dialog">
 		<div class="modal-dialog">
@@ -70,6 +72,7 @@
 				<div class="modal-body">
 					<form th:action="@{/save}" method="post"
 						enctype="multipart/form-data" id="registerForm">
+						<div id="usernameAlert" style="color: red;"></div>
 						<div class="form-group">
 							<label for="username">TÊN TÀI KHOẢN:</label> <input type="text"
 								class="form-control" id="username" placeholder="Tên tài khoản"
@@ -91,8 +94,7 @@
 						<div class="form-group">
 							<label for="phoneNumber">SĐT:</label> <input type="text"
 								class="form-control" id="phoneNumber" name="phoneNumber"
-								required="required" style="width: 450px;"
-								placeholder="Số ĐT">
+								required="required" style="width: 450px;" placeholder="Số ĐT">
 						</div>
 						<div class="form-group">
 							<img alt="" src="" style="width: 200px; height: 200px;"
