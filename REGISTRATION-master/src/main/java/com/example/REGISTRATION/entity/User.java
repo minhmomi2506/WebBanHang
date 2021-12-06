@@ -32,16 +32,16 @@ public class User implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(nullable = true , unique = true)
+	@Column(nullable = false)
 	private String username;
 	
-	@Column(nullable = true)
+	@Column(nullable = false, unique = true)
 	private String password;
 	
-	@Column(nullable = true)
+	@Column(nullable = false)
 	private String fullName;
 	
-	@Column(nullable = true)
+	@Column(nullable = false)
 	private String phoneNumber;
 	
 	private boolean enabled = true;

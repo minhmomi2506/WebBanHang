@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.REGISTRATION.entity.Bill;
+import com.example.REGISTRATION.entity.Product;
 import com.example.REGISTRATION.entity.Status;
 import com.example.REGISTRATION.entity.User;
 import com.example.REGISTRATION.repo.BillRepo;
@@ -48,6 +49,8 @@ public class BillServiceImp implements BillService {
 		Bill bill = billRepo.findBillById(id);
 		Status status = statusRepo.findStatusById(5L);
 		bill.setStatus(status);
+		Product product = bill.getProduct();
+		product.setNumber(product.getNumber() + bill.getQuantity());
 		billRepo.save(bill);
 		return bill;
 	}

@@ -51,6 +51,9 @@ public class Bill {
 	@Column
 	private String address;
 	
+	@Column
+	private String phoneNumber;
+	
 	@ManyToOne
 	@JoinColumn(name = "status_id")
 	private Status status;

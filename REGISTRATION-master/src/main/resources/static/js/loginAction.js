@@ -4,17 +4,13 @@ $(document).ready(function() {
 	$("#phoneNumber").on("input", function() {
 		checkDuplicatePhoneNumber();
 	});
+	
+	$("#username").on("input",function(){
+		checkDuplicateUsername();
+	})
 
 	$("#password").on("input", function() {
 		checkLengthPassword();
-	});
-	
-	$("#password").on("input", function() {
-		checkLengthPassword();
-	});
-	
-	$("#username").on("input", function() {
-		checkDuplicateUsername();
 	});
 });
 
@@ -44,10 +40,10 @@ function checkDuplicateUsername(){
 		url: contextPath + "listUsers"
 	}).done(function(result) {
 		let count = 0;
-		$.each(result, function(index, user) {
+		$.each(result, function(index, user) {		
 			if (user.username == $("#username").val()) {
 				document.getElementById("usernameAlert").style.display = "block";
-				document.getElementById("usernameAlert").innerHTML = "Có người đăng kí tên này rồi";
+				document.getElementById("usernameAlert").innerHTML = "Có người dùng tên này rồi";
 				document.getElementById("signUp").disabled = true;
 				count++;
 			}

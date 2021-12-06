@@ -59,6 +59,7 @@ public class CartServiceImp implements CartService {
 			bill.setUser(cartItem.getUser());
 			bill.setProductPrice(cartItem.getProduct().getPrice());
 			bill.setProduct(cartItem.getProduct());
+			bill.setPhoneNumber(user.getPhoneNumber());
 			Product product = cartItem.getProduct();
 			product.setNumber(product.getNumber() - cartItem.getQuantity());
 			bill.setToTal(bill.getQuantity() * cartItem.getProduct().getPrice());
