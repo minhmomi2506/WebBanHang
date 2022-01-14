@@ -453,6 +453,7 @@
 			<section class="content">
 				<div class="col-12">
 					<hr>
+					<button id="321">312</button>
 					<table class="table" id="productTable">
 						<thead class="thead-dark">
 							<tr>
@@ -465,96 +466,8 @@
 								<th scope="col">THAO TÁC</th>
 							</tr>
 						</thead>
-						<tbody th:each="product , status : ${products}">
-							<tr th:id="'row' + ${product.id}">
-								<th scope="row"><img data-toggle="modal"
-									th:data-target="'#editProductImageModal'+${product.id}" alt=""
-									th:src="*{'data:image/jpeg;base64,'+{product.image}}"
-									style="width: 100px; height: 100px;"></th>
-								<td>[[*{product.name}]]</td>
-								<td>[[*{product.category.categoryName}]]</td>
-								<td>[[*{product.description}]]</td>
-								<td id="price">[[*{product.price}]]</td>
-								<td>[[*{product.number}]]</td>
-								<td><a href="" class="fa fa-trash link-remove"
-									id="deleteProductButton" th:rowNumber="${product.id}"></a>
-									&nbsp; <a href="" class="fa fa-pencil" data-toggle="modal"
-									th:data-target="'#editProductInfoModal'+${product.id}"></a>
-									<div class="modal" th:id="'editProductInfoModal'+${product.id}"
-										tabindex="-1" role="dialog">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h4 class="modal-title">SỬA THÔNG TIN SẢN PHẨM</h4>
-												</div>
-												<div class="modal-body">
-													<form class="text-center border border-light p-5 editP"
-														th:object="${product}" enctype="multipart/form-data"
-														id="editProductForm" th:productNumber="${product.id}">
-														<input type="text" name="id" id="id"
-															class="form-control mb-4" th:value="${product.id}"
-															hidden="hidden">
-														<!-- Name -->
-														<input type="text" name="name"
-															th:id="'editProductName'+${product.id}"
-															class="form-control mb-4" th:value="${product.name}">
-
-														<!-- Price -->
-														<input type="number" name="price"
-															th:id="'editProductPrice'+${product.id}"
-															class="form-control mb-4" th:value="${product.price}">
-
-														<input type="number" name="number"
-															th:id="'editProductNumber'+${product.id}"
-															class="form-control mb-4" th:value="${product.number}">
-
-														<!-- Description -->
-														<input type="text" class="form-control mb-4"
-															th:id="'editProductDescription'+${product.id}"
-															name="description" th:value="${product.description}">
-
-														<div class="custom-file mb-4">
-															<select name="categoryName" required="required"
-																th:id="'editProductCategory'+${product.id}">
-																<option th:value="${product.category.id}"
-																	th:text="${product.category.categoryName}"></option>
-																<option th:each="category1 : ${categories}"
-																	th:value="${category1.id}"
-																	th:text="${category1.categoryName}"></option>
-															</select>
-														</div>
-
-														<!-- Sign in button -->
-														<button class="btn btn-info btn-block" type="submit">Sửa</button>
-													</form>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="modal editProductImage"
-										th:id="'editProductImageModal'+${product.id}" tabindex="-1"
-										role="dialog">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-body" style="text-align: center;">
-													<form th:action="@{/editProductImage}"
-														enctype="multipart/form-data" method="post"
-														th:object="${product}">
-														<input type="text" name="id" id="editProductImageInput"
-															class="editProductImageInput" th:value="${product.id}"
-															hidden="hidden"> <img alt=""
-															th:src="${'data:image/jpeg;base64,'+{product.image}}"
-															style="width: 200px; height: 200px;" id="previewImage"
-															class="previewProductImage"> <input type="file"
-															name="file" id="file" class="editProductImage"
-															onchange="showPreview(this);">
-														<button type="submit">Sửa</button>
-													</form>
-												</div>
-											</div>
-										</div>
-									</div></td>
-							</tr>
+						<tbody id="tbodyProductTable">
+							
 						</tbody>
 					</table>
 					<hr>

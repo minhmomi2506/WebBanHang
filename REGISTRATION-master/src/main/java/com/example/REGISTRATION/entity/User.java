@@ -22,7 +22,6 @@ import lombok.Data;
 @Data
 @Table(name = "users")
 public class User implements Serializable{
-	
 	/**
 	 * 
 	 */
@@ -35,7 +34,7 @@ public class User implements Serializable{
 	@Column(nullable = false)
 	private String username;
 	
-	@Column(nullable = false, unique = true)
+	@Column
 	private String password;
 	
 	@Column(nullable = false)

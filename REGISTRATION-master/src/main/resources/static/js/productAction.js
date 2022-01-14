@@ -14,7 +14,23 @@ $(document).ready(function() {
 		evt.preventDefault();
 		ajaxEditProduct($(this));
 	});
+
+	getAllProducts();
+
 });
+
+function getAllProducts() {
+	$("#productTable").empty();
+	url = "/getAllProducts";
+	$.ajax({
+		type: "GET",
+		url: url
+	}).done(function(result) {
+		$.each(result, function(index, product) {
+			$("#tbodyProductTable").append("<tr><th><img src='data:image/jpeg;base64," + product.image + "' style='width: 100px; height: 100px;'></th><td>" + product.name + "</td><td>" + product.category.categoryName + "</td><td>" + product.description + "</td><td>" + product.price + "</td><td>" + product.number + "</td><td><a class = 'fas fa-trash link-remove' id = '" + product.id + "' href = ''></td></tr>");
+		});
+	});
+}
 
 
 /*ADD PRODUCT*/
