@@ -28,9 +28,9 @@ public class CategoryController {
 			return "Xóa hạng mục thành công!";
 	}
 	
+	/*GET ALL CATEGORIES*/
 	@GetMapping("/getAllCategories")
 	public List<Category> getAll(){
-		List<Category> categories = categoryRepo.findAll();
-		return categories;
+		return categoryService.findAll();
 	}
 }

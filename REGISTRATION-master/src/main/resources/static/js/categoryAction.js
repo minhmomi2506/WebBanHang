@@ -3,6 +3,8 @@ $(document).ready(function() {
 		evt.preventDefault();
 		deleteCategory($(this));
 	});
+	
+	getAllCategories();
 
 	/*	$("#addCategoryForm").submit(function(evt) {
 			evt.preventDefault();
@@ -13,6 +15,21 @@ $(document).ready(function() {
 			getAll();
 		});*/
 });
+
+function getAllCategories(){
+	url = "/getAllCategories";
+	$.ajax({
+		type: "GET",
+		url: url
+	}).done(function(result) {
+		$.each(result, function(index, category) {
+		/*	alert(product.price);*/
+			/*$("#tbodyProductTable")
+			.append("<tr><th><img src='data:image/jpeg;base64," + product.image + "' style='width: 100px; height: 100px;'></th><td>" + product.name + "</td><td>" + product.category.categoryName + "</td><td>" + product.description + "</td><td>" + product.price + "</td><td>" + product.number + "</td><td><a class = 'fas fa-trash link-remove' id = '" + product.id + "' href = ''> &nbsp; </td></tr>");*/
+			$("#listCategories").append("<li class='nav-item'><a href = 'taiNghe' class = 'nav-link'>Tai nghe</a></li>")
+		});
+	});
+}
 
 
 /*INSERT CATEGORY*/
