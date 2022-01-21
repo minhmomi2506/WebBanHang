@@ -63,13 +63,21 @@ public class CartController {
 		User user = userRepo.findUserByUsername(username);
 		cartService.deleteFromCart(productId, user);
 	}
-	
-	/*GET ALL*/
+
+	/* GET ALL */
 	@GetMapping("/getAllFromCart")
-	public List<CartItem> getAllFromCart(Principal principal){
+	public List<CartItem> getAllFromCart(Principal principal) {
 		String username = principal.getName();
 		User user = userRepo.findUserByUsername(username);
 		return cartService.listCartItems(user);
+	}
+
+	/* COUNT NUMBER IN CART */
+	@GetMapping("/countNumberIncart")
+	public int countNumberIncart(Principal principal) {
+		String username = principal.getName();
+		User user = userRepo.findUserByUsername(username);
+		return cartService.countNumberInCarts(user);
 	}
 
 }

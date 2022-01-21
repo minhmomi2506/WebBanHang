@@ -1,5 +1,9 @@
 
 $(document).ready(function() {
+	$(".link-remove").on("click", function(evt) {
+		evt.preventDefault();
+		deleteProduct($(this));
+	});
 
 	/*	$("#addProductForm").submit(function(evt) {
 				evt.preventDefault();
@@ -10,44 +14,35 @@ $(document).ready(function() {
 		evt.preventDefault();
 		ajaxEditProduct($(this));
 	});
-
-	getAllProducts();
-
 });
 
-function getAllProducts() {
-	$("#tbodyProductTable").empty();
-	url = "/getAllProducts";
-	$.ajax({
-		type: "GET",
-		url: url
-	}).done(function(result) {
-		$.each(result, function(index, product) {
-			/*	alert(product.price);*/
-			$("#tbodyProductTable")
-				.append("<tr><th><img src='data:image/jpeg;base64," + product.image
-					+ "' style='width: 100px; height: 100px;'></th><td>" + product.name
-					+ "</td><td>" + product.category.categoryName
-					+ "</td><td>" + product.description
-					+ "</td><td>" + product.price
-					+ "</td><td>" + product.number
-					+ "</td><td><a class = 'fas fa-trash link-remove' id = '"
-					+ product.id + "' href = ''> &nbsp;<a class = 'fas fa-pencil link-edit' id = '"
-					+ product.id + "' href = '' data-toggle='modal' data-target='#editProductModal" + product.id + "''></a><div class='modal' id='editProductModal"
-					+ product.id + "'><div class='modal-dialog'><div class='modal-content'><div class='modal-header'><h4 class='modal-title'>SỬA THÔNG TIN SẢN PHẨM</h4></div><div class='modal-body'>" +
-					"<form class='text left border border-light p-5 editP' rowNumber='"
-					+ product.id + "'>" +
-					"<input class = 'form-control mb-4' style = 'width: 420px;' type = 'text' id = 'editProductName" + product.id + "' value = '" + product.name + "'>" +
-					"<input class = 'form-control mb-4' style = 'width: 420px;' type = 'text' id = 'editProductDescripton" + product.id + "' value = '" + product.description + "'>" +
-					"</form></div></div></div></div></td></tr>");
 
-		});
+/*ADD PRODUCT*/
+/*function ajaxAddProduct(link) {
+	var formData = {
+		name: $("#productName").val(),
+		description: $("#productDescription").val(),
+		price: $("#productPrice").val(),
+		number: $("#productNumber").val(),
+		image : document.getElementById("proImage").files[0],
+		category: {
+			id: $("#productCategory").val(),
+			categoryName: $("#productCategory option:selected").text()
+		}
+	}
+	
+	$.ajax({
+		type: "POST",
+		contentType: "application/json",
+		url: contextPath + "addP",
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(csrfHeader, csrfToken);
+		}
+	}).done(function() {
+		alert("Thêm sản phẩm thành công");
 	});
-	$(document).on("click", ".link-remove", function(evt) {
-		evt.preventDefault();
-		deleteProduct($(this));
-	});
-}
+/*	alert("abc");*/
+
 
 /*EDIT PRODUCT*/
 function ajaxEditProduct(link) {
@@ -95,19 +90,25 @@ function ajaxEditProduct(link) {
 
 /*DELETE PRODUCT*/
 function deleteProduct(link) {
-	id = link.attr("id");
+	rowNumber = link.attr("rowNumber");
 	result = confirm("Delete?");
 	if (result) {
 		$.ajax({
 			type: "DELETE",
-			url: "/deleteProductById/" + id,
+			url: contextPath + "deleteProductById/" + rowNumber,
 			beforeSend: function(xhr) {
 				xhr.setRequestHeader(csrfHeader, csrfToken);
 			}
 		}).done(function() {
-			getAllProducts();
+			rowNumber = link.attr("rowNumber");
+			removeProduct(rowNumber);
 		});
 	}
+}
+
+function removeProduct(rowNumber) {
+	rowId = "row" + rowNumber;
+	$("#productTable #" + rowId).remove();
 }
 
 function getAllFromCart() {

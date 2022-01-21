@@ -23,4 +23,6 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
 	void deleteProductById(Long id);
 	
 	Product findProductByName(String name);
+	
+	List<Product> findByNameContainingAndPriceBetween(String name, int minp, int maxp);
 }
