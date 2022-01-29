@@ -4,9 +4,41 @@
 $(document).ready(function() {
 	$(".plusButton").on("click", function(evt) {
 		evt.preventDefault();
+		increaseQuantity($(this));
+	});
+
+	$(".minusButton").on("click", function(evt) {
+		evt.preventDefault();
+		decreaseQuantity($(this));
+	});
+
+	$(".link-remove").on("click", function(evt) {
+		evt.preventDefault();
+		deleteProductFromCart($(this));
 	});
 
 });
+
+/*DELETE FROM CART*/
+function deleteProductFromCart(link) {
+	url = link.attr("href");
+	$.ajax({
+		type: "DELETE",
+		url: url,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(csrfHeader, csrfToken);
+		}
+	}).done(function(newSubtotal) {
+		rowNumber = link.attr("rowNumber");
+		removeProduct(rowNumber);
+		updateTotal();
+	});
+}
+
+function removeProduct(rowNumber) {
+	rowId = "row" + rowNumber;
+	$("#" + rowId).remove();
+}
 
 function increaseQuantity(link) {
 	productId = link.attr("pid");
@@ -19,7 +51,18 @@ function increaseQuantity(link) {
 		qtyInput.val(newQty);
 		updateQuantity(productId, newQty);
 	}
-	else{
+	else {
+		qtyInput.val(newQty);
+		updateQuantity(productId, newQty);
+	}
+}
+
+/*DECREASE QUANTITY*/
+function decreaseQuantity(link) {
+	productId = link.attr("pid");
+	qtyInput = $("#quantity" + productId);
+	let newQty = parseInt(qtyInput.val()) - 1;
+	if (newQty > 0) {
 		qtyInput.val(newQty);
 		updateQuantity(productId, newQty);
 	}

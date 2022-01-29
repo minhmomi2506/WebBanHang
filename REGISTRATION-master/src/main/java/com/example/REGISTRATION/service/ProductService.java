@@ -19,35 +19,15 @@ public interface ProductService {
 	
 	Product editProduct(Long id , Product product);
 	
-	Product findProductById(Long id);
+	Product findProductByName(String productName);
 	
 	List<Product> productSearch(String name , int minp , int maxp);
 	
-	List<Product> earPhone();
+	List<Product> cars();
 	
-//	List<Product> earPhoneKhongDay();
-//	
-//	List<Product> earPhoneBluetooth();
-//	
-	List<Product> mobilePhone();
-//	
-//	List<Product> mobilePhoneSamsung();
-//	
-//	List<Product> iPhone();
-//	
-//	List<Product> mobilePhoneXiaomi();
-//	
-//	List<Product> mobilePhoneHuawei();
-//	
-//	List<Product> laptopASUS();
-//	
-//	List<Product> laptopDell();
-//	
-//	List<Product> laptopApple();
-//	
-//	List<Product> laptopLenovo();
-//	
-//	List<Product> laptopHp();
-//	
-	List<Product> laptop();
+	List<Product> planes();
+	
+	List<Product> minifigures();
+
+	List<Product> ships();
 }

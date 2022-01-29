@@ -14,7 +14,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -168,9 +167,9 @@ public class RegistrationController {
 	}
 
 	/* TAI NGHE */
-	@GetMapping("/taiNghe")
-	public String taiNghe(Model model, Principal principal) {
-		List<Product> earPhones = productService.earPhone();
+	@GetMapping("/minifigures")
+	public String minifigures(Model model, Principal principal) {
+		List<Product> earPhones = productService.minifigures();
 		model.addAttribute("products", earPhones);
 		String username = principal.getName();
 		User user = userRepo.findUserByUsername(username);
@@ -184,9 +183,9 @@ public class RegistrationController {
 	}
 
 	/* DIEN THOAI */
-	@GetMapping("/dienThoai")
-	public String dienThoai(Model model, Principal principal) {
-		List<Product> mobilePhones = productService.mobilePhone();
+	@GetMapping("/ships")
+	public String ships(Model model, Principal principal) {
+		List<Product> mobilePhones = productService.ships();
 		model.addAttribute("products", mobilePhones);
 		String username = principal.getName();
 		User user = userRepo.findUserByUsername(username);
@@ -200,9 +199,24 @@ public class RegistrationController {
 	}
 
 	/* LAPTOP */
-	@GetMapping("/laptop")
-	public String laptop(Model model, Principal principal) {
-		List<Product> mobilePhones = productService.laptop();
+	@GetMapping("/cars")
+	public String cars(Model model, Principal principal) {
+		List<Product> mobilePhones = productService.cars();
+		model.addAttribute("products", mobilePhones);
+		String username = principal.getName();
+		User user = userRepo.findUserByUsername(username);
+		model.addAttribute("user", user);
+		if (user.getRole().getRoleName().equalsIgnoreCase("admin")) {
+			model.addAttribute("role", user.getRole().getRoleName());
+			return "admin/groupBy/lap";
+		}
+		return "customer/groupBy/lapCustomer";
+	}
+	
+	/* LAPTOP */
+	@GetMapping("/planes")
+	public String planes(Model model, Principal principal) {
+		List<Product> mobilePhones = productService.cars();
 		model.addAttribute("products", mobilePhones);
 		String username = principal.getName();
 		User user = userRepo.findUserByUsername(username);
@@ -282,7 +296,7 @@ public class RegistrationController {
 		List<Status> statuses1 = statusRepo.findAll();
 		List<Status> statuses = new ArrayList<Status>();
 		for (Status status : statuses1) {
-			if (status.getStatusName().equals("Hủy đơn") == false && status.getStatusName().equals("Giao hàng thành công") == false) {
+			if (status.getStatusName().equals("Hủy đơn") == false) {
 				statuses.add(status);
 			}
 		}
@@ -318,15 +332,15 @@ public class RegistrationController {
 	}
 
 	/* BUY PRODUCT */
-	@GetMapping("/buyProduct/{id}")
-	public String infoProduct(@PathVariable Long id, Model model, Principal principal) {
-		Product product = productRepo.findProductById(id);
+	@GetMapping("/buyProduct")
+	public String infoProduct(@RequestParam String productName, Model model, Principal principal) {
+		Product product = productRepo.findProductByName(productName);
 		model.addAttribute("product", product);
 		String username = principal.getName();
 		User user = userRepo.findUserByUsername(username);
 		model.addAttribute("user", user);
 		List<CartItem> cartItems = cartRepo.findByUser(user);
-		Product product1 = productRepo.findProductById(id);
+		Product product1 = productRepo.findProductByName(productName);
 		for (CartItem cartItem : cartItems) {
 			if (cartItem.getProduct() == product1) {
 				model.addAttribute("numberInCart", cartItem.getQuantity());
