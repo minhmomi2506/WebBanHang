@@ -32,12 +32,12 @@ function ajaxEditBillStatus(link) {
 		}
 	}).done(function() {
 		alert("Sửa trạng thái đơn hàng thành công");
-		$("#editBillStatus" + billId + " option:selected").text($("#editBillStatus" + billId + " option:selected").text());
+		$("#editBillStatus" + billId).text($("#editBillStatus" + billId + " option:selected").text());
 		var rIndex, billTable = document.getElementById("billTable");
 		for (var i = 0; i < billTable.rows.length; i++) {
 			billTable.rows[i].onclick = function() {
 				rIndex = this.rowIndex;
-				billTable.rows[rIndex].cells[9].innerHTML = $("#editBillStatus" + billId + " option:selected").text();
+				billTable.rows[rIndex].cells[6].innerHTML = $("#editBillStatus" + billId + " option:selected").text();
 			}
 		}
 	});
@@ -58,8 +58,8 @@ function cancelBill(link) {
 			}
 		}).done(function(data) {
 			alert("Đã hủy đơn");
-			$("#customerBillStatus"+rowNumber).hide();
-			$("#status"+rowNumber).text("Hủy đơn");
+			$("#customerBillStatus" + rowNumber).hide();
+			$("#status" + rowNumber).text("Hủy đơn");
 		});
 	}
 }

@@ -32,8 +32,7 @@ $(document).ready(function() {
 function deleteProductFromCart(link) {
 	productId = link.attr("rowNumber");
 	url = contextPath + "deleteFromCart/"+productId;
-	alert(url);
-	/*$.ajax({
+	$.ajax({
 		type: "DELETE",
 		url: url,
 		beforeSend: function(xhr) {
@@ -43,7 +42,7 @@ function deleteProductFromCart(link) {
 		rowNumber = link.attr("rowNumber");
 		removeProduct(rowNumber);
 		updateTotal();
-	});*/
+	});
 }
 
 function removeProduct(rowNumber) {

@@ -345,10 +345,6 @@
 					<table class="table" id="billCustomerTable">
 						<thead class="thead-dark">
 							<tr>
-								<th scope="col">IMAGE</th>
-								<th scope="col">NAME</th>
-								<th scope="col">QUANTITY</th>
-								<th scope="col">PRICE(VND)</th>
 								<th scope="col">TOTAL(VND)</th>
 								<th scope="col">HOW_TO_PAY</th>
 								<th scope="col">BUY_DATE</th>
@@ -360,12 +356,6 @@
 						</thead>
 						<tbody th:each="bill : ${bills}">
 							<tr th:id="'row'+${bill.id}">
-								<th scope="row"><img alt=""
-									th:src="*{'data:image/jpeg;base64,'+{bill.product.image}}"
-									style="width: 100px; height: 100px;"></th>
-								<td>[[*{bill.product.name}]]</td>
-								<td>[[*{bill.quantity}]]</td>
-								<td>[[*{bill.productPrice}]]</td>
 								<td>[[*{bill.toTal}]]</td>
 								<td>[[*{bill.howToPay}]]</td>
 								<td>[[*{bill.buyDate}]]</td>
