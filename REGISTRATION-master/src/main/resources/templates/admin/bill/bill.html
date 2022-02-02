@@ -456,9 +456,6 @@
 					<table class="table" id="billTable">
 						<thead class="thead-dark">
 							<tr>
-								<th scope="col">ẢNH</th>
-								<th scope="col">TÊN</th>
-								<th scope="col">SỐ LƯỢNG</th>
 								<th scope="col">GIÁ(VND)</th>
 								<th scope="col">PHƯƠNG THỨC THANH TOÁN</th>
 								<th scope="col">NGÀY MUA</th>
@@ -471,12 +468,7 @@
 						</thead>
 						<tbody th:each="bill , status : ${bills}">
 							<tr>
-								<th scope="row"><img alt=""
-									th:src="*{'data:image/jpeg;base64,'+{bill.product.image}}"
-									style="width: 100px; height: 100px;"></th>
-								<td>[[*{bill.product.name}]]</td>
-								<td>[[*{bill.quantity}]]</td>
-								<td>[[*{bill.toTal}]]</td>
+								<th>[[*{bill.toTal}]]</th>
 								<td>[[*{bill.howToPay}]]</td>
 								<td>[[*{bill.buyDate}]]</td>
 								<td>[[*{bill.user.phoneNumber}]]</td>

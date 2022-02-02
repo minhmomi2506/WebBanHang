@@ -11,6 +11,11 @@ $(document).ready(function() {
 		evt.preventDefault();
 		ajaxEditBillStatus($(this));
 	});
+
+	$(".link-detail").on("click", function(evt) {
+		evt.preventDefault();
+		getListBillDetail($(this));
+	});
 });
 
 function ajaxEditBillStatus(link) {
@@ -37,7 +42,7 @@ function ajaxEditBillStatus(link) {
 		for (var i = 0; i < billTable.rows.length; i++) {
 			billTable.rows[i].onclick = function() {
 				rIndex = this.rowIndex;
-				billTable.rows[rIndex].cells[9].innerHTML = $("#editBillStatus" + billId + " option:selected").text();
+				billTable.rows[rIndex].cells[6].innerHTML = $("#editBillStatus" + billId + " option:selected").text();
 			}
 		}
 	});
@@ -58,8 +63,22 @@ function cancelBill(link) {
 			}
 		}).done(function(data) {
 			alert("Đã hủy đơn");
-			$("#customerBillStatus"+rowNumber).hide();
-			$("#status"+rowNumber).text("Hủy đơn");
+			$("#customerBillStatus" + rowNumber).hide();
+			$("#status" + rowNumber).text("Hủy đơn");
 		});
 	}
+}
+
+function getListBillDetail(link) {
+	rowNumber = link.attr("rowNumber");
+	$("#billDetailTable tbody").empty();
+	$.ajax({
+		type: "GET",
+		url: contextPath + "listBillDetail/" + rowNumber
+	}).done(function(result) {
+		$.each(result, function(index, billDetail) {
+			var row = "<tr><td>" + billDetail.product.name + "</td><td>" + billDetail.productPrice + "</td><td>" + billDetail.quantity + "</td><td>" + billDetail.money + "</td></tr>";
+			$("#billDetailTable tbody").append(row);
+		});
+	});
 }

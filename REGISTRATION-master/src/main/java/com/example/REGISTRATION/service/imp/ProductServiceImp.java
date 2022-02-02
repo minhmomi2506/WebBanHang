@@ -104,7 +104,8 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	/* THONG KE */
-	List<Product> groupBy(String categoryName) {
+	@Override
+	public List<Product> groupBy(String categoryName) {
 		List<Product> products = productRepo.findAll();
 		List<Product> productSearch = new ArrayList<Product>();
 		for (Product product : products) {
@@ -113,33 +114,5 @@ public class ProductServiceImp implements ProductService {
 			}
 		}
 		return productSearch;
-	}
-
-	/* THONG KE TAI NGHE */
-	@Override
-	public List<Product> cars() {
-		List<Product> products = groupBy("Ô tô");
-		return products;
-	}
-
-	/* THONG KE DIEN THOAI */
-	@Override
-	public List<Product> planes() {
-		List<Product> products = groupBy("Máy bay");
-		return products;
-	}
-
-	/* THONG KE LAPTOP */
-	@Override
-	public List<Product> minifigures() {
-		List<Product> products = groupBy("Minifigure");
-		return products;
-	}
-	
-	/* THONG KE LAPTOP */
-	@Override
-	public List<Product> ships() {
-		List<Product> products = groupBy("Tàu");
-		return products;
 	}
 }

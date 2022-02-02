@@ -23,11 +23,5 @@ public interface ProductService {
 	
 	List<Product> productSearch(String name , int minp , int maxp);
 	
-	List<Product> cars();
-	
-	List<Product> planes();
-	
-	List<Product> minifigures();
-
-	List<Product> ships();
+	List<Product> groupBy(String categoryName);
 }

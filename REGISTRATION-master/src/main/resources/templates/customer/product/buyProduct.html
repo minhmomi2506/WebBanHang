@@ -226,7 +226,11 @@
 						</div>
 					</div>
 					<button class="btn btn-primary px-3" id="addToCart"
-						th:pid="${product.id}">
+						th:pid="${product.id}" th:if="${product.number} > 0">
+						<i class="fa fa-shopping-cart mr-1"></i> Add To Cart
+					</button>
+					<button class="btn btn-primary px-3" id="addToCart"
+						th:pid="${product.id}" th:if="${product.number} == 0" disabled="disabled">
 						<i class="fa fa-shopping-cart mr-1"></i> Add To Cart
 					</button>
 				</div>

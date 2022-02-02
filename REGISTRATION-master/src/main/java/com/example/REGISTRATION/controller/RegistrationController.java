@@ -169,7 +169,7 @@ public class RegistrationController {
 	/* TAI NGHE */
 	@GetMapping("/minifigures")
 	public String minifigures(Model model, Principal principal) {
-		List<Product> earPhones = productService.minifigures();
+		List<Product> earPhones = productService.groupBy("Minifigure");
 		model.addAttribute("products", earPhones);
 		String username = principal.getName();
 		User user = userRepo.findUserByUsername(username);
@@ -185,7 +185,7 @@ public class RegistrationController {
 	/* DIEN THOAI */
 	@GetMapping("/ships")
 	public String ships(Model model, Principal principal) {
-		List<Product> mobilePhones = productService.ships();
+		List<Product> mobilePhones = productService.groupBy("Tàu");
 		model.addAttribute("products", mobilePhones);
 		String username = principal.getName();
 		User user = userRepo.findUserByUsername(username);
@@ -201,7 +201,7 @@ public class RegistrationController {
 	/* LAPTOP */
 	@GetMapping("/cars")
 	public String cars(Model model, Principal principal) {
-		List<Product> mobilePhones = productService.cars();
+		List<Product> mobilePhones = productService.groupBy("Ô tô");
 		model.addAttribute("products", mobilePhones);
 		String username = principal.getName();
 		User user = userRepo.findUserByUsername(username);
@@ -216,7 +216,7 @@ public class RegistrationController {
 	/* LAPTOP */
 	@GetMapping("/planes")
 	public String planes(Model model, Principal principal) {
-		List<Product> mobilePhones = productService.cars();
+		List<Product> mobilePhones = productService.groupBy("Máy bay");
 		model.addAttribute("products", mobilePhones);
 		String username = principal.getName();
 		User user = userRepo.findUserByUsername(username);
