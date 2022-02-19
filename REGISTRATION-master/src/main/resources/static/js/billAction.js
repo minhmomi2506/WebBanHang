@@ -37,7 +37,7 @@ function ajaxEditBillStatus(link) {
 		}
 	}).done(function() {
 		alert("Sửa trạng thái đơn hàng thành công");
-		$("#editBillStatus" + billId + " option:selected").text($("#editBillStatus" + billId + " option:selected").text());
+		$("#editBillStatus" + billId).text($("#editBillStatus" + billId + " option:selected").text());
 		var rIndex, billTable = document.getElementById("billTable");
 		for (var i = 0; i < billTable.rows.length; i++) {
 			billTable.rows[i].onclick = function() {
