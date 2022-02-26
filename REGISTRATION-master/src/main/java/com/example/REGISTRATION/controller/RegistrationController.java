@@ -145,8 +145,8 @@ public class RegistrationController {
     /* ADMIN + USER ACTION */
 
     /* SEARCH PRODUCT */
-    @RequestMapping("/searchProduct")
-    public String search(@RequestParam("productName") String name, @RequestParam int minp, @RequestParam int maxp,
+    @GetMapping("/searchProduct")
+    public String search(@RequestParam("productName") String name,
                     Model model, Principal principal) {
         List<Category> categories = categoryRepo.findAll();
         model.addAttribute("categories", categories);
@@ -165,14 +165,14 @@ public class RegistrationController {
     /* TAI NGHE */
     @GetMapping("/minifigures")
     public String minifigures(Model model, Principal principal) {
-        List<Product> earPhones = productService.groupBy("Minifigure");
-        model.addAttribute("products", earPhones);
+        List<Product> minifigures = productService.groupBy("Minifigure");
+        model.addAttribute("products", minifigures);
         String username = principal.getName();
         User user = userRepo.findUserByUsername(username);
         model.addAttribute("user", user);
         if (user.getRole().getRoleName().equalsIgnoreCase("admin")) {
             model.addAttribute("role", user.getRole().getRoleName());
-            return "admin/groupBy/earPhone";
+            return "admin/groupBy/mini";
         } else {
             return "customer/groupBy/miniCustomer";
         }
@@ -181,14 +181,14 @@ public class RegistrationController {
     /* DIEN THOAI */
     @GetMapping("/ships")
     public String ships(Model model, Principal principal) {
-        List<Product> mobilePhones = productService.groupBy("Tàu");
-        model.addAttribute("products", mobilePhones);
+        List<Product> ships = productService.groupBy("Tàu");
+        model.addAttribute("products", ships);
         String username = principal.getName();
         User user = userRepo.findUserByUsername(username);
         model.addAttribute("user", user);
         if (user.getRole().getRoleName().equalsIgnoreCase("admin")) {
             model.addAttribute("role", user.getRole().getRoleName());
-            return "admin/groupBy/mobilePhone";
+            return "admin/groupBy/ships";
         } else {
             return "customer/groupBy/shipsCustomer";
         }
@@ -197,14 +197,14 @@ public class RegistrationController {
     /* LAPTOP */
     @GetMapping("/cars")
     public String cars(Model model, Principal principal) {
-        List<Product> mobilePhones = productService.groupBy("Ô tô");
-        model.addAttribute("products", mobilePhones);
+        List<Product> cars = productService.groupBy("Ô tô");
+        model.addAttribute("products", cars);
         String username = principal.getName();
         User user = userRepo.findUserByUsername(username);
         model.addAttribute("user", user);
         if (user.getRole().getRoleName().equalsIgnoreCase("admin")) {
             model.addAttribute("role", user.getRole().getRoleName());
-            return "admin/groupBy/lap";
+            return "admin/groupBy/cars";
         }
         return "customer/groupBy/carsCustomer";
     }
@@ -212,14 +212,14 @@ public class RegistrationController {
     /* LAPTOP */
     @GetMapping("/planes")
     public String planes(Model model, Principal principal) {
-        List<Product> mobilePhones = productService.groupBy("Máy bay");
-        model.addAttribute("products", mobilePhones);
+        List<Product> planes = productService.groupBy("Máy bay");
+        model.addAttribute("products", planes);
         String username = principal.getName();
         User user = userRepo.findUserByUsername(username);
         model.addAttribute("user", user);
         if (user.getRole().getRoleName().equalsIgnoreCase("admin")) {
             model.addAttribute("role", user.getRole().getRoleName());
-            return "admin/groupBy/lap";
+            return "admin/groupBy/planes";
         }
         return "customer/groupBy/planesCustomer";
     }

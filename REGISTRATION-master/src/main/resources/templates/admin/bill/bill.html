@@ -468,24 +468,21 @@
 						</thead>
 						<tbody th:each="bill , status : ${bills}">
 							<tr>
-<<<<<<< HEAD
 								<th>[[*{bill.toTal}]]</th>
-=======
-								<th scope="row"><img alt=""
-									src=""
+								<th scope="row"><img alt="" src=""
 									style="width: 100px; height: 100px;"></th>
 								<td>aaa</td>
 								<td>aaa</td>
 								<td>[[*{bill.toTal}]]</td>
->>>>>>> cff2d36000f09a35ee17b829096ea417053466e8
 								<td>[[*{bill.howToPay}]]</td>
 								<td>[[*{bill.buyDate}]]</td>
 								<td>[[*{bill.user.phoneNumber}]]</td>
 								<td>[[*{bill.user.fullName}]]</td>
 								<td>[[*{bill.address}]]</td>
 								<td>[[*{bill.status.statusName}]]</td>
-								<td th:unless="${bill.status.statusName == 'Hủy đơn'} OR ${bill.status.statusName == 'Giao hàng thành công'}" ><a href="" class="fa fa-pencil link-edit"
-									data-toggle="modal"
+								<td
+									th:unless="${bill.status.statusName == 'Hủy đơn'} OR ${bill.status.statusName == 'Giao hàng thành công'}"><a
+									href="" class="fa fa-pencil link-edit" data-toggle="modal"
 									th:data-target="'#editBillModal'+${bill.id}"></a>
 									<div class="modal" th:id="'editBillModal'+${bill.id}"
 										tabindex="-1" role="dialog" style="height: 500px;">
