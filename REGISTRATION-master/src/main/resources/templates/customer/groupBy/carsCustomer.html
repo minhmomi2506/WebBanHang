@@ -64,10 +64,10 @@
 				</a>
 			</div>
 			<div class="col-lg-6 col-6 text-left">
-				<form action="">
+				<form th:action="@{/searchProduct}">
 					<div class="input-group">
 						<input type="text" class="form-control"
-							placeholder="Search for products">
+							placeholder="Search for products" name="productName">
 						<div class="input-group-append">
 							<span class="input-group-text bg-transparent text-primary">
 								<i class="fa fa-search"></i>
@@ -79,7 +79,7 @@
 			<div class="col-lg-3 col-6 text-right">
 				<a th:href="@{/cart}" class="btn border"> <i
 					class="fas fa-shopping-cart text-primary"></i><span
-					class="badge badge-danger navbar-badge" id="cartMiniNumber"></span>
+					class="badge badge-danger navbar-badge" id="cartMiniNumber">0</span>
 				</a>
 			</div>
 		</div>
@@ -136,6 +136,7 @@
 								</div>
 							</div>
 							<a href="contact.html" class="nav-item nav-link">Contact</a>
+							<a th:href="@{/listBill}" class="nav-item nav-link">Your list bills</a>
 						</div>
 						<div class="navbar-nav ml-auto py-0">
 							<a th:href="@{/logout}" class="nav-item nav-link">Log out</a>

@@ -74,13 +74,6 @@
 					</div>
 				</form>
 			</div>
-			<div class="col-lg-3 col-6 text-right">
-				<a href="" class="btn border"> <i
-					class="fas fa-heart text-primary"></i> <span class="badge">0</span>
-				</a> <a href="" class="btn border"> <i
-					class="fas fa-shopping-cart text-primary"></i> <span class="badge">0</span>
-				</a>
-			</div>
 		</div>
 	</div>
 	<!-- Topbar End -->
@@ -149,11 +142,12 @@
 										href="checkout.html" class="dropdown-item">Checkout</a>
 								</div>
 							</div>
-							<a href="contact.html" class="nav-item nav-link">Contact</a>
+							<a href="contact.html" class="nav-item nav-link">Contact</a> <a
+								th:href="@{/listBill}" class="nav-item nav-link">Your list
+								bills</a>
 						</div>
 						<div class="navbar-nav ml-auto py-0">
-							<a href="" class="nav-item nav-link">Login</a> <a href=""
-								class="nav-item nav-link">Register</a>
+							<a th:href="@{/logout}" class="nav-item nav-link">Log out</a>
 						</div>
 					</div>
 				</nav>

@@ -150,10 +150,10 @@
 								</div>
 							</div>
 							<a href="contact.html" class="nav-item nav-link">Contact</a>
+							<a th:href="@{/listBill}" class="nav-item nav-link">Your list bills</a>
 						</div>
 						<div class="navbar-nav ml-auto py-0">
-							<a href="" class="nav-item nav-link">Login</a> <a href=""
-								class="nav-item nav-link">Register</a>
+							<a th:href="@{/logout}" class="nav-item nav-link">Log out</a>
 						</div>
 					</div>
 				</nav>
@@ -230,7 +230,8 @@
 						<i class="fa fa-shopping-cart mr-1"></i> Add To Cart
 					</button>
 					<button class="btn btn-primary px-3" id="addToCart"
-						th:pid="${product.id}" th:if="${product.number} == 0" disabled="disabled">
+						th:pid="${product.id}" th:if="${product.number} == 0"
+						disabled="disabled">
 						<i class="fa fa-shopping-cart mr-1"></i> Add To Cart
 					</button>
 				</div>
