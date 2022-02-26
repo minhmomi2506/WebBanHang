@@ -21,7 +21,7 @@ public interface ProductService {
 	
 	Product findProductByName(String productName);
 	
-	List<Product> productSearch(String name , int minp , int maxp);
+	List<Product> productSearch(String name);
 	
 	List<Product> groupBy(String categoryName);
 }
