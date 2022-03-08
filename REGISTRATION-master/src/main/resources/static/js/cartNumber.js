@@ -2,6 +2,8 @@
  * 
  */
 $(document).ready(function() {
+	updateTotal();
+	
 	$(".plusButton").on("click", function(evt) {
 		evt.preventDefault();
 		increaseQuantity($(this));

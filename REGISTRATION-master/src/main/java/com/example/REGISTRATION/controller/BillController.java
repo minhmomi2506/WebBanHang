@@ -34,6 +34,12 @@ public class BillController {
 	public ResponseEntity<Bill> cancelBill(@PathVariable Long id) {
 		return new ResponseEntity<Bill>(billService.cancelBill(id), HttpStatus.OK);
 	}
+	
+	/* RECEIVE BILL */
+	@PutMapping("/receiveBill/{id}")
+	public ResponseEntity<Bill> receiveBill(@PathVariable Long id) {
+		return new ResponseEntity<Bill>(billService.receiveBill(id), HttpStatus.OK);
+	}
 
 	/* STATISTICS */
 	@GetMapping("/statistic/{month}/{year}")

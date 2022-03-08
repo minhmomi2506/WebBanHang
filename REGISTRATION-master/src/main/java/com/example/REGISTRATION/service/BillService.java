@@ -20,4 +20,6 @@ public interface BillService {
 	int totalMoney(int month , int year);
 	
 	List<Bill> getAllByMonthAndYear(int month , int year);
+
+	Bill receiveBill(Long id);
 }

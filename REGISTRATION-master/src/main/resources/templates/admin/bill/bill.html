@@ -456,6 +456,7 @@
 					<table class="table" id="billTable">
 						<thead class="thead-dark">
 							<tr>
+								<th scope="col">CHI TIẾT ĐƠN HÀNG</th>
 								<th scope="col">GIÁ(VND)</th>
 								<th scope="col">PHƯƠNG THỨC THANH TOÁN</th>
 								<th scope="col">NGÀY MUA</th>
@@ -468,11 +469,38 @@
 						</thead>
 						<tbody th:each="bill , status : ${bills}">
 							<tr>
-								<th>[[*{bill.toTal}]]</th>
-								<th scope="row"><img alt="" src=""
-									style="width: 100px; height: 100px;"></th>
-								<td>aaa</td>
-								<td>aaa</td>
+								<th><a href="" class="link-detail" data-toggle="modal"
+									th:data-target="'#billDetailModal'+${bill.id}"
+									th:rowNumber="${bill.id}">Watch bill details</a>
+									<div class="modal billDetailModal"
+										th:id="'billDetailModal'+${bill.id}" tabindex="-1"
+										role="dialog"
+										style="width: 900px; margin: auto; padding: 0 !important;
+	/* position: absolute; */ left: 50%; top: 50%; transform: translate(-50%, -50%); position: absolute;">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title">LIST BILL DETAILS</h4>
+												</div>
+												<div class="modal-body" style="width: 700px; margin: auto;">
+													<table id="billDetailTable"
+														style="width: 100%; margin: auto;">
+														<thead class="thead-dark">
+															<tr>
+																<th scope="col">NAME</th>
+																<th scope="col">PRICE</th>
+																<th scope="col">QUANTITY</th>
+																<th scope="col">MONEY</th>
+															</tr>
+														</thead>
+														<tbody>
+
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div></th>
 								<td>[[*{bill.toTal}]]</td>
 								<td>[[*{bill.howToPay}]]</td>
 								<td>[[*{bill.buyDate}]]</td>

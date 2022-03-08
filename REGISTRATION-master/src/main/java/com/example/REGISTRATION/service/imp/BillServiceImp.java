@@ -65,6 +65,15 @@ public class BillServiceImp implements BillService {
         billRepo.save(bill);
         return bill;
     }
+    
+    @Override
+    public Bill receiveBill(Long id) {
+    	Bill bill = billRepo.findBillById(id);
+        Status status = statusRepo.findStatusById(4L);
+        bill.setStatus(status);
+        billRepo.save(bill);
+        return bill;
+    }
 
     // @Override
     // public List<BillGroupby> groupBy() {

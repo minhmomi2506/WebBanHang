@@ -7,6 +7,11 @@ $(document).ready(function() {
 		cancelBill($(this));
 	});
 
+	$(".link-received").on("click", function(evt) {
+		evt.preventDefault();
+		receivedBill($(this));
+	});
+
 	$(".editBill").submit(function(evt) {
 		evt.preventDefault();
 		ajaxEditBillStatus($(this));
@@ -17,6 +22,28 @@ $(document).ready(function() {
 		getListBillDetail($(this));
 	});
 });
+
+function receivedBill(link) {
+	rowNumber = link.attr("rowNumber");
+	url = contextPath + "receiveBill/" + rowNumber;
+	result = confirm("Đã nhận được đơn?");
+	if (result) {
+		$.ajax({
+			type: "PUT",
+			url: url,
+			contentType: "application/json",
+			dataType: 'json',
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader(csrfHeader, csrfToken);
+			}
+		}).done(function(data) {
+			alert("Đã nhận đơn thành công");
+			$("#customerBillReceived" + rowNumber).hide();
+			$("#customerBillStatus" + rowNumber).hide();
+			$("#status" + rowNumber).text("Giao hàng thành công");
+		});
+	}
+}
 
 function ajaxEditBillStatus(link) {
 	billId = link.attr("rowNumber");
@@ -37,14 +64,15 @@ function ajaxEditBillStatus(link) {
 		}
 	}).done(function() {
 		alert("Sửa trạng thái đơn hàng thành công");
-		$("#editBillStatus" + billId).text($("#editBillStatus" + billId + " option:selected").text());
+		/*$("#editBillStatus" + billId).text($("#editBillStatus" + billId + " option:selected").text());
 		var rIndex, billTable = document.getElementById("billTable");
 		for (var i = 0; i < billTable.rows.length; i++) {
 			billTable.rows[i].onclick = function() {
 				rIndex = this.rowIndex;
-				billTable.rows[rIndex].cells[6].innerHTML = $("#editBillStatus" + billId + " option:selected").text();
+				billTable.rows[rIndex].cells[7].innerHTML = $("#editBillStatus" + billId + " option:selected").text();
 			}
-		}
+		}*/
+		alert($("#editBillStatus" + billId + " option:selected").text());
 	});
 }
 
