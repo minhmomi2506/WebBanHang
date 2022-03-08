@@ -28,52 +28,52 @@ import com.example.REGISTRATION.repo.UserRepo;
 public class UserService implements UserDetailsService {
 	@Autowired
 	private UserRepo userRepo;
-	
+
 	@Autowired
 	private RoleRepo roleRepo;
-	
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = userRepo.getUserByUsername(username);
-		if(user == null) {
+		if (user == null) {
 			throw new UsernameNotFoundException("Khong tim thay");
 		}
 		return new MyUserDetails(user);
 	}
-	
+
 	public List<User> findAll() {
 		return userRepo.findAll();
 	}
-	
-//	public List<Integer> sumMoneyOfEachUser(){
-//		List<User> users = userRepo.findAll();
-//	}
-	
+
+	// public List<Integer> sumMoneyOfEachUser(){
+	// List<User> users = userRepo.findAll();
+	// }
+
 	public User findUserById(Long id) {
 		return userRepo.findUserById(id);
 	}
-	
+
 	public User findUserByEmail(String username) {
 		return userRepo.findUserByUsername(username);
 	}
-	
+
 	public void deleteUser(Long id) {
 		userRepo.deleteUserById(id);
 	}
-	
-	/*EDIT USER INFO*/
-	public User editUserInformation(Long id , User user) {
+
+	/* EDIT USER INFO */
+	public User editUserInformation(Long id, User user) {
 		User user1 = userRepo.findUserById(id);
 		user1.setFullName(user.getFullName());
 		user1.setPhoneNumber(user.getPhoneNumber());
-//		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//		String encodedPassword = encoder.encode(password);
-//		user.setPassword(encodedPassword);
+		// BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		// String encodedPassword = encoder.encode(password);
+		// user.setPassword(encodedPassword);
 		userRepo.save(user1);
 		return user1;
 	}
-	
-	public User editUserPassword(Long id , User user) {
+
+	public User editUserPassword(Long id, User user) {
 		User user1 = userRepo.findUserById(id);
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		String encodedPassword = encoder.encode(user.getPassword());
@@ -81,9 +81,9 @@ public class UserService implements UserDetailsService {
 		userRepo.save(user1);
 		return user1;
 	}
-	
-	public void editUserImage(MultipartFile file , User user) {
-		
+
+	public void editUserImage(MultipartFile file, User user) {
+
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 		if (fileName.contains("..")) {
 			System.out.println("not a a valid file");
@@ -95,8 +95,8 @@ public class UserService implements UserDetailsService {
 		}
 		userRepo.save(user);
 	}
-	
-	/*REGISTER*/
+
+	/* REGISTER */
 	public void saveUserToDB(MultipartFile file, User user) {
 		Role role = roleRepo.findRoleByRoleName("USER");
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -114,10 +114,10 @@ public class UserService implements UserDetailsService {
 		user.setRole(role);
 		userRepo.save(user);
 	}
-	
+
 	public void processOAuthPostLogin(String username) {
 		User existUser = userRepo.getUserByUsername(username);
-		if(existUser == null) {
+		if (existUser == null) {
 			User user = new User();
 			user.setUsername(username);
 			user.setAuthProvider(AuthenProvider.SOCIAL);
@@ -135,7 +135,7 @@ public class UserService implements UserDetailsService {
 		userRepo.save(user);
 	}
 
-	public void updateExistUserAfterOAuthLoginSuccess(User user , String name , AuthenProvider authProvider) {
+	public void updateExistUserAfterOAuthLoginSuccess(User user, String name, AuthenProvider authProvider) {
 		// TODO Auto-generated method stub
 		user.setFullName(name);
 		user.setAuthProvider(authProvider);

@@ -19,6 +19,11 @@ $(document).ready(function() {
 			}
 		});
 	});
+	
+	$("#editProfileForm").submit(function(evt) {
+		evt.preventDefault();
+		ajaxEditUserInfo($(this));
+	});
 
 	$("#editUserInfoForm").submit(function(evt) {
 		evt.preventDefault();
@@ -33,6 +38,7 @@ $(document).ready(function() {
 
 function ajaxEditUserInfo(link) {
 	userId = $("#editUserId").val();
+	
 	var formData = {
 		fullName: $("#editUserFullName").val(),
 		phoneNumber: $("#editUserPhoneNumber").val()
