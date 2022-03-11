@@ -35,8 +35,9 @@ function billsByMonthAndYear(month, year) {
 		type: "GET",
 		url: url
 	}).done(function(result) {
-		$.each(result , function(i , bill) {
-			$("#tbody").append("<tr><th><img src='data:image/jpeg;base64,"+bill.product.image+"' style='width: 100px; height: 100px;'></th><td>"+bill.product.name+"</td><td>"+bill.quantity+"</td><td>"+bill.product.price+"</td><td>"+bill.howToPay+"</td><td>"+bill.buyDate+"</td><td>"+bill.user.phoneNumber+"</td><td>"+bill.user.fullName+"</td><td>"+bill.address+"</td><td>"+bill.status.statusName+"</td></tr>");
+		$.each(result, function(i, bill) {
+			$("#tbody").append("<tr><a href='' class='link-detail' data-toggle='modal' data-target='billDetailModal"+bill.id+"' rowNumber='"+bill.id+"'>Watch bill details</a><th></th><td>"+bill.toTal+"</td><td>"+bill.howToPay+"</td><td>"+bill.buyDate+"</td><td>"+bill.user.phoneNumber+"</td><td>"+bill.user.fullName+"</td><td>"+bill.address+"</td><td>"+bill.status.statusName+"</td></tr > ");
 		});
-	});
+	});			
+/*			+"<div class='modal billDetailModal' th:id='billDetailModal"+bill.id+"' tabindex='-1' role='dialog' style='width: 900px; margin: auto; padding: 0 !important; left: 50%; top: 50%; transform: translate(-50%, -50%); position: absolute;'>"+*/
 }

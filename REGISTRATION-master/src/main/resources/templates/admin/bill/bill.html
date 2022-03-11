@@ -507,7 +507,7 @@
 								<td>[[*{bill.user.phoneNumber}]]</td>
 								<td>[[*{bill.user.fullName}]]</td>
 								<td>[[*{bill.address}]]</td>
-								<td>[[*{bill.status.statusName}]]</td>
+								<td th:id="'statusAdmin'+${bill.id}">[[*{bill.status.statusName}]]</td>
 								<td
 									th:unless="${bill.status.statusName == 'Hủy đơn'} OR ${bill.status.statusName == 'Giao hàng thành công'}"><a
 									href="" class="fa fa-pencil link-edit" data-toggle="modal"
@@ -578,7 +578,7 @@
 	<script th:src="@{/js/showImagePreview.js}"></script>
 	<script th:src="@{/js/previewEditImage.js}"></script>
 	<script th:src="@{/js/retypePasswordAction.js}"></script>
-	<script th:src="@{/js/billAction.js}"></script>
+	<script th:src="@{/js/billAdmin.js}"></script>
 	<script th:src="@{/js/statisticAction.js}"></script>
 </body>
 </html>
