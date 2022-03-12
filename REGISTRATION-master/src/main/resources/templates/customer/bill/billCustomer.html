@@ -218,6 +218,7 @@
 												style="width: 100%; margin: auto;">
 												<thead class="thead-dark">
 													<tr>
+														<th scope="col">IMAGE</th>
 														<th scope="col">NAME</th>
 														<th scope="col">PRICE</th>
 														<th scope="col">QUANTITY</th>
@@ -244,7 +245,8 @@
 							th:id="'customerBillStatus'+${bill.id}" th:rowNumber="${bill.id}"></a></td>
 						<td th:if="${bill.status.statusName == 'Đang giao hàng'}"><a
 							style="color: green;" href="" class="fa fa-check link-received"
-							th:id="'customerBillReceived'+${bill.id}" th:rowNumber="${bill.id}"></a></td>
+							th:id="'customerBillReceived'+${bill.id}"
+							th:rowNumber="${bill.id}"></a></td>
 					</tr>
 				</tbody>
 			</table>

@@ -98,7 +98,7 @@ function getListBillDetail(link) {
 		url: contextPath + "listBillDetail/" + rowNumber
 	}).done(function(result) {
 		$.each(result, function(index, billDetail) {
-			var row = "<tr><td>" + billDetail.product.name + "</td><td>" + billDetail.productPrice + "</td><td>" + billDetail.quantity + "</td><td>" + billDetail.money + "</td></tr>";
+			var row = "<tr><th><img src='data:image/jpeg;base64,"+billDetail.product.image+"' style='width: 100px; height: 100px;'></th><td>" + billDetail.product.name + "</td><td>" + billDetail.productPrice + "</td><td>" + billDetail.quantity + "</td><td>" + billDetail.money + "</td></tr>";
 			$("#billDetailTable tbody").append(row);
 		});
 	});
