@@ -195,8 +195,7 @@
 						<th scope="col">USER'S PHONENUMBER</th>
 						<th scope="col">ADDRESS</th>
 						<th scope="col">STATUS</th>
-						<th scope="col">CANCEL</th>
-						<th scope="col">RECEIVED PRODUCT</th>
+						<th scope="col">ACTION</th>
 					</tr>
 				</thead>
 				<tbody th:each="bill : ${bills}">
@@ -334,41 +333,6 @@
 					</div>
 				</div>
 			</div>
-			<!-- Main content -->
-			<section class="content">
-				<div class="col-12">
-					<hr>
-					<table class="table" id="billCustomerTable">
-						<thead class="thead-dark">
-							<tr>
-								<th scope="col">TOTAL(VND)</th>
-								<th scope="col">HOW_TO_PAY</th>
-								<th scope="col">BUY_DATE</th>
-								<th scope="col">USER'S PHONENUMBER</th>
-								<th scope="col">ADDRESS</th>
-								<th scope="col">STATUS</th>
-								<th scope="col">CANCEL</th>
-							</tr>
-						</thead>
-						<tbody th:each="bill : ${bills}">
-							<tr th:id="'row'+${bill.id}">
-								<td>[[*{bill.toTal}]]</td>
-								<td>[[*{bill.howToPay}]]</td>
-								<td>[[*{bill.buyDate}]]</td>
-								<td>[[*{bill.user.phoneNumber}]]</td>
-								<td>[[*{bill.address}]]</td>
-								<td th:id="'status'+${bill.id}">[[*{bill.status.statusName}]]</td>
-								<td
-									th:unless="${bill.status.statusName == 'Hủy đơn'} OR ${bill.status.statusName == 'Giao hàng thành công'} OR ${bill.status.statusName == 'Đang giao hàng'}"><a
-									style="color: red;" href="" class="fa fa-times link-cancel"
-									th:id="'customerBillStatus'+${bill.id}"
-									th:rowNumber="${bill.id}"></a></td>
-							</tr>
-						</tbody>
-					</table>
-					<hr>
-				</div>
-			</section>
 			<!-- /.content -->
 		</div>
 		<div class="row border-top border-light mx-xl-5 py-4">
