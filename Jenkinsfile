@@ -19,5 +19,11 @@ pipeline {
         		sh 'java -version'
         	}
     	}
+    	
+    	stage('build') {
+    		steps {
+    			sh 'mvn clean install'
+    		}
+    	}
 	}
 }
