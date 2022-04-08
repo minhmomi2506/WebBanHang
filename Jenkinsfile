@@ -22,6 +22,7 @@ pipeline {
     	
     	stage('deploy') {
 			steps {
+				sh "cd .."
 				sh "ls"
 			}	
 		}
