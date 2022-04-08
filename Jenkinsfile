@@ -8,16 +8,16 @@ pipeline {
 			}
 		}
 		
+		stage('check out'){
+			steps {
+				checkout scm
+			}
+		}
+		
 		stage('check java') {
         	steps {
         		sh 'java -version'
         	}
-    	}
-    	
-    	stage('deploy') {
-    		steps {
-        		sh "cd target/ && java -jar REGISTRATION-0.0.1-SNAPSHOT.war"
-    		}	
     	}
 	}
 }
