@@ -9,7 +9,9 @@ pipeline {
 		}
 		
 		stage('check java') {
-        	sh 'java -version'
+        	steps {
+        		sh 'java -version'
+        	}
     	}
 	}
 }
