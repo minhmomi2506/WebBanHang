@@ -7,5 +7,9 @@ pipeline {
 				git 'https://github.com/minhmomi2506/WebBanHang.git'
 			}
 		}
+		
+		stage('check java') {
+        	sh 'java -version'
+    	}
 	}
 }
