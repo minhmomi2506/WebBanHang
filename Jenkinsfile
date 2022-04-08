@@ -20,6 +20,12 @@ pipeline {
         	}
     	}
     	
+    	stage('clean') {
+    		steps {
+    			sh "./mvnw clean"
+    		}
+    	}
+    	
     	stage('deploy') {
 			steps {
 				sh "cd .."
