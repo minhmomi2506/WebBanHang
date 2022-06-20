@@ -1,0 +1,29 @@
+version: '3'
+services:
+  mysqldb:
+    container_name: mysqldb
+    image: mysql:5.7
+    restart: always
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_DATABASE: registration
+      MYSQL_ROOT_PASSWORD: root
+  registration:
+    image: registration
+    depends_on:
+     - mysqldb
+    build: .
+    environment:
+      DATABASE_HOST: mysqldb
+      DATABASE_USER: root
+      DATABASE_PASSWORD: root
+      DATABASE_NAME: registration  
+      DATABASE_PORT: 3306
+    ports:
+      - 8080:8080 
+
+
+      
+
+    

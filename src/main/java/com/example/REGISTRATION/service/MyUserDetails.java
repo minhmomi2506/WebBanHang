@@ -63,3 +63,15 @@ public class MyUserDetails implements UserDetails {
 		return true;
 	}
 }
+
+//registration:
+//    depends_on:
+//      - mysqldb
+//    container_name: registration
+//    image: registration
+//    restart: always
+//    environment:
+//      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/registration?autoReconnect=true&useSSL=false
+//    build: .
+//    ports:
+//      - 8080:8080  
